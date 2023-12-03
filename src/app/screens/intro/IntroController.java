@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 // JSON lib
 import org.json.simple.JSONObject;
@@ -27,6 +28,9 @@ public class IntroController {
     private final void _redirectToMainPage() throws Exception {
         // Get current stage
         Stage appStage = Main.getAppStage();
+
+        // Remove action bar
+        appStage.initStyle(StageStyle.UNDECORATED);
 
         // Switch stage scene to main_page
         Main.showMainPage(
