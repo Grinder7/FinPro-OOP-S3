@@ -29,9 +29,6 @@ public class IntroController {
         // Get current stage
         Stage appStage = Main.getAppStage();
 
-        // Remove action bar
-        appStage.initStyle(StageStyle.UNDECORATED);
-
         // Switch stage scene to main_page
         Main.showMainPage(
             FXMLLoader.load(getClass().getResource("../main_page/main_page.fxml"))
