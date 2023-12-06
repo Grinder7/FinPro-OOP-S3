@@ -51,10 +51,10 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="field" prefHeight="0.0" prefWidth="150.0" promptText="Name" style="-fx-background-color: transparent; -fx-border-color: #2eb2ee; -fx-border-width: 0 0 1.5 0;" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="field" onKeyPressed="#registerOnEnter" prefHeight="0.0" prefWidth="150.0" promptText="Name" style="-fx-background-color: transparent; -fx-border-color: #2eb2ee; -fx-border-width: 0 0 1.5 0;" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <HBox fx:id="next_btn" alignment="CENTER" layoutX="201.0" layoutY="420.0" onMouseClicked="#register">
+            <HBox fx:id="next_btn" alignment="CENTER" layoutX="201.0" layoutY="420.0" onMouseClicked="#registerOnClick">
                <children>
                   <Label prefHeight="26.0" prefWidth="49.0" text="Next" textFill="#2eb2ee">
                      <font>

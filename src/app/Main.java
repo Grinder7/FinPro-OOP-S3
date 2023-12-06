@@ -16,7 +16,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
     private static Stage _appStage;
@@ -24,10 +23,7 @@ public class Main extends Application {
     private static double _xOffset = 0;
     private static double _yOffset = 0;
 
-    private final void _showIntroPage(Parent root) throws Exception {
-        // Remove actions bar
-        _appStage.initStyle(StageStyle.UNDECORATED);
-
+    private void _showIntroPage(Parent root) throws Exception {
         // Set scene
         _appStage.setScene(new Scene(root));
 
@@ -51,11 +47,13 @@ public class Main extends Application {
     }
 
     public static void showMainPage(Parent root) throws Exception {
-        _appStage.setMinWidth(980);
-        _appStage.setMinHeight(688);
-
         // Set scene
         _appStage.setScene(new Scene(root));
+
+        _appStage.centerOnScreen();
+
+        _appStage.setMinHeight(_appStage.getHeight());
+        _appStage.setMinWidth(_appStage.getWidth());
 
         /* // On mouse pressed event handler
         root.setOnMousePressed(new EventHandler<MouseEvent>() {
