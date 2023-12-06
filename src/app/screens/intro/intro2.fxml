@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.screens.intro.Intro2Controller">
+   <children>
+      <VBox layoutX="54.0" layoutY="39.0" AnchorPane.bottomAnchor="392.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="437.6" AnchorPane.topAnchor="39.0">
+         <children>
+            <Label text="YOU'RE ALMOST DONE!" textFill="#2eb2ee" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="228.0" text="Please fill fields below" textFill="#2eb2ee" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_LEFT" layoutX="128.0" layoutY="140.0" prefHeight="200.0" prefWidth="464.0" spacing="10.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="128.0" AnchorPane.rightAnchor="128.0" AnchorPane.topAnchor="140.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="254.0" spacing="3.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Carehouse Capacity" textFill="#2eb2ee">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextField fx:id="capacity_field" prefHeight="26.0" prefWidth="201.0" promptText="Carehouse Capacity" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #2eb2ee;" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="199.0" spacing="3.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label text="Database URL" textFill="#2eb2ee">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Label>
+                  <TextField fx:id="db_url_field" prefHeight="26.0" prefWidth="201.0" promptText="Database URL" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #2eb2ee;" text="localhost/db" />
+               </children>
+            </VBox>
+            <HBox spacing="20.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="199.0" spacing="3.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Database Username" textFill="#2eb2ee">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="db_username_field" prefHeight="26.0" prefWidth="201.0" promptText="Database URL" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #2eb2ee;" text="root" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="199.0" spacing="3.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Database Password" textFill="#2eb2ee">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="db_password_field" prefHeight="26.0" prefWidth="201.0" promptText="Database Password" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #2eb2ee;" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox fx:id="next_btn2" alignment="CENTER" layoutX="559.0" layoutY="410.0" onMouseClicked="#_proceed" AnchorPane.bottomAnchor="43.6" AnchorPane.rightAnchor="95.4">
+         <children>
+            <Label prefHeight="26.0" prefWidth="49.0" text="Next" textFill="#2eb2ee">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <FontAwesomeIconView fill="#2eb2ee" glyphName="ARROW_RIGHT" size="18.0" textAlignment="CENTER" />
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </HBox>
+      <HBox fx:id="back_btn" alignment="CENTER" layoutX="490.0" layoutY="410.0" onMouseClicked="#_back" AnchorPane.bottomAnchor="43.6" AnchorPane.leftAnchor="95.4">
+         <children>
+            <FontAwesomeIconView fill="#2eb2ee" glyphName="ARROW_LEFT" size="18.0" textAlignment="CENTER" />
+            <Label alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="49.0" text="Back" textAlignment="RIGHT" textFill="#2eb2ee">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </HBox>
+   </children>
+</AnchorPane>

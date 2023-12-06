@@ -2,76 +2,30 @@ package app;
 
 import java.io.File;
 import java.io.FileReader;
-import java.util.Objects;
+import java.util.Map;
 
-// JSON lib
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+// Model(s)
+import app.models.JSONFile;
 
 // Javafx lib
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     private static Stage _appStage;
 
-    private static double _xOffset = 0;
-    private static double _yOffset = 0;
-
-    private void _showIntroPage(Parent root) throws Exception {
-        // Set scene
-        _appStage.setScene(new Scene(root));
-
-        // On mouse pressed event handler
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                _xOffset = event.getSceneX();
-                _yOffset = event.getSceneY();
-            }
-        });
-
-        // On mouse dragged event handler
-        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                _appStage.setX(event.getScreenX() - _xOffset);
-                _appStage.setY(event.getScreenY() - _yOffset);
-            }
-        });
-    }
-
-    public static void showMainPage(Parent root) throws Exception {
+    public static void showPage(Parent root, boolean resizeable) throws Exception {
         // Set scene
         _appStage.setScene(new Scene(root));
 
         _appStage.centerOnScreen();
 
-        _appStage.setMinHeight(_appStage.getHeight());
-        _appStage.setMinWidth(_appStage.getWidth());
+        _appStage.setResizable(resizeable);
 
-        /* // On mouse pressed event handler
-        root.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                _xOffset = event.getSceneX();
-                _yOffset = event.getSceneY();
-            }
-        });
-
-        // On mouse dragged event handler
-        root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                _appStage.setX(event.getScreenX() - _xOffset);
-                _appStage.setY(event.getScreenY() - _yOffset);
-            }
-        }); */
+        _appStage.show();
     }
 
     private boolean _isFresh() {
@@ -85,13 +39,13 @@ public class Main extends Application {
 
             // Check if jsonFile is not empty
             if (jsonFile.read() != -1) {
-                // Parse jsonFile
-                JSONObject jsonObj = (JSONObject) new JSONParser()
-                        .parse(new FileReader("./src/app/data.json"));
+                jsonFile.close();
 
-                // Check if house_name already made
-                return Objects.toString((String)jsonObj.get("house_name"), "")
-                        .isEmpty();
+                Map<String, Object> map = JSONFile.toMap();
+
+                // Check if all data required already made
+                return !(map.get("house_name") != null && map.get("house_capacity") != null &&
+                    map.get("db_url") != null && map.get("db_usr") != null && map.get("db_pw") != null);
             }
             else {
                 jsonFile.close();
@@ -100,7 +54,6 @@ public class Main extends Application {
         }
         catch(Exception e) {
             e.printStackTrace();
-
             System.exit(0);
         }
 
@@ -109,30 +62,27 @@ public class Main extends Application {
 
     public static void setAppStage(Stage s) {_appStage = s;}
 
-    public static Stage getAppStage() {return _appStage;}
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         setAppStage(primaryStage);
 
-        if (_isFresh()) {
-            _showIntroPage(
-                FXMLLoader.load(getClass().getResource("screens/intro/intro.fxml"))
-            );
-        }
-        else {
-            showMainPage(
-                FXMLLoader.load(getClass().getResource("screens/mainpage/mainpage.fxml"))
-            );
-        }
-        
         // Program icon
         // _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("./assets/ico.png")));
         
         // Program title
-        _appStage.setTitle("");
+        _appStage.setTitle("Demo");
 
-        _appStage.show();
+        if (_isFresh()) {
+            showPage(
+                FXMLLoader.load(getClass().getResource("screens/intro/intro1.fxml")), false);
+        }
+        else {
+            showPage(
+                FXMLLoader.load(getClass().getResource("screens/mainpage/mainpage.fxml")), true);
+
+            _appStage.setMinHeight(_appStage.getHeight());
+            _appStage.setMinWidth(_appStage.getWidth());
+        }
     }
 
     public static void main(String[] args) {
