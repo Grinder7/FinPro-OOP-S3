@@ -2,7 +2,7 @@ package app.models;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 // JSON lib
@@ -14,7 +14,7 @@ public class JSONFile {
 
 
     public static Map<String, Object> toMap() {
-        JSONObject jsonObj = new JSONObject(new LinkedHashMap<>());
+        JSONObject jsonObj = new JSONObject(new HashMap<>());
 
         try {
             // Get json object from json file
@@ -23,7 +23,7 @@ public class JSONFile {
         }
         catch(Exception e) {}
 
-        Map<String, Object> map = new LinkedHashMap<>();
+        Map<String, Object> map = new HashMap<>();
 
         jsonObj.forEach((key, val) -> {
             map.put((String) key, val);
