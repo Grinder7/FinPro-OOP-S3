@@ -1,11 +1,10 @@
 package app.screens.intro;
 
-import java.util.Map;
+import app.Main;
 
+import java.util.Map;
 import java.util.HashMap;
 import java.io.FileWriter;
-
-import app.Main;
 
 // Javafx lib
 import javafx.fxml.FXML;
@@ -30,7 +29,7 @@ public class IntroController {
 
         // Switch stage scene to main_page
         Main.showMainPage(
-            FXMLLoader.load(getClass().getResource("../main_page/main_page.fxml"))
+            FXMLLoader.load(getClass().getResource("../mainpage/mainpage.fxml"))
         );
         
         // Set main_page as current scene
@@ -60,10 +59,12 @@ public class IntroController {
                 }
                 catch(Exception e) {
                     e.printStackTrace();
+                    System.exit(0);
                 }
             }
             catch(Exception e) {
                 e.printStackTrace();
+                System.exit(0);
             }
         }
     }

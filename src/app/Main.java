@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.Objects;
 
@@ -24,6 +25,9 @@ public class Main extends Application {
     private static double _yOffset = 0;
 
     private final void _showIntroPage(Parent root) throws Exception {
+        // Remove actions bar
+        _appStage.initStyle(StageStyle.UNDECORATED);
+
         // Set scene
         _appStage.setScene(new Scene(root));
 
@@ -74,6 +78,11 @@ public class Main extends Application {
 
     private boolean _isFresh() {
         try {
+            File file = new File("./src/app/data.json");
+
+            // Create new file if file is missing
+            file.createNewFile();
+
             FileReader jsonFile = new FileReader("./src/app/data.json");
 
             // Check if jsonFile is not empty
@@ -94,8 +103,10 @@ public class Main extends Application {
         catch(Exception e) {
             e.printStackTrace();
 
-            return true;
+            System.exit(0);
         }
+
+        return true;
     }
 
     public static void setAppStage(Stage s) {_appStage = s;}
@@ -113,15 +124,15 @@ public class Main extends Application {
         }
         else {
             showMainPage(
-                FXMLLoader.load(getClass().getResource("screens/main_page/main_page.fxml"))
+                FXMLLoader.load(getClass().getResource("screens/mainpage/mainpage.fxml"))
             );
         }
-
-        // Remove actions bar
-        _appStage.initStyle(StageStyle.UNDECORATED);
-
-        // Window property
-        _appStage.setTitle("Demo");
+        
+        // Program icon
+        // _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("./assets/ico.png")));
+        
+        // Program title
+        _appStage.setTitle("");
 
         _appStage.show();
     }

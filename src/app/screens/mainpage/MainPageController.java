@@ -1,0 +1,102 @@
+package app.screens.mainpage;
+
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+
+public class MainPageController {
+    @FXML
+    private BorderPane main_layout;
+    @FXML
+    private VBox menu_container;
+    @FXML
+    private HBox caretaker_menu;
+    @FXML
+    private HBox client_menu;
+    @FXML
+    private HBox dashboard;
+    @FXML
+    private HBox donation;
+
+    private String selectedBarColor =  "#2eb2ee";
+    private String selectedLabelColor = "#000000";
+    private String unselectedBarColor = "#ffffff";
+    private String unselectedLabelColor = "#89898a";
+
+    public void initialize() {
+        setSubpage("./subpages/dashboard/dashboard.fxml");
+    }
+
+    @FXML
+    private void setMenuState(HBox clickedMenu) {
+        ObservableList<Node> menus = menu_container.getChildren();
+
+        for (Node menu: menus) {
+            ObservableList<Node> menuChild = ((HBox) menu).getChildren();
+            ObservableList<Node> labelChild = ((HBox) menuChild.get(1)).getChildren();
+
+            if (menu == clickedMenu) { // Selected
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + selectedBarColor + ";");
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(selectedLabelColor));
+                
+                Label label = (Label) labelChild.get(1);
+                label.setTextFill(Color.valueOf(selectedLabelColor));
+                label.setFont(Font.font("System", FontWeight.BOLD, 16));
+            }
+            else { // Unselected
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + unselectedBarColor + ";");
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(unselectedLabelColor));
+
+                Label label = (Label) labelChild.get(1);
+                label.setTextFill(Color.valueOf(unselectedLabelColor));
+                label.setFont(Font.font("System", FontWeight.NORMAL, 16));
+            }
+        }
+    }
+
+    private void setSubpage(String fxmlPath) {
+        try {
+            Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
+
+            main_layout.setCenter(page);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    @FXML
+    void implementDashboard(MouseEvent event) {
+        setMenuState(dashboard);
+
+        setSubpage("./subpages/dashboard/dashboard.fxml");
+    }
+
+    @FXML
+    void implementClientMenu(MouseEvent event) {
+        setMenuState(client_menu);
+    }
+
+    @FXML
+    void implementCaretakerMenu(MouseEvent event) {
+        setMenuState(caretaker_menu);
+    }
+
+    @FXML
+    void implementDonation(MouseEvent event) {
+        setMenuState(donation);
+    }
+}
