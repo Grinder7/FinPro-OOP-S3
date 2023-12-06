@@ -48,7 +48,7 @@ public class Intro1Controller {
             JSONFile.write(map);
 
             // Redirect to intro 2 page
-            Main.showPage("./intro2.fxml", false);
+            Main.showPage("./screens/intro/intro2.fxml", false);
         }
     }
 
