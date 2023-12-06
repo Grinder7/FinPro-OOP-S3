@@ -1,5 +1,6 @@
 package app.screens.mainpage;
 
+// Javafx lib
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,11 +37,11 @@ public class MainPageController {
     private String unselectedLabelColor = "#89898a";
 
     public void initialize() {
-        setSubpage("./subpages/dashboard/dashboard.fxml");
+        _setSubpage("./subpages/dashboard/dashboard.fxml");
     }
 
     @FXML
-    private void setMenuState(HBox clickedMenu) {
+    private void _setMenuState(HBox clickedMenu) {
         ObservableList<Node> menus = menu_container.getChildren();
 
         for (Node menu: menus) {
@@ -66,7 +67,7 @@ public class MainPageController {
         }
     }
 
-    private void setSubpage(String fxmlPath) {
+    private void _setSubpage(String fxmlPath) {
         try {
             Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
 
@@ -79,24 +80,29 @@ public class MainPageController {
     }
 
     @FXML
-    void implementDashboard(MouseEvent event) {
-        setMenuState(dashboard);
+    private void _implementDashboard(MouseEvent event) {
+        _setMenuState(dashboard);
 
-        setSubpage("./subpages/dashboard/dashboard.fxml");
+        _setSubpage("./subpages/dashboard/dashboard.fxml");
     }
 
     @FXML
-    void implementClientMenu(MouseEvent event) {
-        setMenuState(client_menu);
+    private void _implementClientMenu(MouseEvent event) {
+        _setMenuState(client_menu);
     }
 
     @FXML
-    void implementCaretakerMenu(MouseEvent event) {
-        setMenuState(caretaker_menu);
+    private void _implementCaretakerMenu(MouseEvent event) {
+        _setMenuState(caretaker_menu);
     }
 
     @FXML
-    void implementDonation(MouseEvent event) {
-        setMenuState(donation);
+    private void _implementDonation(MouseEvent event) {
+        _setMenuState(donation);
+    }
+
+    @FXML
+    private void _implementSettings(MouseEvent event) {
+        
     }
 }

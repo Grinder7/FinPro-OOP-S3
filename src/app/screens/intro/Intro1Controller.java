@@ -11,7 +11,6 @@ import app.models.JSONFile;
 
 // Javafx lib
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -49,8 +48,7 @@ public class Intro1Controller {
             JSONFile.write(map);
 
             // Redirect to intro 2 page
-            Main.showPage(
-                FXMLLoader.load(getClass().getResource("./intro2.fxml")), false);
+            Main.showPage("./intro2.fxml", false);
         }
     }
 

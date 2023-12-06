@@ -45,8 +45,7 @@ public class Intro2Controller {
 
     @FXML
     private void _back() throws Exception {
-        Main.showPage(
-            FXMLLoader.load(getClass().getResource("./intro1.fxml")), false);
+        Main.showPage("./intro1.fxml", false);
     }
 
     @FXML
@@ -80,8 +79,7 @@ public class Intro2Controller {
             JSONFile.write(map);
 
             // Redirect to main page
-            Main.showPage(
-                FXMLLoader.load(getClass().getResource("../mainpage/mainpage.fxml")), true);
+            Main.showPage("../mainpage/mainpage.fxml", true);
         }
     }
 }

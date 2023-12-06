@@ -17,7 +17,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private static Stage _appStage;
 
-    public static void showPage(Parent root, boolean resizeable) throws Exception {
+    public static void showPage(String fxmlPath, boolean resizeable) throws Exception {
+        Parent root = FXMLLoader.load(Main.class.getClass().getResource(fxmlPath));
+
         // Set scene
         _appStage.setScene(new Scene(root));
 
@@ -26,6 +28,9 @@ public class Main extends Application {
         _appStage.setResizable(resizeable);
 
         _appStage.show();
+
+        _appStage.setMinHeight(_appStage.getHeight());
+        _appStage.setMinWidth(_appStage.getWidth());
     }
 
     private boolean _isFresh() {
@@ -73,15 +78,10 @@ public class Main extends Application {
         _appStage.setTitle("Demo");
 
         if (_isFresh()) {
-            showPage(
-                FXMLLoader.load(getClass().getResource("screens/intro/intro1.fxml")), false);
+            showPage("screens/intro/intro1.fxml", false);
         }
         else {
-            showPage(
-                FXMLLoader.load(getClass().getResource("screens/mainpage/mainpage.fxml")), true);
-
-            _appStage.setMinHeight(_appStage.getHeight());
-            _appStage.setMinWidth(_appStage.getWidth());
+            showPage("screens/mainpage/mainpage.fxml", true);
         }
     }
 
