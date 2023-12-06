@@ -31,8 +31,7 @@ public class MainPageController {
     @FXML
     private HBox donation;
 
-    private String selectedBarColor =  "#2eb2ee";
-    private String selectedLabelColor = "#000000";
+    private String selectedColor =  "#2eb2ee";
     private String unselectedBarColor = "#ffffff";
     private String unselectedLabelColor = "#89898a";
 
@@ -49,11 +48,11 @@ public class MainPageController {
             ObservableList<Node> labelChild = ((HBox) menuChild.get(1)).getChildren();
 
             if (menu == clickedMenu) { // Selected
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + selectedBarColor + ";");
-                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(selectedLabelColor));
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + selectedColor + ";");
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(selectedColor));
                 
                 Label label = (Label) labelChild.get(1);
-                label.setTextFill(Color.valueOf(selectedLabelColor));
+                label.setTextFill(Color.valueOf(selectedColor));
                 label.setFont(Font.font("System", FontWeight.BOLD, 16));
             }
             else { // Unselected

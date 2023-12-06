@@ -27,8 +27,10 @@ public class Main extends Application {
 
         _appStage.setResizable(resizeable);
 
+        // Show stage
         _appStage.show();
 
+        // Set minimum size, therefore user can't shrink window size less than mininum size
         _appStage.setMinHeight(_appStage.getHeight());
         _appStage.setMinWidth(_appStage.getWidth());
     }
