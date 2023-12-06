@@ -36,7 +36,7 @@
                   </VBox>
                   <VBox fx:id="menu_container" prefHeight="498.0" prefWidth="232.0" spacing="5.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <HBox fx:id="dashboard" alignment="CENTER_LEFT" onMouseClicked="#_implementDashboard" prefHeight="60.0" prefWidth="250.0" spacing="25.0">
+                        <HBox fx:id="dashboard" alignment="CENTER" onMouseClicked="#_implementDashboard" prefHeight="60.0" prefWidth="250.0" spacing="25.0">
                            <children>
                               <AnchorPane prefHeight="42.0" prefWidth="8.0" style="-fx-background-color: #2eb2ee;" styleClass="selected-bar" HBox.hgrow="NEVER" />
                               <HBox alignment="CENTER_LEFT" spacing="15.0" HBox.hgrow="ALWAYS">

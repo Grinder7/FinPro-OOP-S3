@@ -103,6 +103,6 @@ public class MainPageController {
 
     @FXML
     private void _implementSettings(MouseEvent event) {
-        
+        _setMenuState((HBox) null);
     }
 }

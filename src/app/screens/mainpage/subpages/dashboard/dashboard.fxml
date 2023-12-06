@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -10,5 +11,6 @@
    </padding>
    <children>
       <HBox layoutX="-80.0" layoutY="72.0" prefHeight="100.0" prefWidth="200.0" />
+      <Label layoutX="399.0" layoutY="335.0" text="Label" />
    </children>
 </AnchorPane>
