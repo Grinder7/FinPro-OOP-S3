@@ -18,7 +18,7 @@ public class Main extends Application {
     private static Stage _appStage;
 
     public static void showPage(String fxmlPath, boolean resizeable) throws Exception {
-        Parent root = FXMLLoader.load(Main.class.getClass().getResource(fxmlPath));
+        Parent root = FXMLLoader.load(Main.class.getResource(fxmlPath));
 
         // Set scene
         _appStage.setScene(new Scene(root));
@@ -78,10 +78,10 @@ public class Main extends Application {
         _appStage.setTitle("Demo");
 
         if (_isFresh()) {
-            showPage("screens/intro/intro1.fxml", false);
+            showPage("./screens/intro/intro1.fxml", false);
         }
         else {
-            showPage("screens/mainpage/mainpage.fxml", true);
+            showPage("./screens/mainpage/mainpage.fxml", true);
         }
     }
 
