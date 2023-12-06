@@ -22,7 +22,7 @@ public class Intro1Controller {
     @FXML
     private TextField house_name_field;
     @FXML
-    private HBox next_btn1;
+    private HBox next_btn;
 
     @FXML
     private void initialize() {

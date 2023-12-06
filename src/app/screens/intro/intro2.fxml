@@ -70,7 +70,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox fx:id="next_btn2" alignment="CENTER" layoutX="559.0" layoutY="410.0" onMouseClicked="#_proceed" AnchorPane.bottomAnchor="43.6" AnchorPane.rightAnchor="95.4">
+      <HBox fx:id="next_btn" alignment="CENTER" layoutX="559.0" layoutY="410.0" onMouseClicked="#_proceed" AnchorPane.bottomAnchor="43.6" AnchorPane.rightAnchor="95.4">
          <children>
             <Label prefHeight="26.0" prefWidth="49.0" text="Next" textFill="#2eb2ee">
                <font>

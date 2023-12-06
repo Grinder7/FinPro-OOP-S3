@@ -57,7 +57,7 @@
                   <TextField fx:id="house_name_field" onKeyPressed="#_proceedOnEnter" prefHeight="0.0" prefWidth="150.0" promptText="Name" style="-fx-background-color: transparent; -fx-border-color: #2eb2ee; -fx-border-width: 0 0 1.5 0;" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <HBox fx:id="next_btn1" alignment="CENTER" layoutX="201.0" layoutY="420.0" onMouseClicked="#_proceedOnClick" AnchorPane.bottomAnchor="33.6" AnchorPane.rightAnchor="47.79999999999998">
+            <HBox fx:id="next_btn" alignment="CENTER" layoutX="201.0" layoutY="420.0" onMouseClicked="#_proceedOnClick" AnchorPane.bottomAnchor="33.6" AnchorPane.rightAnchor="47.79999999999998">
                <children>
                   <Label prefHeight="26.0" prefWidth="49.0" text="Next" textFill="#2eb2ee">
                      <font>

@@ -27,7 +27,7 @@ public class Intro2Controller {
     @FXML
     private HBox back_btn;
     @FXML
-    private HBox next_btn2;
+    private HBox next_btn;
 
     @FXML
     private void initialize() {
