@@ -1,4 +1,4 @@
-package app.screens.settings;
+package app.screens.mainpage.subpages.settings;
 
 import java.util.Map;
 

@@ -104,6 +104,6 @@ public class MainPageController {
     private void _implementSettings(MouseEvent event) {
         _setMenuState((HBox) null);
 
-        _setSubpage("../settings/settings.fxml");
+        _setSubpage("./subpages/settings/settings.fxml");
     }
 }
