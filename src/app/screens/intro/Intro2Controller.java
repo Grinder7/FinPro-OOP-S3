@@ -58,10 +58,10 @@ public class Intro2Controller {
         catch(Exception e) {} // Ignore parse error
 
         // Get db_url_field value
-        String dbURL = db_url_field.getText();
+        String dbURL = db_url_field.getText().replaceAll(" ", "");
 
         // Get db_username_field value
-        String dbUsername = db_username_field.getText();
+        String dbUsername = db_username_field.getText().trim();
 
         // Get db_password_field value
         String dbPassword = db_password_field.getText();

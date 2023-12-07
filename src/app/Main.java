@@ -69,6 +69,8 @@ public class Main extends Application {
 
     public static void setAppStage(Stage s) {_appStage = s;}
 
+    public static Stage              getAppStage() {return _appStage;}
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         setAppStage(primaryStage);

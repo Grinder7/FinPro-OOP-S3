@@ -1,15 +1,22 @@
-package app.screens.mainpage.subpages.settings;
+package app.screens.mainpage.subpages.config;
 
 import java.util.Map;
 
+import app.screens.mainpage.MainPageController;
+import app.Main;
 // Model(s)
 import app.models.JSONFile;
 
 // Javafx lib
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
 
-public class SettingsController {
+public class ConfigController {
     // House profile fxid(s)
     @FXML
     private Label house_name;
@@ -49,5 +56,21 @@ public class SettingsController {
         else {
             db_password.setText("-");
         }
+    }
+
+    @FXML
+    void _gotoEditPage(ActionEvent event) throws Exception {
+        // Load main page fxml file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../mainpage.fxml"));
+        Parent root = loader.load();
+
+        MainPageController mainController = loader.getController();
+
+        mainController.implementConfig((MouseEvent) null);
+
+        // Redirect to edit page
+        mainController.setSubpage("./subpages/edit/edit.fxml");
+
+        Main.getAppStage().setScene(new Scene(root));
     }
 }

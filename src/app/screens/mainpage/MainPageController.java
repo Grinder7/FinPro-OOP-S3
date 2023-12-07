@@ -35,8 +35,20 @@ public class MainPageController {
     private String unselectedBarColor = "#ffffff";
     private String unselectedLabelColor = "#89898a";
 
+    public void setSubpage(String fxmlPath) {
+        try {
+            Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
+            main_layout.setCenter(page);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    @FXML
     public void initialize() {
-        _setSubpage("./subpages/dashboard/dashboard.fxml");
+        setSubpage("./subpages/dashboard/dashboard.fxml");
     }
 
     @FXML
@@ -66,23 +78,11 @@ public class MainPageController {
         }
     }
 
-    private void _setSubpage(String fxmlPath) {
-        try {
-            Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
-
-            main_layout.setCenter(page);
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-    }
-
     @FXML
     private void _implementDashboard(MouseEvent event) {
         _setMenuState(dashboard);
 
-        _setSubpage("./subpages/dashboard/dashboard.fxml");
+        setSubpage("./subpages/dashboard/dashboard.fxml");
     }
 
     @FXML
@@ -101,9 +101,9 @@ public class MainPageController {
     }
 
     @FXML
-    private void _implementSettings(MouseEvent event) {
+    public void implementConfig(MouseEvent event) {
         _setMenuState((HBox) null);
 
-        _setSubpage("./subpages/settings/settings.fxml");
+        setSubpage("./subpages/config/config.fxml");
     }
 }

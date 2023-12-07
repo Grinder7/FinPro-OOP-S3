@@ -127,7 +127,7 @@
             <Line endX="82.69998168945312" endY="4.882812572759576E-5" startX="-100.0" strokeLineCap="ROUND" VBox.vgrow="ALWAYS" />
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="250.0" VBox.vgrow="NEVER">
                <children>
-                  <FontAwesomeIconView fx:id="settings" glyphName="GEAR" onMouseClicked="#_implementSettings" size="24" text="" HBox.hgrow="ALWAYS">
+                  <FontAwesomeIconView fx:id="config" glyphName="GEAR" onMouseClicked="#implementConfig" size="24" text="" HBox.hgrow="ALWAYS">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

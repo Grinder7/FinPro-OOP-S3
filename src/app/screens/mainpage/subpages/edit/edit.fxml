@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.screens.mainpage.subpages.settings.SettingsController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.screens.mainpage.subpages.edit.EditController">
    <children>
       <VBox layoutX="42.0" layoutY="31.2" prefHeight="531.0" prefWidth="660.0" spacing="10.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
          <children>
-            <Label prefHeight="46.0" prefWidth="690.0" text="Settings">
+            <Label prefHeight="46.0" prefWidth="690.0" text="Edit Configurations">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -42,11 +44,7 @@
                                                 <Label text="Your carehouse name" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="house_name" text="Demo" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
+                                          <TextField fx:id="name_field" prefHeight="27.0" prefWidth="142.0" promptText="Demo" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="Demo" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />
@@ -64,11 +62,7 @@
                                                 <Label text="Your carehouse max capacity" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="house_capacity" text="0" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
+                                          <TextField fx:id="capacity_field" prefHeight="27.0" prefWidth="142.0" promptText="0" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="0" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />
@@ -87,7 +81,7 @@
                      <children>
                         <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="647.0" spacing="10.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label text="Database Configuration">
+                              <Label text="Database">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -106,11 +100,7 @@
                                                 <Label text="URL to your database" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="db_url" text="localhost/db" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
+                                          <TextField fx:id="db_url_field" prefHeight="27.0" prefWidth="142.0" promptText="localhost/db" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="localhost/db" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />
@@ -128,11 +118,7 @@
                                                 <Label text="Your database username" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="db_username" text="root" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
+                                          <TextField fx:id="db_username_field" prefHeight="27.0" prefWidth="142.0" promptText="root" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="root" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />
@@ -153,11 +139,7 @@
                                                 <Label text="Your database password" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="db_password" text="-" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
+                                          <TextField fx:id="db_password_field" prefHeight="27.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />
@@ -169,11 +151,26 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Edit" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
+                  <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                     <children>
+                        <Button fx:id="cancel_btn" alignment="CENTER" mnemonicParsing="false" onAction="#_cancelEditing" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #8e9096; -fx-background-radius: 10;" text="Cancel" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="save_btn" alignment="CENTER" mnemonicParsing="false" onAction="#_saveConfig" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Save" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

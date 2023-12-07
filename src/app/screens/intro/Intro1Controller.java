@@ -36,7 +36,7 @@ public class Intro1Controller {
 
     private void _proceed() throws Exception {
         // Get house_name value
-        String houseName = house_name_field.getText();
+        String houseName = house_name_field.getText().trim();
 
         if (!houseName.isEmpty()) {
             Map<String, Object> map = new LinkedHashMap<>();
