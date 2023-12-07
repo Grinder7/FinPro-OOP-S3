@@ -1,15 +1,11 @@
-package app.screens.mainpage.subpages.edit;
+package app.controllers;
+
+import app.Main;
+import json.JSONFile;
 
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import app.screens.mainpage.MainPageController;
-
-import app.Main;
-
-// Service(s)
-import app.services.JSONFile;
 
 // Javafx lib
 import javafx.event.ActionEvent;
@@ -20,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class EditController implements Initializable {
     // House field fxid(s)
@@ -51,34 +49,40 @@ public class EditController implements Initializable {
         _setOldVal(db_url_field, (String) _map.get("db_url"));
         _setOldVal(db_username_field, (String) _map.get("db_usr"));
         _setOldVal(db_password_field, (String) _map.get("db_pw"));
+
+        // Listen to capacity_field on value change
+        capacity_field.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
+                // Remove non-number character
+                if (!newVal.matches("\\d*")) {
+                    capacity_field.setText(newVal.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
     }
 
     private void _showConfigPage() throws Exception {
         // Load main page fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../mainpage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/homeView.fxml"));
         Parent root = loader.load();
 
-        // Retrieve main page controller
-        MainPageController mainController = loader.getController();
+        // Retrieve controller
+        HomeController homeController = loader.getController();
 
-        // Call config menu handler
-        mainController.implementConfig((MouseEvent) null);
-
-        mainController.setSubpage("./subpages/config/config.fxml");
+        homeController.configHandler((MouseEvent) null);
+        homeController.setSubpage("../views/configSubView.fxml");
 
         // Set new scene
         Main.getAppStage().setScene(new Scene(root));
     }
 
-    // Handler for cancel_btn
     @FXML
-    private void _cancelEditing(ActionEvent event) throws Exception {
+    private void _cancelBtnHandler(ActionEvent event) throws Exception {
         _showConfigPage();
     }
 
-    // Handler for save_btn
     @FXML
-    private void _saveConfig(ActionEvent event) throws Exception  {
+    private void _saveBtnHandler(ActionEvent event) throws Exception  {
         // Get all input field value
         String houseName = name_field.getText().trim();
         int houseCapacity = 0;

@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.screens.intro.Intro2Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.Intro2Controller">
    <children>
-      <VBox layoutX="54.0" layoutY="39.0" AnchorPane.bottomAnchor="392.0" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="437.6" AnchorPane.topAnchor="39.0">
+      <VBox layoutX="54.0" layoutY="39.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="39.0">
          <children>
             <Label text="YOU'RE ALMOST DONE!" textFill="#2eb2ee" VBox.vgrow="ALWAYS">
                <font>
@@ -70,20 +70,7 @@
             </HBox>
          </children>
       </VBox>
-      <HBox fx:id="next_btn" alignment="CENTER" layoutX="559.0" layoutY="410.0" onMouseClicked="#_proceed" AnchorPane.bottomAnchor="43.6" AnchorPane.rightAnchor="95.4">
-         <children>
-            <Label prefHeight="26.0" prefWidth="49.0" text="Next" textFill="#2eb2ee">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <FontAwesomeIconView fill="#2eb2ee" glyphName="ARROW_RIGHT" size="18.0" textAlignment="CENTER" />
-         </children>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </HBox>
-      <HBox fx:id="back_btn" alignment="CENTER" layoutX="490.0" layoutY="410.0" onMouseClicked="#_back" AnchorPane.bottomAnchor="43.6" AnchorPane.leftAnchor="95.4">
+      <HBox alignment="CENTER" layoutX="490.0" layoutY="410.0" onMouseClicked="#_backBtnHandler" AnchorPane.bottomAnchor="43.6" AnchorPane.leftAnchor="80.0">
          <children>
             <FontAwesomeIconView fill="#2eb2ee" glyphName="ARROW_LEFT" size="18.0" textAlignment="CENTER" />
             <Label alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="49.0" text="Back" textAlignment="RIGHT" textFill="#2eb2ee">
@@ -91,6 +78,19 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="559.0" layoutY="410.0" onMouseClicked="#_nextBtnHandler" AnchorPane.bottomAnchor="43.6" AnchorPane.rightAnchor="80.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="49.0" text="Next" textFill="#2eb2ee">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <FontAwesomeIconView fill="#2eb2ee" glyphName="ARROW_RIGHT" size="18.0" textAlignment="CENTER" />
          </children>
          <cursor>
             <Cursor fx:constant="HAND" />

@@ -1,13 +1,13 @@
-package app.screens.intro;
+package app.controllers;
+
+import app.Main;
+import json.JSONFile;
 
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.net.URL;
 import java.util.LinkedHashMap;
-
-import app.Main;
-import app.services.JSONFile;
 
 // Javafx lib
 import javafx.fxml.FXML;
@@ -18,6 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 public class Intro1Controller implements Initializable {
+    // Input field fxid(s)
     @FXML
     private TextField house_name_field;
 
@@ -44,19 +45,17 @@ public class Intro1Controller implements Initializable {
             JSONFile.write(map);
 
             // Redirect to intro 2 page
-            Main.showPage("./screens/intro/intro2.fxml", false);
+            Main.showPage("./views/intro2View.fxml", false);
         }
     }
 
-    // Handler for key enter in house_name_field
     @FXML
-    private void _proceedOnEnter(KeyEvent event) throws Exception {
+    private void _houseNameFieldHandler(KeyEvent event) throws Exception {
         if (event.getCode().equals(KeyCode.ENTER)) {_proceed();}
     }
 
-    // Handler for next_btn
     @FXML
-    private void _proceedOnClick(MouseEvent event) throws Exception {
+    private void _nextBtnHandler(MouseEvent event) throws Exception {
         _proceed();
     }
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.screens.mainpage.subpages.edit.EditController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.EditController">
    <children>
       <VBox layoutX="42.0" layoutY="31.2" prefHeight="531.0" prefWidth="660.0" spacing="10.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -153,7 +153,7 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" spacing="20.0">
                      <children>
-                        <Button fx:id="cancel_btn" alignment="CENTER" mnemonicParsing="false" onAction="#_cancelEditing" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #8e9096; -fx-background-radius: 10;" text="Cancel" textFill="WHITE">
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#_cancelBtnHandler" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #8e9096; -fx-background-radius: 10;" text="Cancel" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -161,7 +161,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="save_btn" alignment="CENTER" mnemonicParsing="false" onAction="#_saveConfig" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Save" textFill="WHITE">
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#_saveBtnHandler" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Save" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

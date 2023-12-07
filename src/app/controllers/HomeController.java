@@ -1,4 +1,7 @@
-package app.screens.mainpage;
+package app.controllers;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 // Javafx lib
 import javafx.collections.ObservableList;
@@ -16,13 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 
-public class MainPageController implements Initializable {
+public class HomeController implements Initializable {
     // Layout(s) fxid(s)
     @FXML
     private BorderPane main_layout;
@@ -33,7 +32,7 @@ public class MainPageController implements Initializable {
     @FXML
     private HBox dashboard;
     @FXML
-    private HBox client_menu;
+    private HBox patient_menu;
     @FXML
     private HBox caretaker_menu;
     @FXML
@@ -60,7 +59,7 @@ public class MainPageController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set dashboard as initial subpage
-        setSubpage("./subpages/dashboard/dashboard.fxml");
+        setSubpage("../views/dashboardSubView.fxml");
     }
 
     private void _setMenuState(HBox clickedMenu) {
@@ -98,37 +97,32 @@ public class MainPageController implements Initializable {
         }
     }
 
-    // Handler for dashboard menu
     @FXML
-    private void _implementDashboard(MouseEvent event) {
+    private void _dashboardHandler(MouseEvent event) {
         _setMenuState(dashboard);
 
-        setSubpage("./subpages/dashboard/dashboard.fxml");
+        setSubpage("../views/dashboardSubView.fxml");
     }
 
-    // Handler for client menu
     @FXML
-    private void _implementClientMenu(MouseEvent event) {
-        _setMenuState(client_menu);
+    private void _patientMenuHandler(MouseEvent event) {
+        _setMenuState(patient_menu);
     }
 
-    // Handler for caretaker menu
     @FXML
-    private void _implementCaretakerMenu(MouseEvent event) {
+    private void _caretakerMenuHandler(MouseEvent event) {
         _setMenuState(caretaker_menu);
     }
 
-    // Handler for donation menu
     @FXML
-    private void _implementDonation(MouseEvent event) {
+    private void _donationHandler(MouseEvent event) {
         _setMenuState(donation);
     }
 
-    // Hander for config menu
     @FXML
-    public void implementConfig(MouseEvent event) {
+    public void configHandler(MouseEvent event) {
         _setMenuState((HBox) null);
 
-        setSubpage("./subpages/config/config.fxml");
+        setSubpage("../views/configSubView.fxml");
     }
 }

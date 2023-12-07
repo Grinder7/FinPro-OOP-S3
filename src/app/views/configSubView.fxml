@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.screens.mainpage.subpages.config.ConfigController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ConfigController">
    <children>
       <VBox layoutX="42.0" layoutY="31.2" prefHeight="531.0" prefWidth="660.0" spacing="10.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
          <children>
@@ -170,7 +170,7 @@
                         </VBox>
                      </children>
                   </VBox>
-                  <Button fx:id="edit_btn" alignment="CENTER" mnemonicParsing="false" onAction="#_gotoEditPage" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Edit" textFill="WHITE">
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#_editBtnHandler" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Edit" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

@@ -3,15 +3,13 @@ package app;
 import java.io.File;
 import java.util.Map;
 
-// Service(s)
-import app.services.JSONFile;
-
 // Javafx lib
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import json.JSONFile;
 
 public class Main extends Application {
     private static Stage _appStage;
@@ -37,8 +35,8 @@ public class Main extends Application {
 
     private boolean _isFresh() { // Method to tell if user first time use app
         try {
-            // Open data.json file
-            File file = new File("./src/app/data.json");
+            // Open json file
+            File file = new File(JSONFile.path);
 
             // Create new file if file is missing
             file.createNewFile();
@@ -76,10 +74,10 @@ public class Main extends Application {
         _appStage.setTitle("Demo");
 
         if (_isFresh()) {
-            showPage("./screens/intro/intro1.fxml", false);
+            showPage("./views/intro1View.fxml", false);
         }
         else {
-            showPage("./screens/mainpage/mainpage.fxml", true);
+            showPage("./views/homeView.fxml", true);
         }
     }
 

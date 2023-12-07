@@ -1,12 +1,12 @@
-package app.screens.mainpage.subpages.config;
+package app.controllers;
+
+import app.Main;
+import json.JSONFile;
 
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import app.screens.mainpage.MainPageController;
-import app.services.JSONFile;
-import app.Main;
 // Javafx lib
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,20 +51,17 @@ public class ConfigController implements Initializable {
         else {db_password.setText("-");}
     }
 
-    // Handler for edit_btn
     @FXML
-    void _gotoEditPage(ActionEvent event) throws Exception {
+    private void _editBtnHandler(ActionEvent event) throws Exception {
         // Load main page fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../../mainpage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/homeView.fxml"));
         Parent root = loader.load();
 
-        // Retrieve main page controller
-        MainPageController mainController = loader.getController();
+        // Retrieve controller
+        HomeController homeController = loader.getController();
 
-        // Call config menu handler
-        mainController.implementConfig((MouseEvent) null);
-        
-        mainController.setSubpage("./subpages/edit/edit.fxml");
+        homeController.configHandler((MouseEvent) null);
+        homeController.setSubpage("../views/editSubView.fxml");
 
         // Set new scene
         Main.getAppStage().setScene(new Scene(root));

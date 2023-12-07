@@ -1,13 +1,11 @@
-package app.screens.intro;
+package app.controllers;
+
+import app.Main;
+import json.JSONFile;
 
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
-
-import app.Main;
-
-// Service(s)
-import app.services.JSONFile;
 
 // Javafx lib
 import javafx.beans.value.ChangeListener;
@@ -40,15 +38,13 @@ public class Intro2Controller implements Initializable {
         });
     }
 
-    // Handler for back_btn
     @FXML
-    private void _back() throws Exception {
-        Main.showPage("./screens/intro/intro1.fxml", false);
+    private void _backBtnHandler() throws Exception {
+        Main.showPage("./views/intro1View.fxml", false);
     }
 
-    // Handler for next_btn
     @FXML
-    private void _proceed() throws Exception {
+    private void _nextBtnHandler() throws Exception {
         // Get all input field value
         int capacity = 0;
 
@@ -75,7 +71,7 @@ public class Intro2Controller implements Initializable {
             JSONFile.write(map);
 
             // Redirect to main page
-            Main.showPage("./screens/mainpage/mainpage.fxml", true);
+            Main.showPage("./views/homeView.fxml", true);
         }
     }
 }
