@@ -1,47 +1,43 @@
 package app.screens.intro;
 
-import app.Main;
-
 import java.util.Map;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import java.net.URL;
 import java.util.LinkedHashMap;
 
-// Model(s)
-import app.models.JSONFile;
+import app.Main;
+import app.services.JSONFile;
 
 // Javafx lib
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 
-public class Intro1Controller {
-    // fxid(s)
+public class Intro1Controller implements Initializable {
     @FXML
     private TextField house_name_field;
-    @FXML
-    private HBox next_btn;
 
-    @FXML
-    private void initialize() {
-        String currHouseName = Objects.toString(JSONFile.toMap().get("house_name"), "") ;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Set house name field value, if user have save it before
+        String currHouseName = Objects.toString(
+            JSONFile.toMap().get("house_name"), "");
 
         if (!currHouseName.isEmpty()) {
-            // Set input value to saved house name
             house_name_field.setText(currHouseName);
         }
     }
 
     private void _proceed() throws Exception {
-        // Get house_name value
         String houseName = house_name_field.getText().trim();
 
         if (!houseName.isEmpty()) {
             Map<String, Object> map = new LinkedHashMap<>();
 
-            // Put house_name in map
             map.put("house_name", houseName);
 
             // Write json file
@@ -52,11 +48,13 @@ public class Intro1Controller {
         }
     }
 
+    // Handler for key enter in house_name_field
     @FXML
     private void _proceedOnEnter(KeyEvent event) throws Exception {
         if (event.getCode().equals(KeyCode.ENTER)) {_proceed();}
     }
 
+    // Handler for next_btn
     @FXML
     private void _proceedOnClick(MouseEvent event) throws Exception {
         _proceed();

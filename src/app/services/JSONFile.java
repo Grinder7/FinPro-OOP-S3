@@ -1,4 +1,4 @@
-package app.models;
+package app.services;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -11,7 +11,6 @@ import org.json.simple.parser.JSONParser;
 
 public class JSONFile {
     final private static String path = "./src/app/data.json";
-
 
     public static Map<String, Object> toMap() {
         JSONObject jsonObj = new JSONObject(new HashMap<>());

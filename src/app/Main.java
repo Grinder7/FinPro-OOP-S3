@@ -1,11 +1,10 @@
 package app;
 
 import java.io.File;
-import java.io.FileReader;
 import java.util.Map;
 
-// Model(s)
-import app.models.JSONFile;
+// Service(s)
+import app.services.JSONFile;
 
 // Javafx lib
 import javafx.application.Application;
@@ -18,13 +17,14 @@ public class Main extends Application {
     private static Stage _appStage;
 
     public static void showPage(String fxmlPath, boolean resizeable) throws Exception {
+        // Load fxml file
         Parent root = FXMLLoader.load(Main.class.getResource(fxmlPath));
 
         // Set scene
         _appStage.setScene(new Scene(root));
 
+        // Set stage properties
         _appStage.centerOnScreen();
-
         _appStage.setResizable(resizeable);
 
         // Show stage
@@ -35,28 +35,22 @@ public class Main extends Application {
         _appStage.setMinWidth(_appStage.getWidth());
     }
 
-    private boolean _isFresh() {
+    private boolean _isFresh() { // Method to tell if user first time use app
         try {
+            // Open data.json file
             File file = new File("./src/app/data.json");
 
             // Create new file if file is missing
             file.createNewFile();
 
-            FileReader jsonFile = new FileReader("./src/app/data.json");
+            // Get data from json file
+            Map<String, Object> map = JSONFile.toMap();
 
-            // Check if jsonFile is not empty
-            if (jsonFile.read() != -1) {
-                jsonFile.close();
-
-                Map<String, Object> map = JSONFile.toMap();
-
+            if (!map.isEmpty()) {
                 // Check if all data required already made
-                return !(map.get("house_name") != null && map.get("house_capacity") != null &&
-                    map.get("db_url") != null && map.get("db_usr") != null && map.get("db_pw") != null);
-            }
-            else {
-                jsonFile.close();
-                return true;
+                return !(map.get("house_name") != null && map.get("house_capacity") != null 
+                    && map.get("db_url") != null && map.get("db_usr") != null && 
+                    map.get("db_pw") != null);
             }
         }
         catch(Exception e) {
@@ -67,18 +61,18 @@ public class Main extends Application {
         return true;
     }
 
-    public static void setAppStage(Stage s) {_appStage = s;}
+    private static void _setAppStage(Stage s) {_appStage = s;}
 
-    public static Stage              getAppStage() {return _appStage;}
+    public static Stage getAppStage() {return _appStage;}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        setAppStage(primaryStage);
+        _setAppStage(primaryStage);
 
         // Program icon
         // _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("./assets/ico.png")));
         
-        // Program title
+        // Set program title
         _appStage.setTitle("Demo");
 
         if (_isFresh()) {
