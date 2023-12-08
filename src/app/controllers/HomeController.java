@@ -1,8 +1,11 @@
 package app.controllers;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import database.DBConnection;
 // Javafx lib
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -44,9 +47,21 @@ public class HomeController implements Initializable {
     private String unselectedLabelColor = "#89898a";
 
     public void setSubpage(String fxmlPath) {
+        // Array list contains pages path that can bypass db connection
+        ArrayList<String> whitelist = new ArrayList<>(Arrays.asList(
+            "../views/configSubView.fxml", "../views/editSubView.fxml"
+        )); 
+
         try {
-            // Load fxml file
-            Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Parent page = null;
+
+            // Load fxml file, by checking connection to database
+            if (!DBConnection.getConnEstablished() && !whitelist.contains(fxmlPath)) {
+                page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
+            }
+            else {
+                page = FXMLLoader.load(getClass().getResource(fxmlPath));
+            }
 
             main_layout.setCenter(page);
         }
