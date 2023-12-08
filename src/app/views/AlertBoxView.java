@@ -1,11 +1,9 @@
 package app.views;
 
-import app.Main;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Window;
 
-public class AlertBoxView<T> {
+public class AlertBoxView {
     public static void showAlert(AlertType type, String title, String msg) {
         Alert alertBox = new Alert((AlertType) type);
 
@@ -14,9 +12,6 @@ public class AlertBoxView<T> {
         alertBox.setHeaderText(null);
         alertBox.setContentText(msg);
 
-        // Set windows owner
-        alertBox.initOwner((Window) Main.getAppStage());
-
-        alertBox.show();
+        alertBox.showAndWait();
     }
 }

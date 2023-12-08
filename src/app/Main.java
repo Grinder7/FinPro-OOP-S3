@@ -78,10 +78,7 @@ public class Main extends Application {
             showPage("./views/intro1View.fxml", false);
         }
         else {
-            try {DBConnection.init();}
-            catch (Exception e) {System.exit(0);}
-
-            showPage("./views/homeView.fxml", true);
+            showPage("./views/loadingView.fxml", false);
         }
     }
 

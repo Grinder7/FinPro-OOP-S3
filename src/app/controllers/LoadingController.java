@@ -1,0 +1,81 @@
+package app.controllers;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.concurrent.FutureTask;
+
+import app.Main;
+import app.views.AlertBoxView;
+import database.DBConnection;
+
+// Javafx lib
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Alert.AlertType;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+
+public class LoadingController implements Initializable {
+    @FXML
+    private ProgressBar progress_bar;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Task<Void> task = new Task<>() {
+            @Override
+            public Void call() throws Exception {
+                updateProgress(2, 10); // 20% complete
+
+                Thread.sleep(1000);
+
+                updateProgress(6, 10); // 60% complete
+
+                DBConnection.init(); // Initialize database connection
+
+                // Check if app can communicate with database server
+                if (!DBConnection.connEstablished) {
+                    FutureTask<Void> interupt = new FutureTask<>(() -> {
+                        AlertBoxView.showAlert(AlertType.ERROR, "Connection Error", 
+                        "Couldn't communicate with database server. Make sure the url is right and server is online");
+
+                        return null;
+                    });
+
+                    Platform.runLater(interupt);
+                    try {
+                        interupt.get();
+                    } 
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                updateProgress(8, 10); // 80% complete
+
+                Thread.sleep(1000);
+
+                updateProgress(10, 10); // 100% complete
+
+                Thread.sleep(1500);
+
+                return null;
+            }
+        };
+
+        task.setOnSucceeded(arg -> {
+            // Redirect to home page
+            try {
+                Main.showPage("./views/homeView.fxml", true);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Bind task progress with progress bar
+        progress_bar.progressProperty().bind(task.progressProperty());
+        
+        new Thread(task).start(); // Start thread
+    }
+}
