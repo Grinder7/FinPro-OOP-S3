@@ -18,7 +18,7 @@ public class DBConnection {
     private static String DB_PASSWORD;
     private static String DB_NAME;
     private static String _driver = "jdbc:mysql://";
-    public static boolean connEstablished = false;
+    private static boolean _connEstablished = false;
     private static boolean _retryConn = false;
 
     public static void init() {
@@ -34,11 +34,11 @@ public class DBConnection {
             try (Connection conn = DriverManager.getConnection(_driver + DB_SERVER_URL + "/" + DB_NAME, 
             DB_USERNAME, DB_PASSWORD)) {
                 _retryConn = false;
-                connEstablished = true;
+                _connEstablished = true;
             }
             // Handler for unknown host
             catch (CommunicationsException a) {
-                connEstablished = false;
+                _connEstablished = false;
             }
             catch (SQLException s) {
                 switch (s.getErrorCode()) {
@@ -68,4 +68,6 @@ public class DBConnection {
             }
         } while (_retryConn);
     }
+
+    public static boolean getConnEstablished() {return _connEstablished;}
 }
