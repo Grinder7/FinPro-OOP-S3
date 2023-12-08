@@ -37,11 +37,11 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="199.0" spacing="3.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Database URL" textFill="#2eb2ee">
+                  <Label text="Database Server URL" textFill="#2eb2ee">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Label>
-                  <TextField fx:id="db_url_field" prefHeight="26.0" prefWidth="201.0" promptText="Database URL" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #2eb2ee;" text="localhost/db" />
+                  <TextField fx:id="db_server_url_field" prefHeight="26.0" prefWidth="201.0" promptText="Database URL" style="-fx-background-color: transparent; -fx-border-width: 0 0 1 0; -fx-border-color: #2eb2ee;" text="localhost:3306" />
                </children>
             </VBox>
             <HBox spacing="20.0">

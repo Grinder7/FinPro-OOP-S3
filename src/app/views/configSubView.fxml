@@ -65,7 +65,7 @@
                                                 <Label text="Your carehouse max capacity" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="house_capacity" text="0" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
+                                          <Label fx:id="house_capacity" text="255" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -99,15 +99,15 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <Label text="URL">
+                                                <Label text="Server URL">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Label text="URL to your database" textFill="#828382" />
+                                                <Label text="URL to your database server" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <Label fx:id="db_url" text="localhost/db" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
+                                          <Label fx:id="db_server_url" text="localhost:3306" textFill="#2eb2ee" HBox.hgrow="ALWAYS">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

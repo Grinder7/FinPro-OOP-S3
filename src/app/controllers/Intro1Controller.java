@@ -34,7 +34,8 @@ public class Intro1Controller implements Initializable {
     }
 
     private void _proceed() throws Exception {
-        String houseName = house_name_field.getText().trim();
+        String houseName = house_name_field.getText().trim() // Remove left and right whitespaces
+            .replaceAll("\\s{2,}", " "); // Shorten 2 or more whitespace into 1 char
 
         if (!houseName.isEmpty()) {
             Map<String, Object> map = new LinkedHashMap<>();

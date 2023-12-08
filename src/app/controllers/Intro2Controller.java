@@ -1,6 +1,8 @@
 package app.controllers;
 
 import app.Main;
+import app.views.AlertBoxView;
+import database.DBConnection;
 import json.JSONFile;
 
 import java.net.URL;
@@ -13,13 +15,14 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 
 public class Intro2Controller implements Initializable {
     // Input field fxid(s)
     @FXML
     private TextField capacity_field;
     @FXML
-    private TextField db_url_field;
+    private TextField db_server_url_field;
     @FXML
     private TextField db_username_field;
     @FXML
@@ -53,22 +56,33 @@ public class Intro2Controller implements Initializable {
         }
         catch(Exception e) {} // Ignore parsing error
 
-        String dbURL = db_url_field.getText().replaceAll(" ", "");
+        String dbServerURL = db_server_url_field.getText().replace("http:", "")
+            .replace("http:", "").replaceAll("/", "")
+            .replaceAll(" ", "");
         String dbUsername = db_username_field.getText().trim();
         String dbPassword = db_password_field.getText();
 
         // Check if input field has value(s)
-        if (capacity != 0 && !dbURL.isEmpty() && !dbUsername.isEmpty()) {
+        if (capacity != 0 && !dbServerURL.isEmpty() && !dbUsername.isEmpty()) {
+            // Check if database url is not valid
+            if (!dbServerURL.matches("^[a-zA-Z0-9]{1,}(:[0-9]{1,5})?$")) {
+                AlertBoxView.showAlert(AlertType.ERROR, "Database Server URL", "Database Server URL format is not valid");
+                return;
+            }
+
             // Get json file data
             Map<String, Object> map = JSONFile.toMap();
 
             map.put("house_capacity", capacity);
-            map.put("db_url", dbURL);
+            map.put("db_srv_url", dbServerURL);
             map.put("db_usr", dbUsername);
             map.put("db_pw", dbPassword);
         
             // Write json file
             JSONFile.write(map);
+
+            try {DBConnection.init();}
+            catch (Exception e) {System.exit(0);}
 
             // Redirect to main page
             Main.showPage("./views/homeView.fxml", true);

@@ -62,7 +62,7 @@
                                                 <Label text="Your carehouse max capacity" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <TextField fx:id="capacity_field" prefHeight="27.0" prefWidth="142.0" promptText="0" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="0" />
+                                          <TextField fx:id="capacity_field" prefHeight="27.0" prefWidth="142.0" promptText="0" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="255" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />
@@ -92,15 +92,15 @@
                                        <children>
                                           <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                                              <children>
-                                                <Label text="URL">
+                                                <Label text="Server URL">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
                                                 </Label>
-                                                <Label text="URL to your database" textFill="#828382" />
+                                                <Label text="URL to your database server" textFill="#828382" />
                                              </children>
                                           </VBox>
-                                          <TextField fx:id="db_url_field" prefHeight="27.0" prefWidth="142.0" promptText="localhost/db" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="localhost/db" />
+                                          <TextField fx:id="db_server_url_field" prefHeight="27.0" prefWidth="142.0" promptText="localhost/db" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="localhost:3306" />
                                        </children>
                                        <padding>
                                           <Insets left="30.0" right="30.0" />

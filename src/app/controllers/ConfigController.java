@@ -14,7 +14,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 
 public class ConfigController implements Initializable {
@@ -28,7 +27,7 @@ public class ConfigController implements Initializable {
     @FXML
     private Label db_password;
     @FXML
-    private Label db_url;
+    private Label db_server_url;
     @FXML
     private Label db_username;
 
@@ -42,7 +41,7 @@ public class ConfigController implements Initializable {
         house_capacity.setText(Long.toString((Long) map.get("house_capacity")));
 
         // Database
-        db_url.setText((String) map.get("db_url"));
+        db_server_url.setText((String) map.get("db_srv_url"));
         db_username.setText((String) map.get("db_usr"));
         String password = (String) map.get("db_pw");
 
@@ -60,7 +59,7 @@ public class ConfigController implements Initializable {
         // Retrieve controller
         HomeController homeController = loader.getController();
 
-        homeController.configHandler((MouseEvent) null);
+        homeController.configHandler(null);
         homeController.setSubpage("../views/editSubView.fxml");
 
         // Set new scene

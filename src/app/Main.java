@@ -3,6 +3,7 @@ package app;
 import java.io.File;
 import java.util.Map;
 
+import database.DBConnection;
 // Javafx lib
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +48,7 @@ public class Main extends Application {
             if (!map.isEmpty()) {
                 // Check if all data required already made
                 return !(map.get("house_name") != null && map.get("house_capacity") != null 
-                    && map.get("db_url") != null && map.get("db_usr") != null && 
+                    && map.get("db_srv_url") != null && map.get("db_usr") != null && 
                     map.get("db_pw") != null);
             }
         }
@@ -77,6 +78,9 @@ public class Main extends Application {
             showPage("./views/intro1View.fxml", false);
         }
         else {
+            try {DBConnection.init();}
+            catch (Exception e) {System.exit(0);}
+
             showPage("./views/homeView.fxml", true);
         }
     }
