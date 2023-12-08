@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.ConfigController">
    <children>
-      <VBox layoutX="42.0" layoutY="31.2" prefHeight="531.0" prefWidth="660.0" spacing="10.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="30.0">
+      <VBox layoutX="42.0" layoutY="31.2" prefHeight="531.0" prefWidth="660.0" spacing="10.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label prefHeight="46.0" prefWidth="690.0" text="Configurations">
                <font>
@@ -181,6 +181,9 @@
                </children>
             </VBox>
          </children>
+         <padding>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

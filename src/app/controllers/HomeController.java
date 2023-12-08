@@ -36,11 +36,11 @@ public class HomeController implements Initializable {
     @FXML
     private HBox dashboard;
     @FXML
-    private HBox patient_menu;
+    private HBox patient_list;
     @FXML
-    private HBox caretaker_menu;
+    private HBox caretaker_list;
     @FXML
-    private HBox donation;
+    private HBox donation_list;
 
     public static BorderPane staticMainLayout;
 
@@ -125,18 +125,20 @@ public class HomeController implements Initializable {
     }
 
     @FXML
-    private void _patientMenuHandler(MouseEvent event) {
-        _setMenuState(patient_menu);
+    private void _patientListHandler(MouseEvent event) {
+        _setMenuState(patient_list);
+        
+        setSubpage("../views/patientlistSubView.fxml");
     }
 
     @FXML
-    private void _caretakerMenuHandler(MouseEvent event) {
-        _setMenuState(caretaker_menu);
+    private void _caretakerListHandler(MouseEvent event) {
+        _setMenuState(caretaker_list);
     }
 
     @FXML
-    private void _donationHandler(MouseEvent event) {
-        _setMenuState(donation);
+    private void _donationListHandler(MouseEvent event) {
+        _setMenuState(donation_list);
     }
 
     @FXML

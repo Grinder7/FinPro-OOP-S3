@@ -9,6 +9,6 @@ public interface DBActions {
     }
     
     public static void insert() {}
-    public static void update(int id, int col) {}
+    public static void update(int id, String col) {}
     public static void delete(int id) {}
 }
