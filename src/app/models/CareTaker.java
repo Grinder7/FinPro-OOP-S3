@@ -1,5 +1,5 @@
 package app.models;
 
-class CareTaker extends Person {
+class Caretaker extends Person {
     
 }
