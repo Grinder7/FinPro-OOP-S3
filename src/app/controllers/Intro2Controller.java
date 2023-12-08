@@ -2,7 +2,6 @@ package app.controllers;
 
 import app.Main;
 import app.views.AlertBoxView;
-import database.DBConnection;
 import json.JSONFile;
 
 import java.net.URL;
@@ -81,11 +80,8 @@ public class Intro2Controller implements Initializable {
             // Write json file
             JSONFile.write(map);
 
-            try {DBConnection.init();}
-            catch (Exception e) {System.exit(0);}
-
             // Redirect to main page
-            Main.showPage("./views/homeView.fxml", true);
+            Main.showPage("./views/loadingView.fxml", true);
         }
     }
 }
