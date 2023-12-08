@@ -57,7 +57,7 @@ public class LoadingController implements Initializable {
 
                 updateProgress(10, 10); // 100% complete
 
-                Thread.sleep(1500);
+                Thread.sleep(1200);
 
                 return null;
             }
