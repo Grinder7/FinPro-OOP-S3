@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import database.DBConnection;
+
 // Javafx lib
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

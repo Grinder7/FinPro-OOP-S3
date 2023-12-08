@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.Main;
 import app.views.AlertBoxView;
+import database.DBConnection;
 import json.JSONFile;
 
 import java.net.URL;
@@ -121,6 +122,14 @@ public class EditController implements Initializable {
             JSONFile.write(_map);
 
             _showConfigPage();
+
+            DBConnection.init(); // Initialize database
+
+            // Check connection status
+            if (!DBConnection.getConnEstablished()) {
+                AlertBoxView.showAlert(AlertType.ERROR, "Connection Error", 
+                "Couldn't communicate with database server. Make sure your credentials are correct and server is online");
+            }
         }
     }
 }
