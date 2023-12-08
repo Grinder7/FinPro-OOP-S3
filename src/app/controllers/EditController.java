@@ -1,6 +1,5 @@
 package app.controllers;
 
-import app.Main;
 import app.views.AlertBoxView;
 import database.DBConnection;
 import json.JSONFile;
@@ -15,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.beans.value.ChangeListener;
@@ -64,18 +62,10 @@ public class EditController implements Initializable {
     }
 
     private void _showConfigPage() throws Exception {
-        // Load main page fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/homeView.fxml"));
-        Parent root = loader.load();
+        // Load fxml file
+        Parent configPage = FXMLLoader.load(getClass().getResource("../views/configSubView.fxml"));
 
-        // Retrieve controller
-        HomeController homeController = loader.getController();
-
-        homeController.configHandler(null);
-        homeController.setSubpage("../views/configSubView.fxml");
-
-        // Set new scene
-        Main.getAppStage().setScene(new Scene(root));
+        HomeController.staticMainLayout.setCenter(configPage);
     }
 
     @FXML

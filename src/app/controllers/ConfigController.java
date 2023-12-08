@@ -1,6 +1,5 @@
 package app.controllers;
 
-import app.Main;
 import json.JSONFile;
 
 import java.net.URL;
@@ -12,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 
@@ -52,17 +50,9 @@ public class ConfigController implements Initializable {
 
     @FXML
     private void _editBtnHandler(ActionEvent event) throws Exception {
-        // Load main page fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/homeView.fxml"));
-        Parent root = loader.load();
+        // Load fxml file
+        Parent editPage = FXMLLoader.load(getClass().getResource("../views/editSubView.fxml"));
 
-        // Retrieve controller
-        HomeController homeController = loader.getController();
-
-        homeController.configHandler(null);
-        homeController.setSubpage("../views/editSubView.fxml");
-
-        // Set new scene
-        Main.getAppStage().setScene(new Scene(root));
+        HomeController.staticMainLayout.setCenter(editPage);
     }
 }

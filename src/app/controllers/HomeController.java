@@ -42,6 +42,8 @@ public class HomeController implements Initializable {
     @FXML
     private HBox donation;
 
+    public static BorderPane staticMainLayout;
+
     // Colors for selected and unselected menu
     private String selectedColor =  "#2eb2ee";
     private String unselectedBarColor = "#ffffff";
@@ -74,6 +76,8 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        staticMainLayout = main_layout;
+
         // Set dashboard as initial subpage
         setSubpage("../views/dashboardSubView.fxml");
     }
