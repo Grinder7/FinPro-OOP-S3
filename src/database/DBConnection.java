@@ -52,7 +52,7 @@ public class DBConnection {
 
                             _retryConn = true;
                         }
-                        // Handler for conenction error
+                        // Handler for connection error
                         catch (SQLException b) {
                             b.printStackTrace();
                             System.exit(0);
