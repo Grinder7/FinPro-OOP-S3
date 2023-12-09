@@ -23,23 +23,11 @@ public class DBFactories {
         String query = "CREATE TABLE `caretaker`(" +
             "caretakerId INT PRIMARY KEY AUTO_INCREMENT," + 
             "caretakerName VARCHAR(255) NOT NULL," + 
-            "caretakerPhoneNum VARCHAR(13) NOT NULL" + 
+            "caretakerPhoneNum VARCHAR(13) NOT NULL," + 
             "caretakerAge INT NOT NULL," + 
             "caretakerGender VARCHAR(1) NOT NULL" + 
         ");";
         
-        try {_statement.executeUpdate(query);}
-        catch (SQLException e) {e.printStackTrace();}
-    }
-
-    public static void createManagementTable() {
-        String query = "CREATE TABLE `management`(" + 
-            "patientId INT," + 
-            "caretakerId INT" + 
-            "FOREIGN KEY(patientId) REFERENCES `patient`(patientId)" + 
-            "FOREIGN KEY(caretakerId) REFERENCES `caretaker`(caretakerId)" + 
-        ");";
-
         try {_statement.executeUpdate(query);}
         catch (SQLException e) {e.printStackTrace();}
     }
@@ -58,9 +46,9 @@ public class DBFactories {
     public static void createDonationTable() {
         String query = "CREATE TABLE `donation`(" + 
             "donationId INT PRIMARY KEY AUTO_INCREMENT," + 
-            "donatorName VARCHAR(255) NOT NULL" + 
-            "donationItems VARCHAR(255) NOT NULL" + 
-            "donationQuantity INT NOT NULL" + 
+            "donatorName VARCHAR(255) NOT NULL," + 
+            "donationItems VARCHAR(255) NOT NULL," + 
+            "donationQuantity INT NOT NULL," + 
             "donationDate DATE NOT NULL" + 
         ");";
 

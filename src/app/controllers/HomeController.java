@@ -7,9 +7,6 @@ import java.util.Arrays;
 
 import database.DBConnection;
 
-// Model(s)
-import app.models.Caretaker;
-import app.models.Patient;
 // Javafx lib
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,13 +44,6 @@ public class HomeController implements Initializable {
 
     private static BorderPane staticMainLayout;
 
-    // Table(s) for every entity
-    private static ObservableList<Patient> _patientList;
-    private static ObservableList<Caretaker> _caretakerList;
-
-    public static ObservableList<Patient> getPatients() {return _patientList;}
-    public static ObservableList<Caretaker> getCaretakers() {return _caretakerList;}
-
     // Colors for selected and unselected menu
     private String _selectedColor =  "#2eb2ee";
     private String _unselectedBarColor = "#ffffff";
@@ -90,7 +80,7 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         staticMainLayout = main_layout;
 
-        _caretakerList = Caretaker.fetch();
+        // _caretakerList = Caretaker.fetch();
 
         // Set dashboard as initial subpage
         setSubpage("../views/dashboardSubView.fxml");

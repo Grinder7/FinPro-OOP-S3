@@ -23,18 +23,23 @@ public class Caretaker extends Person implements DBActions {
     public static ObservableList<Caretaker> fetch() {
         ObservableList<Caretaker> list = FXCollections.observableArrayList();
 
-        Statement stm = DBConnection.getStatement();
+        try { 
+            Statement stm = DBConnection.getStatement();
 
-        try (ResultSet rs = stm.executeQuery("SELECT * FROM `caretaker`");) {
-            while (rs.next()) {
-                list.add(new Caretaker(rs.getInt("caretakerId"), 
-                    rs.getString("caretakerName"), rs.getString("caretakerPhoneNum"), 
-                    rs.getInt("caretakerAge"), rs.getString("caretakerGender")));
+            if (stm == null) System.out.println("null");
+
+            try (ResultSet rs = stm.executeQuery("SELECT * FROM `caretaker`");) {
+                while (rs.next()) {
+                    list.add(new Caretaker(rs.getInt("caretakerId"), 
+                        rs.getString("caretakerName"), rs.getString("caretakerPhoneNum"), 
+                        rs.getInt("caretakerAge"), rs.getString("caretakerGender")));
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        catch (Exception e) {}
 
         return list;
     }

@@ -3,15 +3,17 @@ package app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import app.Main;
 import app.models.Caretaker;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
+
 // Javafx lib
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -22,7 +24,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
-import de.jensd.fx.glyphs.fontawesome.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 
 class TableRow {
@@ -61,6 +67,8 @@ public class CaretakerListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle recourses) {
+        _list = Caretaker.fetch();
+
         // Initialize cols data type
         num_col.setCellFactory(col -> {
             TableCell<Caretaker, Void> cell = new TableCell<>();
@@ -85,21 +93,32 @@ public class CaretakerListController implements Initializable {
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER);
 
-                Button deleteBtn = new Button();
-                deleteBtn.setStyle("-fx-background-color: transparent;");
-                deleteBtn.setGraphic(FontAwesomeIconFactory.get()
-                    .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em"));
-                deleteBtn.setCursor(Cursor.HAND);
+                // Delete button
+                Button delBtn = new Button();
+                delBtn.setStyle("-fx-background-color: transparent;");
+
+                Text delGlyph = FontAwesomeIconFactory.get()
+                    .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
+                delGlyph.setFill(Paint.valueOf("RED"));
+
+                delBtn.setGraphic(delGlyph);
+
+                delBtn.setCursor(Cursor.HAND);
                 
+                // Edit button
                 Button editBtn = new Button();
                 editBtn.setStyle("-fx-background-color: transparent;");
-                Text glyph = FontAwesomeIconFactory.get()
-                    .createIcon(FontAwesomeIcon.valueOf("EDIT"), "1.2em");
-                glyph.setFill(Paint.valueOf("RED"));
-                editBtn.setGraphic(glyph);
+
+                Text editGlyph = FontAwesomeIconFactory.get()
+                    .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
+                editGlyph.setFill(Paint.valueOf("BLACK"));
+
+                editBtn.setGraphic(delBtn);
+
                 editBtn.setCursor(Cursor.HAND);
 
-                hbox.getChildren().addAll(deleteBtn, editBtn);
+                // Add buttons into hbox
+                hbox.getChildren().addAll(editGlyph, editBtn);
 
                 if (cell.isEmpty()) {return null;}
                 else {return hbox;}
@@ -108,14 +127,29 @@ public class CaretakerListController implements Initializable {
             return cell;
         });
 
-        _list = HomeController.getCaretakers();
-
         table.setItems(_list);
     }
 
     @FXML
-    private void _addBtnHandler(MouseEvent event) {
+    private void _addBtnHandler(MouseEvent event) throws Exception {
+        Stage newStage = new Stage();
 
+        Parent root = FXMLLoader.load(getClass().getResource("../views/caretakermodalStackView.fxml"));
+
+        newStage.setScene(new Scene(root));
+
+        newStage.centerOnScreen();
+
+        newStage.setMinWidth(newStage.getWidth());
+        newStage.setMinHeight(newStage.getHeight());
+
+        newStage.setResizable(false);
+
+        newStage.setTitle("New Caretaker");
+
+        newStage.initModality(Modality.APPLICATION_MODAL);
+
+        newStage.showAndWait();
     }
 
     @FXML

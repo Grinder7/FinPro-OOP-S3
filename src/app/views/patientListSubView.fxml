@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.CaretakerListController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.PatientListController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -54,8 +54,8 @@
                           <columns>
                               <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" sortable="false" style="-fx-alignment: CENTER;" text="#" />
                             <TableColumn fx:id="name_col" editable="false" prefWidth="225.60002899169922" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Name" />
-                            <TableColumn fx:id="phone_num_col" editable="false" prefWidth="172.0" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Phone Number" />
-                              <TableColumn fx:id="age_col" editable="false" prefWidth="73.60006713867188" sortable="false" style="-fx-alignment: CENTER;" text="Age" />
+                            <TableColumn fx:id="phone_num_col" editable="false" prefWidth="172.0" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Age" />
+                              <TableColumn fx:id="age_col" editable="false" prefWidth="73.60006713867188" sortable="false" style="-fx-alignment: CENTER;" text="Gender" />
                               <TableColumn fx:id="gender_col" editable="false" prefWidth="68.79998779296875" sortable="false" style="-fx-alignment: CENTER;" text="Gender" />
                               <TableColumn fx:id="actions_col" editable="false" prefWidth="86.4000244140625" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
                           </columns>

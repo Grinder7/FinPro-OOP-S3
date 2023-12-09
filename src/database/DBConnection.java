@@ -3,7 +3,6 @@ package database;
 import java.util.Map;
 
 import json.JSONFile;
-import database.DBFactories;
 
 // MySQL connector lib
 import java.sql.Connection;
@@ -63,7 +62,6 @@ public class DBConnection {
                             // Create table(s)
                             DBFactories.createPatientTable();
                             DBFactories.createCaretakerTable();
-                            DBFactories.createManagementTable();
                             DBFactories.createSupplyTable();
                             DBFactories.createDonationTable();
 
