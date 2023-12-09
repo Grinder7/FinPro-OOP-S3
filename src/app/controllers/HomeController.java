@@ -54,9 +54,9 @@ public class HomeController implements Initializable {
     public static Map<Integer, Caretaker> caretakerTable = new HashMap<>();
 
     // Colors for selected and unselected menu
-    private String selectedColor =  "#2eb2ee";
-    private String unselectedBarColor = "#ffffff";
-    private String unselectedLabelColor = "#89898a";
+    private String _selectedColor =  "#2eb2ee";
+    private String _unselectedBarColor = "#ffffff";
+    private String _unselectedLabelColor = "#89898a";
 
     public void setSubpage(String fxmlPath) {
         // Array list contains pages path that can bypass db connection
@@ -103,26 +103,26 @@ public class HomeController implements Initializable {
 
             if (menu == clickedMenu) { // Selected
                 // Change bar background color
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + selectedColor + ";");
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _selectedColor + ";");
 
                 // Change icon fill color
-                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(selectedColor));
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_selectedColor));
                 
                 // Change label font color
                 Label label = (Label) labelChild.get(1);
-                label.setTextFill(Color.valueOf(selectedColor));
+                label.setTextFill(Color.valueOf(_selectedColor));
                 label.setFont(Font.font("System", FontWeight.BOLD, 16));
             }
             else { // Unselected
                 // Change bar background color
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + unselectedBarColor + ";");
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _unselectedBarColor + ";");
 
                 // Change icon fill color
-                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(unselectedLabelColor));
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_unselectedLabelColor));
 
                 // Change label font color
                 Label label = (Label) labelChild.get(1);
-                label.setTextFill(Color.valueOf(unselectedLabelColor));
+                label.setTextFill(Color.valueOf(_unselectedLabelColor));
                 label.setFont(Font.font("System", FontWeight.NORMAL, 16));
             }
         }
