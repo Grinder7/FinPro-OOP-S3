@@ -3,7 +3,7 @@ package app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.Main;
+// Model(s)
 import app.models.Caretaker;
 
 // Javafx lib
@@ -63,7 +63,14 @@ public class CaretakerListController implements Initializable {
     @FXML
     private TableColumn<HBox, Void> actions_col;
 
-    private ObservableList<Caretaker> _list;
+    private static ObservableList<Caretaker> _list;
+
+    public static ObservableList<Caretaker> getList() {return _list;}
+    private void _refreshTable() {
+        _list = Caretaker.fetch();
+
+        table.refresh();
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle recourses) {
@@ -134,7 +141,14 @@ public class CaretakerListController implements Initializable {
     private void _addBtnHandler(MouseEvent event) throws Exception {
         Stage newStage = new Stage();
 
-        Parent root = FXMLLoader.load(getClass().getResource("../views/caretakermodalStackView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/caretakermodalStackView.fxml"));
+
+        Parent root = loader.load();
+
+        CaretakerModalController controller = loader.getController();
+
+        controller.setStage(newStage);
+        controller.setAction("insert");
 
         newStage.setScene(new Scene(root));
 
@@ -150,6 +164,8 @@ public class CaretakerListController implements Initializable {
         newStage.initModality(Modality.APPLICATION_MODAL);
 
         newStage.showAndWait();
+
+        _refreshTable();
     }
 
     @FXML

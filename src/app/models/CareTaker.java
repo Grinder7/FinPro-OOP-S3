@@ -1,11 +1,15 @@
 package app.models;
 
+import app.interfaces.DBActions;
+import database.DBConnection;
+
+// Java connector lib(s)
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import app.interfaces.DBActions;
-import database.DBConnection;
+// Javafx lib(s)
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -23,24 +27,40 @@ public class Caretaker extends Person implements DBActions {
     public static ObservableList<Caretaker> fetch() {
         ObservableList<Caretaker> list = FXCollections.observableArrayList();
 
-        try { 
-            Statement stm = DBConnection.getStatement();
+        try {
+            Statement stmt = DBConnection.getConnection().createStatement();
 
-            if (stm == null) System.out.println("null");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM `caretaker`");
 
-            try (ResultSet rs = stm.executeQuery("SELECT * FROM `caretaker`");) {
-                while (rs.next()) {
-                    list.add(new Caretaker(rs.getInt("caretakerId"), 
-                        rs.getString("caretakerName"), rs.getString("caretakerPhoneNum"), 
-                        rs.getInt("caretakerAge"), rs.getString("caretakerGender")));
-                }
+            while (rs.next()) {
+                list.add(new Caretaker(rs.getInt("caretakerId"), 
+                    rs.getString("caretakerName"), rs.getString("caretakerPhoneNum"), 
+                    rs.getInt("caretakerAge"), rs.getString("caretakerGender")));
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
+
+            rs.close();
         }
-        catch (Exception e) {}
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         return list;
+    }
+
+    public static void insert(String name, String phoneNum, int age, String gender) {
+        try (PreparedStatement stmt = DBConnection.getConnection()
+            .prepareStatement("INSERT INTO `caretaker` VALUES(0, ?, ?, ?, ?)");) {
+            stmt.setString(1, name);
+            stmt.setString(2, phoneNum);
+            stmt.setInt(3, age);
+            stmt.setString(4, gender);
+
+            stmt.execute();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 }

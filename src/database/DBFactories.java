@@ -4,7 +4,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBFactories {
-    private static Statement _statement = DBConnection.getStatement();
+    private static Statement _statement;
+
+    public static void createTables() {
+        try {
+            _statement = DBConnection.getConnection().createStatement();
+
+            createPatientTable();
+            createCaretakerTable();
+            createSupplyTable();
+            createDonationTable();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
 
     public static void createPatientTable() {
         String query = "CREATE TABLE `patient`(" + 

@@ -65,7 +65,7 @@
             </VBox>
             <HBox alignment="CENTER_RIGHT">
                <children>
-                  <Button fx:id="save_btn" mnemonicParsing="false" onAction="#_saveBtnHandler" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 7;" text="Save" textFill="WHITE">
+                  <Button mnemonicParsing="false" onAction="#_saveBtnHandler" prefHeight="34.0" prefWidth="82.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 7;" text="Save" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>

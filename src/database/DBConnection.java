@@ -21,7 +21,6 @@ public class DBConnection {
     private static boolean _connEstablished = false;
     private static boolean _retryConn = false;
     private static Connection _conn = null;
-    private static Statement _statement = null;
 
     public static void init() {
         Map<String, Object> map = JSONFile.toMap();
@@ -37,9 +36,6 @@ public class DBConnection {
                 // Create connection
                 _conn = DriverManager.getConnection(_driver + DB_SERVER_URL + "/" + DB_NAME, 
                     DB_USERNAME, DB_PASSWORD);
-
-                // Create statement
-                _statement = _conn.createStatement();
                 
                 _retryConn = false;
                 _connEstablished = true;
@@ -52,20 +48,13 @@ public class DBConnection {
                 switch (s.getErrorCode()) {
                     case (MysqlErrorNumbers.ER_BAD_DB_ERROR):
                         try (Connection tempConn = DriverManager.getConnection(_driver + DB_SERVER_URL, 
-                            DB_USERNAME, DB_PASSWORD);) {
-                            _statement = tempConn.createStatement();
-
+                            DB_USERNAME, DB_PASSWORD); Statement stmt = tempConn.createStatement();) {
                             // Create database
-                            _statement.executeUpdate(String.format("CREATE DATABASE `%s`;", DB_NAME));
-                            _statement.executeUpdate(String.format("USE `%s`;", DB_NAME));
+                            stmt.executeUpdate(String.format("CREATE DATABASE `%s`;", DB_NAME));
+                            stmt.executeUpdate(String.format("USE `%s`;", DB_NAME));
 
                             // Create table(s)
-                            DBFactories.createPatientTable();
-                            DBFactories.createCaretakerTable();
-                            DBFactories.createSupplyTable();
-                            DBFactories.createDonationTable();
-
-                            _statement.close();
+                            DBFactories.createTables();
 
                             _retryConn = true;
                         }
@@ -92,6 +81,4 @@ public class DBConnection {
     public static boolean isEstablished() {return _connEstablished;}
 
     public static Connection getConnection() {return _conn;}
-
-    public static Statement getStatement() {return _statement;}
 }
