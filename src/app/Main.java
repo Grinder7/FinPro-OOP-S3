@@ -79,6 +79,7 @@ public class Main extends Application {
             if (DBConnection.isEstablished()) {
                 try {
                     DBConnection.getConnection().close();
+                    DBConnection.getStatement().close();
                 }
                 catch (SQLException f) {
                     f.printStackTrace();

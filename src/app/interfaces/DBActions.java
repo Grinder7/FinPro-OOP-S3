@@ -3,7 +3,7 @@ package app.interfaces;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface DBActions {
+public interface DBActions<T> {
     public static Map<Integer, Object> fetch() {
         return new HashMap<>();
     }

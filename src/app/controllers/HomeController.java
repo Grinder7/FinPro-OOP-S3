@@ -1,12 +1,17 @@
 package app.controllers;
 
 import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.Map;
+import java.util.HashMap;
 
 import database.DBConnection;
 
+// Model(s)
+import app.models.Caretaker;
+import app.models.Patient;
 // Javafx lib
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -43,6 +48,10 @@ public class HomeController implements Initializable {
     private HBox donation_list;
 
     private static BorderPane staticMainLayout;
+
+    // Table(s) for every entity
+    public static Map<Integer, Patient> patientTable = new HashMap<>();
+    public static Map<Integer, Caretaker> caretakerTable = new HashMap<>();
 
     // Colors for selected and unselected menu
     private String selectedColor =  "#2eb2ee";
@@ -136,6 +145,8 @@ public class HomeController implements Initializable {
     @FXML
     private void _caretakerListHandler(MouseEvent event) {
         _setMenuState(caretaker_list);
+
+        setSubpage("../views/caretakerlistSubView.fxml");
     }
 
     @FXML

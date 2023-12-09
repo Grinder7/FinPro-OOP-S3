@@ -1,8 +1,9 @@
 package database;
 
-import json.JSONFile;
-
 import java.util.Map;
+
+import json.JSONFile;
+import database.DBFactories;
 
 // MySQL connector lib
 import java.sql.Connection;
@@ -21,6 +22,7 @@ public class DBConnection {
     private static boolean _connEstablished = false;
     private static boolean _retryConn = false;
     private static Connection _conn = null;
+    private static Statement _statement = null;
 
     public static void init() {
         Map<String, Object> map = JSONFile.toMap();
@@ -33,8 +35,12 @@ public class DBConnection {
 
         do {
             try {
+                // Create connection
                 _conn = DriverManager.getConnection(_driver + DB_SERVER_URL + "/" + DB_NAME, 
                     DB_USERNAME, DB_PASSWORD);
+
+                // Create statement
+                _statement = _conn.createStatement();
                 
                 _retryConn = false;
                 _connEstablished = true;
@@ -47,8 +53,17 @@ public class DBConnection {
                 switch (s.getErrorCode()) {
                     case (MysqlErrorNumbers.ER_BAD_DB_ERROR):
                         try (Connection tempConn = DriverManager.getConnection(_driver + DB_SERVER_URL, 
-                            DB_USERNAME, DB_PASSWORD); Statement tempStm = tempConn.createStatement();) {
-                            tempStm.executeUpdate(String.format("CREATE DATABASE `%s`", DB_NAME));
+                            DB_USERNAME, DB_PASSWORD);) {
+                            _statement = tempConn.createStatement();
+
+                            // Create database
+                            _statement.executeUpdate(String.format("CREATE DATABASE `%s`;", DB_NAME));
+                            _statement.executeUpdate(String.format("USE `%s`;", DB_NAME));
+
+                            // Create table(s)
+                            DBFactories.createCaretakerTable();
+
+                            _statement.close();
 
                             _retryConn = true;
                         }
@@ -75,4 +90,6 @@ public class DBConnection {
     public static boolean isEstablished() {return _connEstablished;}
 
     public static Connection getConnection() {return _conn;}
+
+    public static Statement getStatement() {return _statement;}
 }

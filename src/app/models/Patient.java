@@ -1,14 +1,11 @@
 package app.models;
 
-import java.util.HashMap;
-import java.util.Map;
+public class Patient extends Person {
+    private int _handledByCaretakerId;
 
-import app.interfaces.DBActions;
+    public Patient(int i, String n, int a, char g, int cti) {
+        super(i, n, a, g);
 
-public class Patient extends Person implements DBActions {
-    int handledByCaretakerId;
-
-    public static Map<Integer, Object> fetch() {
-        return new HashMap<>();
-    }
+        _handledByCaretakerId = cti;
+    } 
 }
