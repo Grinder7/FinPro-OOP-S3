@@ -3,9 +3,9 @@ package app.models;
 public class Patient extends Person {
     private int _handledByCaretakerId;
 
-    public Patient(int i, String n, int a, char g, int cti) {
-        super(i, n, a, g);
+    public Patient(int id, String name, int age, String gender, int careTakerId) {
+        super(id, name, age, gender);
 
-        _handledByCaretakerId = cti;
-    } 
+        _handledByCaretakerId = careTakerId;
+    }
 }

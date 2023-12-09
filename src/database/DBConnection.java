@@ -61,7 +61,11 @@ public class DBConnection {
                             _statement.executeUpdate(String.format("USE `%s`;", DB_NAME));
 
                             // Create table(s)
+                            DBFactories.createPatientTable();
                             DBFactories.createCaretakerTable();
+                            DBFactories.createManagementTable();
+                            DBFactories.createSupplyTable();
+                            DBFactories.createDonationTable();
 
                             _statement.close();
 

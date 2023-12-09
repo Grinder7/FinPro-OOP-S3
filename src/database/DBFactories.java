@@ -11,8 +11,12 @@ public class DBFactories {
             "patientId INT PRIMARY KEY AUTO_INCREMENT," +
             "patientName VARCHAR(255) NOT NULL," + 
             "patientAge INT NOT NULL," + 
-            "patientGender CHAR(1) NOT NULL" + 
+            "patientGender VARCHAR(1) NOT NULL," + 
+            "disabilityDetail TEXT NOT NULL" + 
         ");";
+
+        try {_statement.executeUpdate(query);}
+        catch (SQLException e) {e.printStackTrace();}
     }
 
     public static void createCaretakerTable() {
@@ -21,20 +25,45 @@ public class DBFactories {
             "caretakerName VARCHAR(255) NOT NULL," + 
             "caretakerPhoneNum VARCHAR(13) NOT NULL" + 
             "caretakerAge INT NOT NULL," + 
-            "caretakerGender CHAR(1) NOT NULL," + 
+            "caretakerGender VARCHAR(1) NOT NULL" + 
         ");";
         
         try {_statement.executeUpdate(query);}
         catch (SQLException e) {e.printStackTrace();}
     }
 
-    public static void createItemTable() {
-        String query = "CREATE TABLE `item`(" + 
+    public static void createManagementTable() {
+        String query = "CREATE TABLE `management`(" + 
+            "patientId INT," + 
+            "caretakerId INT" + 
+            "FOREIGN KEY(patientId) REFERENCES `patient`(patientId)" + 
+            "FOREIGN KEY(caretakerId) REFERENCES `caretaker`(caretakerId)" + 
+        ");";
+
+        try {_statement.executeUpdate(query);}
+        catch (SQLException e) {e.printStackTrace();}
+    }
+
+    public static void createSupplyTable() {
+        String query = "CREATE TABLE `supply`(" + 
             "itemId INT PRIMARY KEY AUTO_INCREMENT," + 
             "itemName VARCHAR(255) NOT NULL," + 
             "itemQuantity INT NOT NULL" + 
         ");";
         
+        try {_statement.executeUpdate(query);}
+        catch (SQLException e) {e.printStackTrace();}
+    }
+
+    public static void createDonationTable() {
+        String query = "CREATE TABLE `donation`(" + 
+            "donationId INT PRIMARY KEY AUTO_INCREMENT," + 
+            "donatorName VARCHAR(255) NOT NULL" + 
+            "donationItems VARCHAR(255) NOT NULL" + 
+            "donationQuantity INT NOT NULL" + 
+            "donationDate DATE NOT NULL" + 
+        ");";
+
         try {_statement.executeUpdate(query);}
         catch (SQLException e) {e.printStackTrace();}
     }

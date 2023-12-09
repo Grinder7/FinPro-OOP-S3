@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.HashMap;
 
 import database.DBConnection;
 
@@ -50,8 +48,11 @@ public class HomeController implements Initializable {
     private static BorderPane staticMainLayout;
 
     // Table(s) for every entity
-    public static Map<Integer, Patient> patientTable = new HashMap<>();
-    public static Map<Integer, Caretaker> caretakerTable = new HashMap<>();
+    private static ObservableList<Patient> _patientList;
+    private static ObservableList<Caretaker> _caretakerList;
+
+    public static ObservableList<Patient> getPatients() {return _patientList;}
+    public static ObservableList<Caretaker> getCaretakers() {return _caretakerList;}
 
     // Colors for selected and unselected menu
     private String _selectedColor =  "#2eb2ee";
@@ -88,6 +89,8 @@ public class HomeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         staticMainLayout = main_layout;
+
+        _caretakerList = Caretaker.fetch();
 
         // Set dashboard as initial subpage
         setSubpage("../views/dashboardSubView.fxml");
