@@ -42,7 +42,7 @@ public class HomeController implements Initializable {
     @FXML
     private HBox donation_list;
 
-    public static BorderPane staticMainLayout;
+    private static BorderPane staticMainLayout;
 
     // Colors for selected and unselected menu
     private String selectedColor =  "#2eb2ee";
@@ -59,7 +59,7 @@ public class HomeController implements Initializable {
             Parent page = null;
 
             // Load fxml file, by checking connection to database
-            if (!DBConnection.getConnEstablished() && !whitelist.contains(fxmlPath)) {
+            if (!DBConnection.isEstablished() && !whitelist.contains(fxmlPath)) {
                 page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
             }
             else {
@@ -73,6 +73,8 @@ public class HomeController implements Initializable {
             System.exit(0);
         }
     }
+
+    public static void setCenterPage(Parent page) {staticMainLayout.setCenter(page);}
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

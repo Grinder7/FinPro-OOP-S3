@@ -1,8 +1,10 @@
 package app;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.Map;
 
+import database.DBConnection;
 // Javafx lib
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -72,6 +74,17 @@ public class Main extends Application {
         
         // Set program title
         _appStage.setTitle("Demo");
+
+        _appStage.setOnCloseRequest(e -> {
+            if (DBConnection.isEstablished()) {
+                try {
+                    DBConnection.getConnection().close();
+                }
+                catch (SQLException f) {
+                    f.printStackTrace();
+                }
+            }
+        });
 
         if (_isFresh()) {
             showPage("./views/intro1View.fxml", false);

@@ -53,6 +53,6 @@ public class ConfigController implements Initializable {
         // Load fxml file
         Parent editPage = FXMLLoader.load(getClass().getResource("../views/editSubView.fxml"));
 
-        HomeController.staticMainLayout.setCenter(editPage);
+        HomeController.setCenterPage(editPage);
     }
 }

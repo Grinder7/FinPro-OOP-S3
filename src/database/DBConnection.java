@@ -20,6 +20,7 @@ public class DBConnection {
     private static String _driver = "jdbc:mysql://";
     private static boolean _connEstablished = false;
     private static boolean _retryConn = false;
+    private static Connection _conn = null;
 
     public static void init() {
         Map<String, Object> map = JSONFile.toMap();
@@ -31,8 +32,10 @@ public class DBConnection {
             .replaceAll(" ", "_") + "_db";
 
         do {
-            try (Connection conn = DriverManager.getConnection(_driver + DB_SERVER_URL + "/" + DB_NAME, 
-            DB_USERNAME, DB_PASSWORD)) {
+            try {
+                _conn = DriverManager.getConnection(_driver + DB_SERVER_URL + "/" + DB_NAME, 
+                    DB_USERNAME, DB_PASSWORD);
+                
                 _retryConn = false;
                 _connEstablished = true;
             }
@@ -69,5 +72,7 @@ public class DBConnection {
         } while (_retryConn);
     }
 
-    public static boolean getConnEstablished() {return _connEstablished;}
+    public static boolean isEstablished() {return _connEstablished;}
+
+    public static Connection getConnection() {return _conn;}
 }

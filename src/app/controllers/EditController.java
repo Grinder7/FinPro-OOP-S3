@@ -65,7 +65,7 @@ public class EditController implements Initializable {
         // Load fxml file
         Parent configPage = FXMLLoader.load(getClass().getResource("../views/configSubView.fxml"));
 
-        HomeController.staticMainLayout.setCenter(configPage);
+        HomeController.setCenterPage(configPage);
     }
 
     @FXML
@@ -116,7 +116,7 @@ public class EditController implements Initializable {
             DBConnection.init(); // Initialize database
 
             // Check connection status
-            if (!DBConnection.getConnEstablished()) {
+            if (!DBConnection.isEstablished()) {
                 AlertBoxView.showAlert(AlertType.ERROR, "Connection Error", 
                 "Couldn't communicate with database server. Make sure your credentials are correct and server is online");
             }
