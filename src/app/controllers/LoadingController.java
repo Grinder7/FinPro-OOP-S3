@@ -11,6 +11,7 @@ import database.DBConnection;
 // Javafx lib
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert.AlertType;
 import javafx.application.Platform;
@@ -19,6 +20,8 @@ import javafx.concurrent.Task;
 public class LoadingController implements Initializable {
     @FXML
     private ProgressBar progress_bar;
+    @FXML
+    private Label status_label;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,6 +33,21 @@ public class LoadingController implements Initializable {
                 Thread.sleep(1000);
 
                 updateProgress(6, 10); // 60% complete
+
+                FutureTask<Void> showStatus = new FutureTask<>(() -> {
+                    status_label.setText("Connecting to database server");
+
+                    return null;
+                });
+
+                Platform.runLater(showStatus);
+
+                try {
+                    showStatus.get();
+                } 
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 DBConnection.init(); // Initialize database connection
 
@@ -43,6 +61,7 @@ public class LoadingController implements Initializable {
                     });
 
                     Platform.runLater(interupt);
+
                     try {
                         interupt.get();
                     } 
