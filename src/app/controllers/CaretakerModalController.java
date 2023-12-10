@@ -38,11 +38,19 @@ public class CaretakerModalController implements Initializable {
     private Button save_btn;
 
     private Stage _modalStage;
-
     private String _action;
+    private Caretaker _obj;
 
     public void setStage(Stage stage) {_modalStage = stage;}
+
     public void setAction(String action) {_action = action;}
+
+    public void setObj(Caretaker obj) {_obj = obj;}
+
+    private void _setOldVal(TextField field, String val) {
+        field.setText(val);
+        field.setPromptText(val);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle recourses) {
@@ -53,6 +61,15 @@ public class CaretakerModalController implements Initializable {
             }
             else {
                 title_label.setText("Update Caretaker");
+
+                // Initialize field value(s)
+                _setOldVal(name_field, _obj.getName());
+                _setOldVal(phone_num_field, _obj.getPhoneNum());
+                _setOldVal(age_field, Integer.toString(_obj.getAge()));
+                
+                dropdown.getSelectionModel().select((
+                    _obj.getGender().equals("M") ? 0 : 1
+                ));
             }
         });
 
@@ -68,8 +85,8 @@ public class CaretakerModalController implements Initializable {
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
                 // Remove non-number character
-                if (!newVal.matches("\\[a-zA-Z ,.']")) {
-                    name_field.setText(newVal.replaceAll("[^\\[a-zA-Z ,.']]", ""));
+                if (!newVal.matches("[a-zA-Z ,.']*")) {
+                    name_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
                 }
             }
         });
@@ -97,7 +114,9 @@ public class CaretakerModalController implements Initializable {
 
     @FXML
     private void _saveBtnHandler(ActionEvent event) {
-        String name = name_field.getText().trim().replaceAll("\\s{2,}", " ");
+        // Get all field value(s)
+        String name = name_field.getText().trim()
+            .replaceAll("\\s{2,}", " ");
         String phoneNum = phone_num_field.getText();
         int age = 0;
 
@@ -110,8 +129,30 @@ public class CaretakerModalController implements Initializable {
             .substring(0, 1), "");
 
         if (!name.isEmpty() && !phoneNum.isEmpty() && age != 0 && !gender.isEmpty()) {
-            if (_action.equals("insert")) {Caretaker.insert(name, phoneNum, age, gender);}
-            else {}
+            // Insert action
+            if (_action.equals("insert")) {
+                _obj = new Caretaker(name, phoneNum, age, gender);
+
+                _obj.insert();
+
+                // Add new caretaker into table list
+                CaretakerListController.getList().add(_obj);
+            }
+            // Update action
+            else {
+                Caretaker newObj = new Caretaker(name, phoneNum, age, gender);
+
+                _obj.update(newObj);
+
+                name = newObj.getName();
+                phoneNum = newObj.getPhoneNum();
+                age = newObj.getAge();
+                gender = newObj.getGender();
+
+                newObj = null;
+
+                System.gc();
+            }
 
             _modalStage.close();
         }

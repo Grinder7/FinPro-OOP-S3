@@ -59,12 +59,12 @@
                      <children>
                         <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="710.0" style="-fx-background-color: transparent;" stylesheets="@../../css/table.css">
                           <columns>
-                              <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" sortable="false" style="-fx-alignment: CENTER;" text="#" />
-                            <TableColumn fx:id="name_col" editable="false" prefWidth="225.60002899169922" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Name" />
-                            <TableColumn fx:id="phone_num_col" editable="false" prefWidth="172.0" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Phone Number" />
-                              <TableColumn fx:id="age_col" editable="false" prefWidth="73.60006713867188" sortable="false" style="-fx-alignment: CENTER;" text="Age" />
-                              <TableColumn fx:id="gender_col" editable="false" prefWidth="68.79998779296875" sortable="false" style="-fx-alignment: CENTER;" text="Gender" />
-                              <TableColumn fx:id="actions_col" editable="false" prefWidth="86.4000244140625" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
+                              <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="#" />
+                            <TableColumn fx:id="name_col" editable="false" prefWidth="225.60002899169922" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Name" />
+                            <TableColumn fx:id="phone_num_col" editable="false" prefWidth="172.0" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Phone Number" />
+                              <TableColumn fx:id="age_col" editable="false" prefWidth="73.60006713867188" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Age" />
+                              <TableColumn fx:id="gender_col" editable="false" prefWidth="68.79998779296875" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Gender" />
+                              <TableColumn fx:id="actions_col" editable="false" prefWidth="86.4000244140625" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

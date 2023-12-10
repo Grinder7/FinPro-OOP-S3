@@ -49,6 +49,7 @@ public class CaretakerListController implements Initializable {
     // Layour fxid(s)
     @FXML
     private TableView<Caretaker> table;
+
     // Column fxid(s)
     @FXML
     private TableColumn<Caretaker, Void> num_col;
@@ -66,10 +67,74 @@ public class CaretakerListController implements Initializable {
     private static ObservableList<Caretaker> _list;
 
     public static ObservableList<Caretaker> getList() {return _list;}
-    private void _refreshTable() {
-        _list = Caretaker.fetch();
 
-        table.refresh();
+    private void _showModal(String action, Caretaker obj) {
+        Stage newStage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/caretakermodalStackView.fxml"));
+
+        try {
+            Parent root = loader.load();
+
+            CaretakerModalController controller = loader.getController();
+
+            controller.setStage(newStage);
+            controller.setAction(action);
+            controller.setObj(obj);
+
+            newStage.setScene(new Scene(root));
+
+            newStage.centerOnScreen();
+
+            newStage.setResizable(false);
+
+            newStage.setTitle(action.equals("insert") ? "Add New Data" : "Update Data");
+
+            newStage.initModality(Modality.APPLICATION_MODAL);
+
+            newStage.showAndWait();
+
+            table.setItems(_list);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+    }
+
+    private void _showDeleteModal(int cellIdx) {
+        Stage newStage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/deletemodalStackView.fxml"));
+        
+        try {
+            Parent root = loader.load();
+        
+            DeleteModalController<Caretaker> controller = loader.getController();
+
+            controller.setStage(newStage);
+            controller.setName(_list.get(cellIdx).getName());
+            controller.setList(_list);
+            controller.setIdx(cellIdx);
+
+            newStage.setScene(new Scene(root));
+
+            newStage.centerOnScreen();
+
+            newStage.setResizable(false);
+
+            newStage.setTitle("Delete Record");
+
+            newStage.initModality(Modality.APPLICATION_MODAL);
+
+            newStage.showAndWait();
+
+            table.setItems(_list);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
     }
 
     @Override
@@ -111,6 +176,8 @@ public class CaretakerListController implements Initializable {
                 delBtn.setGraphic(delGlyph);
 
                 delBtn.setCursor(Cursor.HAND);
+
+                delBtn.setOnAction(e -> {_showDeleteModal(cell.getIndex());});
                 
                 // Edit button
                 Button editBtn = new Button();
@@ -120,12 +187,16 @@ public class CaretakerListController implements Initializable {
                     .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
                 editGlyph.setFill(Paint.valueOf("BLACK"));
 
-                editBtn.setGraphic(delBtn);
+                editBtn.setGraphic(editGlyph);
 
                 editBtn.setCursor(Cursor.HAND);
 
+                editBtn.setOnAction(e -> {
+                    _showModal("update", _list.get(cell.getIndex()));
+                });
+
                 // Add buttons into hbox
-                hbox.getChildren().addAll(editGlyph, editBtn);
+                hbox.getChildren().addAll(delBtn, editBtn);
 
                 if (cell.isEmpty()) {return null;}
                 else {return hbox;}
@@ -138,34 +209,8 @@ public class CaretakerListController implements Initializable {
     }
 
     @FXML
-    private void _addBtnHandler(MouseEvent event) throws Exception {
-        Stage newStage = new Stage();
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/caretakermodalStackView.fxml"));
-
-        Parent root = loader.load();
-
-        CaretakerModalController controller = loader.getController();
-
-        controller.setStage(newStage);
-        controller.setAction("insert");
-
-        newStage.setScene(new Scene(root));
-
-        newStage.centerOnScreen();
-
-        newStage.setMinWidth(newStage.getWidth());
-        newStage.setMinHeight(newStage.getHeight());
-
-        newStage.setResizable(false);
-
-        newStage.setTitle("New Caretaker");
-
-        newStage.initModality(Modality.APPLICATION_MODAL);
-
-        newStage.showAndWait();
-
-        _refreshTable();
+    private void _addBtnHandler(MouseEvent event) {
+        _showModal("insert", null);
     }
 
     @FXML

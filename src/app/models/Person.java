@@ -1,10 +1,10 @@
 package app.models;
 
 public abstract class Person {
-    private int _id;
-    public String name;
-    public int age;
-    public String gender;
+    protected int _id;
+    protected String name;
+    protected int age;
+    protected String gender;
 
     public Person(int id, String name, int age, String gender) {
         _id = id;
@@ -12,6 +12,14 @@ public abstract class Person {
         this.age = age;
         this.gender = gender;
     }
+
+    public Person(String name, int age, String gender) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+    }
+
+    public void setId(int id) {this._id = id;}
 
     public int getId() {return _id;}
 
