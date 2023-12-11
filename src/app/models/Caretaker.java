@@ -31,6 +31,8 @@ public class Caretaker extends Person implements DBActions<Caretaker> {
         this.phoneNum = phoneNum;
     }
 
+    public void setPhoneNum(String phoneNum) {this.phoneNum = phoneNum;}
+
     public String getPhoneNum() {return phoneNum;}
 
     public static ObservableList<Caretaker> fetch() {

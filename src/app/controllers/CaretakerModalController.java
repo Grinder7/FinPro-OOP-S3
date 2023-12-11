@@ -5,11 +5,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import app.models.Caretaker;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 // Javafx lib(s)
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +15,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class CaretakerModalController implements Initializable {
     @FXML
@@ -39,13 +40,13 @@ public class CaretakerModalController implements Initializable {
 
     private Stage _modalStage;
     private String _action;
-    private Caretaker _obj;
+    private int _idx;
 
     public void setStage(Stage stage) {_modalStage = stage;}
 
     public void setAction(String action) {_action = action;}
 
-    public void setObj(Caretaker obj) {_obj = obj;}
+    public void setIdx(int idx) {_idx = idx;}
 
     private void _setOldVal(TextField field, String val) {
         field.setText(val);
@@ -62,14 +63,20 @@ public class CaretakerModalController implements Initializable {
             else {
                 title_label.setText("Update Caretaker");
 
+                Caretaker obj = CaretakerListController.getList().get(_idx);
+
                 // Initialize field value(s)
-                _setOldVal(name_field, _obj.getName());
-                _setOldVal(phone_num_field, _obj.getPhoneNum());
-                _setOldVal(age_field, Integer.toString(_obj.getAge()));
+                _setOldVal(name_field, obj.getName());
+                _setOldVal(phone_num_field, obj.getPhoneNum());
+                _setOldVal(age_field, Integer.toString(obj.getAge()));
                 
                 dropdown.getSelectionModel().select((
-                    _obj.getGender().equals("M") ? 0 : 1
+                    obj.getGender().equals("M") ? 0 : 1
                 ));
+
+                obj = null;
+
+                System.gc();
             }
         });
 
@@ -131,23 +138,23 @@ public class CaretakerModalController implements Initializable {
         if (!name.isEmpty() && !phoneNum.isEmpty() && age != 0 && !gender.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                _obj = new Caretaker(name, phoneNum, age, gender);
+                Caretaker obj = new Caretaker(name, phoneNum, age, gender);
 
-                _obj.insert();
+                obj.insert();
 
                 // Add new caretaker into table list
-                CaretakerListController.getList().add(_obj);
+                CaretakerListController.getList().add(obj);
             }
             // Update action
             else {
                 Caretaker newObj = new Caretaker(name, phoneNum, age, gender);
 
-                _obj.update(newObj);
+                Caretaker obj = CaretakerListController.getList().get(_idx);
 
-                name = newObj.getName();
-                phoneNum = newObj.getPhoneNum();
-                age = newObj.getAge();
-                gender = newObj.getGender();
+                obj.setName(newObj.getName());
+                obj.setPhoneNum(newObj.getPhoneNum());
+                obj.setAge(newObj.getAge());
+                obj.setGender(newObj.getGender());
 
                 newObj = null;
 

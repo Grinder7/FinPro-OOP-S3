@@ -17,6 +17,10 @@ public class Patient extends Person implements DBActions<Patient> {
         _disabilityDetail = detail;
     }
 
+    public void setDisabilityDetail(String disabilitDet) {_disabilityDetail = disabilitDet;}
+
+    public String getDisabilityDetail() {return _disabilityDetail;}
+
     @Override
     public void insert() {
         // TODO Auto-generated method stub

@@ -58,10 +58,11 @@ public class CaretakerListController implements Initializable {
 
     public static ObservableList<Caretaker> getList() {return _list;}
 
-    private void _showModal(String action, Caretaker obj) {
+    private void _showModal(String action, int idx) {
         Stage newStage = new Stage();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/caretakermodalStackView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+            .getResource("../views/caretakermodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -70,7 +71,7 @@ public class CaretakerListController implements Initializable {
 
             controller.setStage(newStage);
             controller.setAction(action);
-            controller.setObj(obj);
+            controller.setIdx(idx);
 
             newStage.setScene(new Scene(root));
 
@@ -95,7 +96,8 @@ public class CaretakerListController implements Initializable {
     private void _showDeleteModal(int cellIdx) {
         Stage newStage = new Stage();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/deletemodalStackView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass()
+            .getResource("../views/deletemodalStackView.fxml"));
         
         try {
             Parent root = loader.load();
@@ -182,7 +184,7 @@ public class CaretakerListController implements Initializable {
                 editBtn.setCursor(Cursor.HAND);
 
                 editBtn.setOnAction(e -> {
-                    _showModal("update", _list.get(cell.getIndex()));
+                    _showModal("update", cell.getIndex());
                 });
 
                 // Add buttons into hbox
@@ -200,7 +202,7 @@ public class CaretakerListController implements Initializable {
 
     @FXML
     private void _addBtnHandler(MouseEvent event) {
-        _showModal("insert", null);
+        _showModal("insert", -1);
     }
 
     @FXML
