@@ -123,7 +123,7 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
         ObservableList<Caretaker> list = FXCollections.observableArrayList();
 
         try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("SELECT * FROM `caretaker` LIKE ?;");) {
+            .prepareStatement("SELECT * FROM `caretaker` WHERE caretakerName LIKE ?")) {
             stmt.setString(1, 
                 String.format("%%%s%%", searchName));
 
