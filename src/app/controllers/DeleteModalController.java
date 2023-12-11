@@ -23,13 +23,21 @@ public class DeleteModalController<T> implements Initializable {
     private ObservableList<T> _list;
     private int _idx;
 
-    public void setStage(Stage stage) {_modalStage = stage;}
+    public void setStage(Stage stage) {
+        _modalStage = stage;
+    }
 
-    public void setName(String name) {_name = name;}
+    public void setName(String name) {
+        _name = name;
+    }
 
-    public void setList(ObservableList<T> list) {_list = list;}
+    public void setList(ObservableList<T> list) {
+        _list = list;
+    }
 
-    public void setIdx(int idx) {_idx = idx;}
+    public void setIdx(int idx) {
+        _idx = idx;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
