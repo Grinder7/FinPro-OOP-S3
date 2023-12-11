@@ -4,15 +4,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.interfaces.DBMethods;
-
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 // Javafx lib
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
 
 public class DeleteModalController<T> implements Initializable {
     @FXML

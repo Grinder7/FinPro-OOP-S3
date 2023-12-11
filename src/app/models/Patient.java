@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import app.interfaces.DBActions;
+import app.interfaces.DBMethods;
 import database.DBConnection;
 import javafx.collections.ObservableList;
 
