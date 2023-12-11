@@ -4,14 +4,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import app.interfaces.DBActions;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
+
 // Javafx lib
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 
 public class DeleteModalController<T> implements Initializable {
     @FXML
@@ -44,7 +45,7 @@ public class DeleteModalController<T> implements Initializable {
 
     @FXML
     private void _yesBtnHandler(ActionEvent event) {
-        DBActions inter = (DBActions) _list.get(_idx);
+        DBActions<T> inter = (DBActions) _list.get(_idx);
 
         inter.delete();
 
