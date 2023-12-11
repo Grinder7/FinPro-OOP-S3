@@ -31,16 +31,6 @@ import javafx.collections.ObservableList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 
-class TableRow {
-    public int num;
-    public static Object content;
-
-    public TableRow(int num, Object obj) {
-        this.num = num;
-        content = obj;
-    }
-}
-
 public class CaretakerListController implements Initializable {
     // Input field fxid(s)
     @FXML
