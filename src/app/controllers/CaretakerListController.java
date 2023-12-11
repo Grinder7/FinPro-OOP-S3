@@ -32,11 +32,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 
 public class CaretakerListController implements Initializable {
-    // Input field fxid(s)
-    @FXML
-    private TextField search_field;
-
-    // Layour fxid(s)
+    // Layout fxid(s)
     @FXML
     private TableView<Caretaker> table;
 
@@ -53,6 +49,10 @@ public class CaretakerListController implements Initializable {
     private TableColumn<Caretaker, String> gender_col;
     @FXML
     private TableColumn<HBox, Void> actions_col;
+
+    // Input field fxid(s)
+    @FXML
+    private TextField search_field;
 
     private static ObservableList<Caretaker> _list;
 

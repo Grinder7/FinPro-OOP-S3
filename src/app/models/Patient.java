@@ -3,18 +3,18 @@ package app.models;
 import app.interfaces.DBActions;
 
 public class Patient extends Person implements DBActions<Patient> {
-    private int _handledByCaretakerId;
+    private String _disabilityDetail;
 
-    public Patient(int id, String name, int age, String gender, int careTakerId) {
+    public Patient(int id, String name, int age, String gender, String detail) {
         super(id, name, age, gender);
 
-        _handledByCaretakerId = careTakerId;
+        _disabilityDetail = detail;
     }
 
-    public Patient(String name, int age, String gender, int careTakerId) {
+    public Patient(String name, int age, String gender, String detail) {
         super(name, age, gender);
 
-        _handledByCaretakerId = careTakerId;
+        _disabilityDetail = detail;
     }
 
     @Override
