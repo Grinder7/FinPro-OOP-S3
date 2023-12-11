@@ -210,7 +210,12 @@ public class CaretakerListController implements Initializable {
 
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
+        String searchName = search_field.getText().trim()
+            .replaceAll("\\s{2,}", " ");
+        
+        _list = Caretaker.search(searchName);
 
+        table.setItems(_list);
     }
 
 }

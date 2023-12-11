@@ -45,8 +45,10 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
 
             while (rs.next()) {
                 list.add(new Caretaker(rs.getInt("caretakerId"), 
-                    rs.getString("caretakerName"), rs.getString("caretakerPhoneNum"), 
-                    rs.getInt("caretakerAge"), rs.getString("caretakerGender")));
+                    rs.getString("caretakerName"), 
+                    rs.getString("caretakerPhoneNum"), 
+                    rs.getInt("caretakerAge"), 
+                    rs.getString("caretakerGender")));
             }
 
             rs.close();
@@ -115,5 +117,33 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
             e.printStackTrace();
             System.exit(0);
         }
+    }
+
+    public static ObservableList<Caretaker> search(String searchName) {
+        ObservableList<Caretaker> list = FXCollections.observableArrayList();
+
+        try (PreparedStatement stmt = DBConnection.getConnection()
+            .prepareStatement("SELECT * FROM `caretaker` LIKE ?;");) {
+            stmt.setString(1, 
+                String.format("%%%s%%", searchName));
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                list.add(new Caretaker(rs.getInt("caretakerId"), 
+                    rs.getString("caretakerName"), 
+                    rs.getString("caretakerPhoneNum"), 
+                    rs.getInt("caretakerAge"), 
+                    rs.getString("caretakerGender")));
+            }
+
+            rs.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        return list;
     }
 }
