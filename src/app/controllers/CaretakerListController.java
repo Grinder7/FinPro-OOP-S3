@@ -58,6 +58,11 @@ public class CaretakerListController implements Initializable {
 
     public static ObservableList<Caretaker> getList() {return _list;}
 
+    private void _initTableContent() {
+        _list = Caretaker.fetch();
+        table.setItems(_list);
+    }
+
     private void _showModal(String action, int idx) {
         Stage newStage = new Stage();
 
@@ -85,7 +90,7 @@ public class CaretakerListController implements Initializable {
 
             newStage.showAndWait();
 
-            table.setItems(_list);
+            _initTableContent();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -121,7 +126,7 @@ public class CaretakerListController implements Initializable {
 
             newStage.showAndWait();
 
-            table.setItems(_list);
+            _initTableContent();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -131,8 +136,6 @@ public class CaretakerListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle recourses) {
-        _list = Caretaker.fetch();
-
         // Initialize cols data type
         num_col.setCellFactory(col -> {
             TableCell<Caretaker, Void> cell = new TableCell<>();
@@ -197,7 +200,7 @@ public class CaretakerListController implements Initializable {
             return cell;
         });
 
-        table.setItems(_list);
+        _initTableContent();
     }
 
     @FXML

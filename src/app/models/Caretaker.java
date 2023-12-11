@@ -1,7 +1,7 @@
 package app.models;
 
 // Interface
-import app.interfaces.DBActions;
+import app.interfaces.DBMethods;
 
 // Database
 import database.DBConnection;
@@ -16,7 +16,7 @@ import java.sql.Statement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class Caretaker extends Person implements DBActions<Caretaker> {
+public class Caretaker extends Person implements DBMethods<Caretaker> {
     private String phoneNum;
 
     public Caretaker(int id, String name, String phoneNum, int age, String gender) {

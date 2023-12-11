@@ -138,27 +138,13 @@ public class CaretakerModalController implements Initializable {
         if (!name.isEmpty() && !phoneNum.isEmpty() && age != 0 && !gender.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                Caretaker obj = new Caretaker(name, phoneNum, age, gender);
-
-                obj.insert();
-
-                // Add new caretaker into table list
-                CaretakerListController.getList().add(obj);
+                new Caretaker(name, phoneNum, age, gender).insert();
             }
             // Update action
             else {
-                Caretaker newObj = new Caretaker(name, phoneNum, age, gender);
-
                 Caretaker obj = CaretakerListController.getList().get(_idx);
 
-                obj.setName(newObj.getName());
-                obj.setPhoneNum(newObj.getPhoneNum());
-                obj.setAge(newObj.getAge());
-                obj.setGender(newObj.getGender());
-
-                newObj = null;
-
-                System.gc();
+                obj.update(new Caretaker(name, phoneNum, age, gender));
             }
 
             _modalStage.close();

@@ -3,7 +3,7 @@ package app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import app.interfaces.DBActions;
+import app.interfaces.DBMethods;
 
 // Javafx lib
 import javafx.event.ActionEvent;
@@ -45,7 +45,7 @@ public class DeleteModalController<T> implements Initializable {
 
     @FXML
     private void _yesBtnHandler(ActionEvent event) {
-        DBActions<T> inter = (DBActions) _list.get(_idx);
+        DBMethods<T> inter = (DBMethods) _list.get(_idx);
 
         inter.delete();
 
