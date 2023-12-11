@@ -53,8 +53,13 @@ public class DBConnection {
                             stmt.executeUpdate(String.format("CREATE DATABASE `%s`;", DB_NAME));
                             stmt.executeUpdate(String.format("USE `%s`;", DB_NAME));
 
+                            DBFactories.setStatement(stmt);
+
                             // Create table(s)
-                            DBFactories.createTables();
+                            DBFactories.createPatientTable();
+                            DBFactories.createCaretakerTable();
+                            DBFactories.createSupplyTable();
+                            DBFactories.createDonationTable();
 
                             _retryConn = true;
                         }

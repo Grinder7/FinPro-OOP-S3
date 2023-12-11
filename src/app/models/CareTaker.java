@@ -1,8 +1,10 @@
 package app.models;
 
-import database.DBConnection;
-
+// Interface
 import app.interfaces.DBActions;
+
+// Database
+import database.DBConnection;
 
 // Java connector lib(s)
 import java.sql.PreparedStatement;
