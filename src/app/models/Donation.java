@@ -1,6 +1,9 @@
 package app.models;
 
-public class Donation {
+// Interface(s)
+import app.interfaces.DBMethods;
+
+public class Donation implements DBMethods<Donation> {
     protected int _id;
     protected String donatorName;
     protected String itemName;
@@ -32,4 +35,22 @@ public class Donation {
     public String getItemName() {return itemName;}
 
     public int getItemQuantity() {return itemQuantity;}
+
+    @Override
+    public void insert() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'insert'");
+    }
+
+    @Override
+    public void delete() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    @Override
+    public void update(Donation newObj) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
 }

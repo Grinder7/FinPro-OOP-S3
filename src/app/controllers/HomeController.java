@@ -154,6 +154,8 @@ public class HomeController implements Initializable {
     @FXML
     private void _donationListHandler(MouseEvent event) {
         _setMenuState(donation_list);
+
+        setSubpage("../views/donationlistSubView.fxml");
     }
 
     @FXML

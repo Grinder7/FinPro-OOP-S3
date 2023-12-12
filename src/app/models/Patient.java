@@ -1,5 +1,6 @@
 package app.models;
 
+// Interface(s)
 import app.interfaces.DBMethods;
 
 public class Patient extends Person implements DBMethods<Patient> {
