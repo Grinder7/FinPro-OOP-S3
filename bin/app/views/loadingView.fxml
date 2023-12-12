@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.LoadingController">
+   <children>
+      <VBox layoutX="26.0" layoutY="21.0" prefHeight="200.0" prefWidth="100.0" spacing="35.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox>
+               <children>
+                  <Label text="Disabled" textFill="#2eb2ee">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label text="Disabled Carehouse Recorder">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefWidth="430.0" spacing="5.0">
+               <children>
+                  <Label text="Application is starting, please wait a moment..." textFill="#8e9096">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <ProgressBar fx:id="progress_bar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="430.0" progress="0.02" styleClass="my-progress-bar" stylesheets="@../../css/progressBar.css">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </ProgressBar>
+                  <Label fx:id="status_label">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+   </padding>
+   <cursor>
+      <Cursor fx:constant="WAIT" />
+   </cursor>
+</AnchorPane>

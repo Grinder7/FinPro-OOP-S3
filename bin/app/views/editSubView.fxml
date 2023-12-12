@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.EditController">
+   <children>
+      <VBox layoutX="42.0" layoutY="31.2" prefHeight="531.0" prefWidth="660.0" spacing="10.0" AnchorPane.bottomAnchor="127.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label prefHeight="46.0" prefWidth="690.0" text="Edit Configurations">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <VBox alignment="TOP_RIGHT" spacing="25.0">
+               <children>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="158.0" prefWidth="647.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="234.0" prefWidth="647.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label text="Carehouse Profile">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox prefHeight="195.0" prefWidth="647.0" spacing="7.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="647.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Name">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Your carehouse name" textFill="#828382" />
+                                             </children>
+                                          </VBox>
+                                          <TextField fx:id="name_field" prefHeight="27.0" prefWidth="142.0" promptText="Demo" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="Demo" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="30.0" right="30.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="647.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Capacity">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Your carehouse max capacity" textFill="#828382" />
+                                             </children>
+                                          </VBox>
+                                          <TextField fx:id="capacity_field" prefHeight="27.0" prefWidth="142.0" promptText="0" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="255" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="30.0" right="30.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="223.0" prefWidth="647.0">
+                     <children>
+                        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="226.0" prefWidth="647.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label text="Database">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                              <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="195.0" prefWidth="647.0" spacing="7.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="647.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Server URL">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="URL to your database server" textFill="#828382" />
+                                             </children>
+                                          </VBox>
+                                          <TextField fx:id="db_server_url_field" prefHeight="27.0" prefWidth="142.0" promptText="localhost/db" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="localhost:3306" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="30.0" right="30.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="647.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Username">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Your database username" textFill="#828382" />
+                                             </children>
+                                          </VBox>
+                                          <TextField fx:id="db_username_field" prefHeight="27.0" prefWidth="142.0" promptText="root" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" text="root" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="30.0" right="30.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="647.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label text="Password">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="Your database password" textFill="#828382" />
+                                             </children>
+                                          </VBox>
+                                          <TextField fx:id="db_password_field" prefHeight="27.0" prefWidth="142.0" style="-fx-background-color: transparent; -fx-border-color: #828382; -fx-border-radius: 5;" />
+                                       </children>
+                                       <padding>
+                                          <Insets left="30.0" right="30.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#_cancelBtnHandler" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #8e9096; -fx-background-radius: 10;" text="Cancel" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#_saveBtnHandler" prefHeight="37.0" prefWidth="98.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 10;" text="Save" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
