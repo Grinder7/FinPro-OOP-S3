@@ -47,7 +47,7 @@ public class DBFactories {
         String query = "CREATE TABLE `donation`(" + 
             "donationId INT PRIMARY KEY AUTO_INCREMENT," + 
             "donatorName VARCHAR(255) NOT NULL," + 
-            "donationItems VARCHAR(255) NOT NULL," + 
+            "donationItem VARCHAR(255) NOT NULL," + 
             "donationQuantity INT NOT NULL," + 
             "donationDate DATE NOT NULL" + 
         ");";

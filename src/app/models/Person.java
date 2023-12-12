@@ -19,8 +19,6 @@ public abstract class Person {
         this.gender = gender;
     }
 
-    public void setId(int id) {this._id = id;}
-
     public void setName(String name) {this.name = name;}
 
     public void setAge(int age) {this.age = age;}
