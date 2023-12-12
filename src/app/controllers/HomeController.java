@@ -43,6 +43,8 @@ public class HomeController implements Initializable {
     private HBox supply_list;
     @FXML
     private HBox donation_list;
+    @FXML
+    private FontAwesomeIconView config;
 
     private static BorderPane staticMainLayout;
 
@@ -163,5 +165,15 @@ public class HomeController implements Initializable {
         _setMenuState((HBox) null);
 
         setSubpage("../views/configSubView.fxml");
+    }
+
+    @FXML
+    void _configOnHoverEnter(MouseEvent event) {
+        config.setFill(Color.valueOf(_selectedColor));
+    }
+
+    @FXML
+    void _configOnHoverExit(MouseEvent event) {
+        config.setFill(Color.valueOf(_unselectedLabelColor));
     }
 }

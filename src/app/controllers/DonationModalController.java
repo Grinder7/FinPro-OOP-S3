@@ -1,16 +1,18 @@
 package app.controllers;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 // Model(s)
-import app.models.Item;
+import app.models.Donation;
 
-// Javafx lib(s)
+// Javafx lib
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -18,18 +20,19 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-public class SupplyModalController implements Initializable {
+public class DonationModalController implements Initializable {
     @FXML
     private Label title_label;
 
-    // Field fxid(s)
+    // Input field fxid(s)
     @FXML
-    private TextField name_field;
+    private TextField donator_field;
+    @FXML
+    private TextField item_field;
     @FXML
     private TextField quantity_field;
-
     @FXML
-    private Button save_btn;
+    private DatePicker date_field;
 
     private Stage _modalStage;
     private String _action;
@@ -51,28 +54,40 @@ public class SupplyModalController implements Initializable {
         // Intialize label and button text
         Platform.runLater(() -> {
             if (_action.equals("insert")) {
-                title_label.setText("Add New Item");
+                title_label.setText("Add New Caretaker");
             }
             else {
-                title_label.setText("Update Item");
+                title_label.setText("Update Caretaker");
 
-                Item obj =SupplyListController.getList().get(_idx);
+                Donation obj = DonationListController.getList().get(_idx);
 
                 // Initialize field value(s)
-                _setOldVal(name_field, obj.getName());
-                _setOldVal(quantity_field, Integer.toString(obj.getQuantity()));
+                _setOldVal(donator_field, obj.getDonatorName());
+                _setOldVal(item_field, obj.getItemName());
+                _setOldVal(quantity_field, Integer.toString(obj.getItemQuantity()));
                 
+                date_field.setValue(obj.getDate().toLocalDate());
+
                 obj = null;
 
                 System.gc();
             }
         });
 
-        // Listen to name_field on value change
-        name_field.textProperty().addListener(new ChangeListener<String>() {
+        // Listen to donator_field on value change
+        donator_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
-                    name_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
+                    donator_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
+                }
+            }
+        });
+
+        // Listen to item_field on value change
+        item_field.textProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
+                if (!newVal.matches("[a-z ]*")) {
+                    item_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
                 }
             }
         });
@@ -91,25 +106,29 @@ public class SupplyModalController implements Initializable {
     @FXML
     private void _saveBtnHandler(ActionEvent event) {
         // Get all field value(s)
-        String name = name_field.getText().trim()
+        String donator = donator_field.getText().trim()
             .replaceAll("\\s{2,}", " ");
-        int quantity = -1;
+        String item = item_field.getText().trim()
+            .replaceAll("\\s{2,}", " ");
+        int quantity = 0;
 
         try {
             quantity = Integer.parseInt(quantity_field.getText());
         }
         catch (Exception e) {} // Ignore parsing error
 
-        if (!name.isEmpty() && quantity != -1) {
+        LocalDate date = date_field.getValue();
+
+        if (!donator.isEmpty() && !item.isEmpty() && quantity != 0 && date != null) {
             // Insert action
             if (_action.equals("insert")) {
-                new Item(name, quantity).insert();
+                new Donation(donator, item, quantity, Date.valueOf(date)).insert();
             }
             // Update action
             else {
-                Item obj = SupplyListController.getList().get(_idx);
+                Donation obj = DonationListController.getList().get(_idx);
 
-                obj.update(new Item(name, quantity));
+                obj.update(new Donation(donator, item, quantity, Date.valueOf(date)));
             }
 
             _modalStage.close();

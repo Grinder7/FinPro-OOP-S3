@@ -92,7 +92,6 @@ public class CaretakerModalController implements Initializable {
         // Listen to name_field on value change
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                // Remove non-number character
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
                     name_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
                 }

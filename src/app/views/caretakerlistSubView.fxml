@@ -55,6 +55,9 @@
                                  <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
                                  </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
                               </Button>
                            </children>
                         </HBox>
