@@ -48,10 +48,48 @@ public class HomeController implements Initializable {
 
     private static BorderPane staticMainLayout;
 
+    private HBox _selectedMenu;
+
     // Colors for selected and unselected menu
     private String _selectedColor =  "#2eb2ee";
     private String _unselectedBarColor = "#ffffff";
     private String _unselectedLabelColor = "#89898a";
+    private String _hoverColor = "#000000";
+
+    private void _setMenuState() {
+        ObservableList<Node> menus = menu_container.getChildren();
+
+        // Set all menu state according to it's selected state
+        for (Node menu: menus) {
+            ObservableList<Node> menuChild = ((HBox) menu).getChildren();
+            ObservableList<Node> labelChild = ((HBox) menuChild.get(1)).getChildren();
+
+            if (menu == _selectedMenu) { // Selected
+                // Change bar background color
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _selectedColor + ";");
+
+                // Change icon fill color
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_selectedColor));
+                
+                // Change label font color
+                Label label = (Label) labelChild.get(1);
+                label.setTextFill(Color.valueOf(_selectedColor));
+                label.setFont(Font.font("System", FontWeight.BOLD, 16));
+            }
+            else { // Unselected
+                // Change bar background color
+                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _unselectedBarColor + ";");
+
+                // Change icon fill color
+                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_unselectedLabelColor));
+
+                // Change label font color
+                Label label = (Label) labelChild.get(1);
+                label.setTextFill(Color.valueOf(_unselectedLabelColor));
+                label.setFont(Font.font("System", FontWeight.NORMAL, 16));
+            }
+        }
+    }
 
     public void setSubpage(String fxmlPath) {
         // Array list contains pages path that can bypass db connection
@@ -84,96 +122,103 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         staticMainLayout = main_layout;
 
-        // _caretakerList = Caretaker.fetch();
-
         // Set dashboard as initial subpage
-        setSubpage("../views/dashboardSubView.fxml");
-    }
-
-    private void _setMenuState(HBox clickedMenu) {
-        ObservableList<Node> menus = menu_container.getChildren();
-
-        // Set all menu state according to it's selected state
-        for (Node menu: menus) {
-            ObservableList<Node> menuChild = ((HBox) menu).getChildren();
-            ObservableList<Node> labelChild = ((HBox) menuChild.get(1)).getChildren();
-
-            if (menu == clickedMenu) { // Selected
-                // Change bar background color
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _selectedColor + ";");
-
-                // Change icon fill color
-                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_selectedColor));
-                
-                // Change label font color
-                Label label = (Label) labelChild.get(1);
-                label.setTextFill(Color.valueOf(_selectedColor));
-                label.setFont(Font.font("System", FontWeight.BOLD, 16));
-            }
-            else { // Unselected
-                // Change bar background color
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _unselectedBarColor + ";");
-
-                // Change icon fill color
-                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_unselectedLabelColor));
-
-                // Change label font color
-                Label label = (Label) labelChild.get(1);
-                label.setTextFill(Color.valueOf(_unselectedLabelColor));
-                label.setFont(Font.font("System", FontWeight.NORMAL, 16));
-            }
-        }
+        _dashboardHandler(null);
     }
 
     @FXML
     private void _dashboardHandler(MouseEvent event) {
-        _setMenuState(dashboard);
+        _selectedMenu = dashboard;
+        _setMenuState();
 
         setSubpage("../views/dashboardSubView.fxml");
     }
 
     @FXML
     private void _patientListHandler(MouseEvent event) {
-        _setMenuState(patient_list);
+        _selectedMenu = patient_list;
+        _setMenuState();
         
         setSubpage("../views/patientlistSubView.fxml");
     }
 
     @FXML
     private void _caretakerListHandler(MouseEvent event) {
-        _setMenuState(caretaker_list);
+        _selectedMenu = caretaker_list;
+        _setMenuState();
 
         setSubpage("../views/caretakerlistSubView.fxml");
     }
 
     @FXML
     private void _supplyListHandler(MouseEvent event) {
-        _setMenuState(supply_list);
+        _selectedMenu = supply_list;
+        _setMenuState();
 
         setSubpage("../views/supplylistSubView.fxml");
     }
 
     @FXML
     private void _donationListHandler(MouseEvent event) {
-        _setMenuState(donation_list);
+        _selectedMenu = donation_list;
+        _setMenuState();
 
         setSubpage("../views/donationlistSubView.fxml");
     }
 
     @FXML
     public void configHandler(MouseEvent event) {
-        _setMenuState((HBox) null);
+        _selectedMenu = null;
+        _setMenuState();
 
         setSubpage("../views/configSubView.fxml");
     }
 
     @FXML
-    void _configOnHoverEnter(MouseEvent event) {
-        config.setFill(Color.valueOf(_selectedColor));
+    private void _menuOnHoverEnter(MouseEvent event) {
+        HBox root = (HBox) event.getSource();
+
+        if (root != _selectedMenu) {
+            ObservableList<Node> rootChild = root.getChildren();
+
+            ObservableList<Node> labelChild = ((HBox) rootChild.get(1)).getChildren();
+
+            // Change icon fill color
+            ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_hoverColor));
+            
+            // Change label font color
+            Label label = (Label) labelChild.get(1);
+            label.setTextFill(Color.valueOf(_hoverColor));
+            label.setFont(Font.font("System", FontWeight.NORMAL, 16));
+        }
     }
 
     @FXML
-    void _configOnHoverExit(MouseEvent event) {
+    private void _menuOnHoverExit(MouseEvent event) {
+        HBox root = (HBox) event.getSource();
+
+        if (root != _selectedMenu) {
+            ObservableList<Node> rootChild = root.getChildren();
+
+            ObservableList<Node> labelChild = ((HBox) rootChild.get(1)).getChildren();
+
+            // Change icon fill color
+            ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_unselectedLabelColor));
+            
+            // Change label font color
+            Label label = (Label) labelChild.get(1);
+            label.setTextFill(Color.valueOf(_unselectedLabelColor));
+            label.setFont(Font.font("System", FontWeight.NORMAL, 16));
+        }
+    }
+
+    @FXML
+    private void _configOnHoverEnter(MouseEvent event) {
+        config.setFill(Color.valueOf(_hoverColor));
+    }
+
+    @FXML
+    private void _configOnHoverExit(MouseEvent event) {
         config.setFill(Color.valueOf(_unselectedLabelColor));
     }
 }
