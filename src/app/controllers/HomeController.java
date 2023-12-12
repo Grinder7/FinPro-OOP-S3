@@ -40,6 +40,8 @@ public class HomeController implements Initializable {
     @FXML
     private HBox caretaker_list;
     @FXML
+    private HBox supply_list;
+    @FXML
     private HBox donation_list;
 
     private static BorderPane staticMainLayout;
@@ -140,6 +142,13 @@ public class HomeController implements Initializable {
         _setMenuState(caretaker_list);
 
         setSubpage("../views/caretakerlistSubView.fxml");
+    }
+
+    @FXML
+    private void _supplyListHandler(MouseEvent event) {
+        _setMenuState(supply_list);
+
+        setSubpage("../views/supplylistSubView.fxml");
     }
 
     @FXML

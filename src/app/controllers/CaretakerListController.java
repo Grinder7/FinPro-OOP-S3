@@ -38,7 +38,7 @@ public class CaretakerListController implements Initializable {
 
     // Column fxid(s)
     @FXML
-    private TableColumn<Caretaker, Void> num_col;
+    private TableColumn<Integer, Void> num_col;
     @FXML
     private TableColumn<Caretaker, String> name_col;
     @FXML
@@ -138,7 +138,7 @@ public class CaretakerListController implements Initializable {
     public void initialize(URL location, ResourceBundle recourses) {
         // Initialize cols data type
         num_col.setCellFactory(col -> {
-            TableCell<Caretaker, Void> cell = new TableCell<>();
+            TableCell<Integer, Void> cell = new TableCell<>();
 
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
                 if (cell.isEmpty()) {return null;}

@@ -74,7 +74,7 @@ public class Main extends Application {
         // _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("./assets/ico.png")));
         
         // Set program title
-        _appStage.setTitle("Demo");
+        _appStage.setTitle("Disabled");
 
         _appStage.setOnCloseRequest(e -> {
             if (DBConnection.isEstablished()) {
