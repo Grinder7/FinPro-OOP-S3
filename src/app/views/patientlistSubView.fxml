@@ -37,6 +37,9 @@
                                  </font>
                               </Label>
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" prefWidth="592.0" HBox.hgrow="ALWAYS">
                            <children>
@@ -64,9 +67,9 @@
                           <columns>
                               <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" sortable="false" style="-fx-alignment: CENTER;" text="#" />
                             <TableColumn fx:id="name_col" editable="false" prefWidth="188.0000228881836" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Name" />
-                            <TableColumn fx:id="age_col" editable="false" prefWidth="53.60003662109375" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Age" />
+                            <TableColumn fx:id="age_col" editable="false" prefWidth="53.60003662109375" sortable="false" style="-fx-alignment: CENTER;" text="Age" />
                               <TableColumn fx:id="gender_col" editable="false" prefWidth="59.20001220703125" sortable="false" style="-fx-alignment: CENTER;" text="Gender" />
-                              <TableColumn fx:id="disability_det_col" editable="false" prefWidth="236.80001831054688" sortable="false" style="-fx-alignment: CENTER;" text="Disability Detail" />
+                              <TableColumn fx:id="disability_det_col" editable="false" prefWidth="236.80001831054688" sortable="false" style="-fx-alignment: CENTER; -fx-padding: 0 5 0 5;" text="Disability Detail" />
                               <TableColumn fx:id="actions_col" editable="false" prefWidth="86.4000244140625" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
                           </columns>
                            <columnResizePolicy>

@@ -3,7 +3,9 @@ package app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// Model(s)
 import app.models.Patient;
+// Javafx lib
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import javafx.beans.binding.Bindings;
@@ -45,7 +47,7 @@ public class PatientListController implements Initializable {
     @FXML
     private TableColumn<Patient, String> disability_det_col;
     @FXML
-    private TableColumn<HBox, Void> actions_col;
+    private TableColumn<HBox, Button> actions_col;
 
     // Input field fxid(s)
     @FXML
@@ -53,8 +55,12 @@ public class PatientListController implements Initializable {
 
     private static ObservableList<Patient> _list;
 
-    public static ObservableList<Patient> getList() {
-        return _list;
+
+    public static ObservableList<Patient> getList() {return _list;}
+
+    private void _initTableContent() {
+        _list = Patient.fetch();
+        table.setItems(_list);
     }
 
     private void _showModal(String action, int idx) {
@@ -84,7 +90,7 @@ public class PatientListController implements Initializable {
 
             newStage.showAndWait();
 
-            table.setItems(_list);
+            _initTableContent();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -119,7 +125,7 @@ public class PatientListController implements Initializable {
 
             newStage.showAndWait();
 
-            table.setItems(_list);
+            _initTableContent();
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -132,7 +138,8 @@ public class PatientListController implements Initializable {
 
         // Initialize cols data type
         num_col.setCellFactory(col -> {
-            TableCell<Patient, Void> cell = new TableCell<>();
+
+            TableCell<Integer, Void> cell = new TableCell<>();
 
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
                 if (cell.isEmpty()) {
@@ -149,7 +156,8 @@ public class PatientListController implements Initializable {
         gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
         disability_det_col.setCellValueFactory(new PropertyValueFactory<>("disabilityDetail"));
         actions_col.setCellFactory(col -> {
-            TableCell<HBox, Void> cell = new TableCell<>();
+
+            TableCell<HBox, Button> cell = new TableCell<>();
 
             cell.graphicProperty().bind(Bindings.createObjectBinding(() -> {
                 HBox hbox = new HBox();
@@ -200,6 +208,7 @@ public class PatientListController implements Initializable {
             return cell;
         });
 
+        _initTableContent();
         table.setItems(_list);
         age_col.setCellValueFactory(new PropertyValueFactory<>("age"));
         gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -215,48 +224,6 @@ public class PatientListController implements Initializable {
                 Button delBtn = new Button();
                 delBtn.setStyle("-fx-background-color: transparent;");
 
-                Text delGlyph = FontAwesomeIconFactory.get()
-                        .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
-                delGlyph.setFill(Paint.valueOf("RED"));
-
-                delBtn.setGraphic(delGlyph);
-
-                delBtn.setCursor(Cursor.HAND);
-
-                delBtn.setOnAction(e -> {
-                    _showDeleteModal(cell.getIndex());
-                });
-
-                // Edit button
-                Button editBtn = new Button();
-                editBtn.setStyle("-fx-background-color: transparent;");
-
-                Text editGlyph = FontAwesomeIconFactory.get()
-                        .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
-                editGlyph.setFill(Paint.valueOf("BLACK"));
-
-                editBtn.setGraphic(editGlyph);
-
-                editBtn.setCursor(Cursor.HAND);
-
-                editBtn.setOnAction(e -> {
-                    _showModal("update", cell.getIndex());
-                });
-
-                // Add buttons into hbox
-                hbox.getChildren().addAll(delBtn, editBtn);
-
-                if (cell.isEmpty()) {
-                    return null;
-                } else {
-                    return hbox;
-                }
-            }, cell.emptyProperty(), cell.indexProperty()));
-
-            return cell;
-        });
-
-        table.setItems(_list);
 
     }
 
@@ -267,7 +234,12 @@ public class PatientListController implements Initializable {
 
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
+        String searchName = search_field.getText().trim()
+            .replaceAll("\\s{2,}", " ");
+        
+        _list = Patient.search(searchName);
 
+        table.setItems(_list);
     }
 
 }

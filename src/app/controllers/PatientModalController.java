@@ -4,7 +4,11 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+
+// Model(s)
 import app.models.Patient;
+
+// Javafx lib(s)
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -127,36 +131,28 @@ public class PatientModalController implements Initializable {
         } catch (Exception e) {
         } // Ignore parsing error
 
-        String gender = Objects.toString(dropdown.getValue()
+
+        String gender = ""; 
+        
+        try {
+            gender = Objects.toString(dropdown.getValue()
                 .substring(0, 1), "");
+        }
+        catch (Exception e) {} // Ignore getValue error
 
         if (!name.isEmpty() && age != 0 && !gender.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                // public Patient(String name, int age, String gender, String detail) {
-                Patient obj = new Patient(name, age, gender, disability_det_field.getText().trim()
-                        .replaceAll("\\s{2,}", " "));
 
-                obj.insert();
-
-                // Add new patient into table list
-                PatientListController.getList().add(obj);
+                new Patient(name, age, gender, disability_det_field.getText().trim()
+                        .replaceAll("\\s{2,}", " ")).insert();
             }
             // Update action
             else {
-                Patient newObj = new Patient(name, age, gender, disability_det_field.getText().trim()
-                        .replaceAll("\\s{2,}", " "));
-
                 Patient obj = PatientListController.getList().get(_idx);
 
-                obj.setName(newObj.getName());
-                obj.setAge(newObj.getAge());
-                obj.setGender(newObj.getGender());
-                obj.setDisabilityDetail(newObj.getDisabilityDetail());
-
-                newObj = null;
-
-                System.gc();
+                obj.update(new Patient(name, age, gender, disability_det_field.getText()
+                    .trim().replaceAll("\\s{2,}", " ")));
             }
 
             _modalStage.close();

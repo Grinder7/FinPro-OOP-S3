@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import json.JSONFile;
 
@@ -71,7 +72,7 @@ public class Main extends Application {
         _setAppStage(primaryStage);
 
         // Program icon
-        // _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("./assets/ico.png")));
+        _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("../assets/ico.png")));
         
         // Set program title
         _appStage.setTitle("Disabled");

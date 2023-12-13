@@ -32,10 +32,6 @@ public class Item implements DBMethods<Item> {
         this.quantity = quantity;
     }
 
-    public void setName(String name) {this.name = name;}
-
-    public void setQuantity(int quantity) {this.quantity = quantity;}
-
     public int getId() {return _id;}
 
     public String getName() {return name;}
@@ -75,13 +71,13 @@ public class Item implements DBMethods<Item> {
 
             stmt.execute();
 
-            try (ResultSet rs = stmt.getGeneratedKeys();) {
-                if (rs.next()) {_id = rs.getInt(1);}
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            if (rs.next()) {_id = rs.getInt(1);}
+            else {
+                throw new SQLException("Creating item failed, no ID obtained");
             }
-            catch (Exception e) {
-                e.printStackTrace();
-                System.exit(0);
-            }
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();

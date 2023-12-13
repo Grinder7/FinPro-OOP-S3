@@ -77,10 +77,12 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
             stmt.execute();
 
             try (ResultSet rs = stmt.getGeneratedKeys();) {
-                if (rs.next()) {
-                    _id = rs.getInt(1);
+                if (rs.next()) {_id = rs.getInt(1);}
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained");
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
                 System.exit(0);
             }
