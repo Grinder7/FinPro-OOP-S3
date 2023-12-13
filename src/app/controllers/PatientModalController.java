@@ -54,6 +54,11 @@ public class PatientModalController implements Initializable {
         field.setPromptText(val);
     }
 
+    private void _setOldVal(TextArea field, String val) {
+        field.setText(val);
+        field.setPromptText(val);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resoruce) {
         // Intialize label and button text
@@ -68,6 +73,7 @@ public class PatientModalController implements Initializable {
                 // Initialize field value(s)
                 _setOldVal(name_field, obj.getName());
                 _setOldVal(age_field, Integer.toString(obj.getAge()));
+                _setOldVal(disability_det_field, obj.getDisabilityDetail());
 
                 dropdown.getSelectionModel().select((obj.getGender().equals("M") ? 0 : 1));
 
