@@ -80,6 +80,10 @@ public class DonationModalController implements Initializable {
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
                     donator_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
                 }
+                // Validate string length
+                else if (newVal.length() > 255) {
+                    donator_field.setText(newVal.substring(0, 255));
+                }
             }
         });
 
@@ -88,6 +92,10 @@ public class DonationModalController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
                 if (!newVal.matches("[a-z ]*")) {
                     item_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
+                }
+                // Validate string length
+                else if (newVal.length() > 255) {
+                    item_field.setText(newVal.substring(0, 255));
                 }
             }
         });

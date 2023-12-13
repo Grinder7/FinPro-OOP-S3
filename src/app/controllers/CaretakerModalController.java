@@ -95,6 +95,10 @@ public class CaretakerModalController implements Initializable {
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
                     name_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
                 }
+                // Validate string length
+                else if (newVal.length() > 255) {
+                    name_field.setText(newVal.substring(0, 255));
+                }
             }
         });
 
@@ -104,6 +108,10 @@ public class CaretakerModalController implements Initializable {
                 // Remove non-number character
                 if (!newVal.matches("\\d*")) {
                     phone_num_field.setText(newVal.replaceAll("[^\\d]", ""));
+                }
+                // Validate string length
+                else if (newVal.length() > 13) {
+                    phone_num_field.setText(newVal.substring(0, 13));
                 }
             }
         });

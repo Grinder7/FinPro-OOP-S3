@@ -74,6 +74,10 @@ public class SupplyModalController implements Initializable {
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
                     name_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
                 }
+                // Validate string length
+                else if (newVal.length() > 255) {
+                    name_field.setText(newVal.substring(0, 255));
+                }
             }
         });
 
