@@ -99,7 +99,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </HBox>
-                        <HBox fx:id="supply_list" alignment="CENTER_LEFT" onMouseClicked="#_supplyListHandler" onMouseEntered="#_menuOnHoverEnter" onMouseExited="#_menuOnHoverExit" prefHeight="60.0" prefWidth="250.0" spacing="25.0">
+                        <HBox fx:id="supply_list" alignment="CENTER_LEFT" onMouseClicked="#supplyListHandler" onMouseEntered="#_menuOnHoverEnter" onMouseExited="#_menuOnHoverExit" prefHeight="60.0" prefWidth="250.0" spacing="25.0">
                            <children>
                               <AnchorPane prefHeight="42.0" prefWidth="8.0" style="-fx-background-color: #ffffff;" styleClass="selected-bar" HBox.hgrow="NEVER" />
                               <HBox alignment="CENTER" spacing="15.0">

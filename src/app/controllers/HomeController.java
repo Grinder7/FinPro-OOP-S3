@@ -56,7 +56,7 @@ public class HomeController implements Initializable {
     private String _unselectedLabelColor = "#89898a";
     private String _hoverColor = "#000000";
 
-    private void _setMenuState() {
+    public void setMenuState() {
         ObservableList<Node> menus = menu_container.getChildren();
 
         // Set all menu state according to it's selected state
@@ -129,7 +129,7 @@ public class HomeController implements Initializable {
     @FXML
     private void _dashboardHandler(MouseEvent event) {
         _selectedMenu = dashboard;
-        _setMenuState();
+        setMenuState();
 
         setSubpage("../views/dashboardSubView.fxml");
     }
@@ -137,7 +137,7 @@ public class HomeController implements Initializable {
     @FXML
     private void _patientListHandler(MouseEvent event) {
         _selectedMenu = patient_list;
-        _setMenuState();
+        setMenuState();
         
         setSubpage("../views/patientlistSubView.fxml");
     }
@@ -145,15 +145,15 @@ public class HomeController implements Initializable {
     @FXML
     private void _caretakerListHandler(MouseEvent event) {
         _selectedMenu = caretaker_list;
-        _setMenuState();
+        setMenuState();
 
         setSubpage("../views/caretakerlistSubView.fxml");
     }
 
     @FXML
-    private void _supplyListHandler(MouseEvent event) {
+    public void supplyListHandler(MouseEvent event) {
         _selectedMenu = supply_list;
-        _setMenuState();
+        setMenuState();
 
         setSubpage("../views/supplylistSubView.fxml");
     }
@@ -161,7 +161,7 @@ public class HomeController implements Initializable {
     @FXML
     private void _donationListHandler(MouseEvent event) {
         _selectedMenu = donation_list;
-        _setMenuState();
+        setMenuState();
 
         setSubpage("../views/donationlistSubView.fxml");
     }
@@ -169,7 +169,7 @@ public class HomeController implements Initializable {
     @FXML
     public void configHandler(MouseEvent event) {
         _selectedMenu = null;
-        _setMenuState();
+        setMenuState();
 
         setSubpage("../views/configSubView.fxml");
     }
