@@ -91,12 +91,15 @@ public class PatientModalController implements Initializable {
         dropdown.getItems().clear();
         dropdown.setItems(list);
 
-        // Listen to phone_num_field on value change
+        // Listen to name_field on value change
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                // Remove non-number character
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
                     name_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
+                }
+                // Validate string length
+                else if (newVal.length() > 255) {
+                    name_field.setText(newVal.substring(0, 255));
                 }
             }
         });
