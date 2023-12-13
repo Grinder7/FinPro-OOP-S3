@@ -31,9 +31,13 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
         this.phoneNum = phoneNum;
     }
 
-    public void setPhoneNum(String phoneNum) {this.phoneNum = phoneNum;}
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
 
-    public String getPhoneNum() {return phoneNum;}
+    public String getPhoneNum() {
+        return phoneNum;
+    }
 
     public static ObservableList<Caretaker> fetch() {
         ObservableList<Caretaker> list = FXCollections.observableArrayList();
@@ -44,16 +48,15 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
             ResultSet rs = stmt.executeQuery("SELECT * FROM `caretaker`");
 
             while (rs.next()) {
-                list.add(new Caretaker(rs.getInt("caretakerId"), 
-                    rs.getString("caretakerName"), 
-                    rs.getString("caretakerPhoneNum"), 
-                    rs.getInt("caretakerAge"), 
-                    rs.getString("caretakerGender")));
+                list.add(new Caretaker(rs.getInt("caretakerId"),
+                        rs.getString("caretakerName"),
+                        rs.getString("caretakerPhoneNum"),
+                        rs.getInt("caretakerAge"),
+                        rs.getString("caretakerGender")));
             }
 
             rs.close();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -64,8 +67,8 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
     @Override
     public void insert() {
         try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("INSERT INTO `caretaker` VALUES(0, ?, ?, ?, ?);", 
-            Statement.RETURN_GENERATED_KEYS)) {
+                .prepareStatement("INSERT INTO `caretaker` VALUES(0, ?, ?, ?, ?);",
+                        Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, name);
             stmt.setString(2, phoneNum);
             stmt.setInt(3, age);
@@ -83,8 +86,7 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
                 e.printStackTrace();
                 System.exit(0);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -93,12 +95,11 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
     @Override
     public void delete() {
         try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("DELETE FROM `caretaker` WHERE caretakerId = ?;")) {
+                .prepareStatement("DELETE FROM `caretaker` WHERE caretakerId = ?;")) {
             stmt.setInt(1, _id);
 
             stmt.execute();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -107,7 +108,9 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
     @Override
     public void update(Caretaker newObj) {
         try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("UPDATE `caretaker` SET caretakerName = ?, caretakerPhoneNum = ?, caretakerAge = ?, caretakerGender = ? WHERE caretakerId = ?;")) {
+                .prepareStatement(
+                        "UPDATE `caretaker` SET caretakerName = ?, caretakerPhoneNum = ?, caretakerAge = ?, caretakerGender = ? WHERE caretakerId = ?;")) {
+
             stmt.setString(1, newObj.getName());
             stmt.setString(2, newObj.getPhoneNum());
             stmt.setInt(3, newObj.getAge());
@@ -115,8 +118,7 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
             stmt.setInt(5, _id);
 
             stmt.execute();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -126,23 +128,22 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
         ObservableList<Caretaker> list = FXCollections.observableArrayList();
 
         try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("SELECT * FROM `caretaker` WHERE caretakerName LIKE ?")) {
-            stmt.setString(1, 
-                String.format("%%%s%%", searchName));
+                .prepareStatement("SELECT * FROM `caretaker` WHERE caretakerName LIKE ?")) {
+            stmt.setString(1,
+                    String.format("%%%s%%", searchName));
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Caretaker(rs.getInt("caretakerId"), 
-                    rs.getString("caretakerName"), 
-                    rs.getString("caretakerPhoneNum"), 
-                    rs.getInt("caretakerAge"), 
-                    rs.getString("caretakerGender")));
+                list.add(new Caretaker(rs.getInt("caretakerId"),
+                        rs.getString("caretakerName"),
+                        rs.getString("caretakerPhoneNum"),
+                        rs.getInt("caretakerAge"),
+                        rs.getString("caretakerGender")));
             }
 
             rs.close();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }

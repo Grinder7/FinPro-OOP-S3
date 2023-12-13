@@ -5,6 +5,8 @@ import database.DBConnection;
 
 // Interface(s)
 import app.interfaces.DBMethods;
+import database.DBConnection;
+import javafx.collections.ObservableList;
 
 // Java Connector lib
 import java.sql.PreparedStatement;
@@ -83,7 +85,6 @@ public class Patient extends Person implements DBMethods<Patient> {
                 throw new SQLException("Creating user failed, no ID obtained.");
             }
 
-            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
@@ -118,6 +119,7 @@ public class Patient extends Person implements DBMethods<Patient> {
             e.printStackTrace();
             System.exit(0);
         }
+
     }
 
     public static ObservableList<Patient> search(String searchName) {

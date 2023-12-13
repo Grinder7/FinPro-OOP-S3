@@ -56,7 +56,9 @@ public class CaretakerListController implements Initializable {
 
     private static ObservableList<Caretaker> _list;
 
-    public static ObservableList<Caretaker> getList() {return _list;}
+    public static ObservableList<Caretaker> getList() {
+        return _list;
+    }
 
     private void _initTableContent() {
         _list = Caretaker.fetch();
@@ -67,7 +69,7 @@ public class CaretakerListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-            .getResource("../views/caretakermodalStackView.fxml"));
+                .getResource("../views/caretakermodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -91,8 +93,7 @@ public class CaretakerListController implements Initializable {
             newStage.showAndWait();
 
             _initTableContent();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -102,11 +103,11 @@ public class CaretakerListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-            .getResource("../views/deletemodalStackView.fxml"));
-        
+                .getResource("../views/deletemodalStackView.fxml"));
+
         try {
             Parent root = loader.load();
-        
+
             DeleteModalController<Caretaker> controller = loader.getController();
 
             controller.setStage(newStage);
@@ -127,8 +128,7 @@ public class CaretakerListController implements Initializable {
             newStage.showAndWait();
 
             _initTableContent();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -141,8 +141,9 @@ public class CaretakerListController implements Initializable {
             TableCell<Integer, Void> cell = new TableCell<>();
 
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                if (cell.isEmpty()) {return null;}
-                else {
+                if (cell.isEmpty()) {
+                    return null;
+                } else {
                     return Integer.toString(cell.getIndex() + 1);
                 }
             }, cell.emptyProperty(), cell.indexProperty()));
@@ -165,21 +166,23 @@ public class CaretakerListController implements Initializable {
                 delBtn.setStyle("-fx-background-color: transparent;");
 
                 Text delGlyph = FontAwesomeIconFactory.get()
-                    .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
+                        .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
                 delGlyph.setFill(Paint.valueOf("RED"));
 
                 delBtn.setGraphic(delGlyph);
 
                 delBtn.setCursor(Cursor.HAND);
 
-                delBtn.setOnAction(e -> {_showDeleteModal(cell.getIndex());});
-                
+                delBtn.setOnAction(e -> {
+                    _showDeleteModal(cell.getIndex());
+                });
+
                 // Edit button
                 Button editBtn = new Button();
                 editBtn.setStyle("-fx-background-color: transparent;");
 
                 Text editGlyph = FontAwesomeIconFactory.get()
-                    .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
+                        .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
                 editGlyph.setFill(Paint.valueOf("BLACK"));
 
                 editBtn.setGraphic(editGlyph);
@@ -193,8 +196,11 @@ public class CaretakerListController implements Initializable {
                 // Add buttons into hbox
                 hbox.getChildren().addAll(delBtn, editBtn);
 
-                if (cell.isEmpty()) {return null;}
-                else {return hbox;}
+                if (cell.isEmpty()) {
+                    return null;
+                } else {
+                    return hbox;
+                }
             }, cell.emptyProperty(), cell.indexProperty()));
 
             return cell;
@@ -211,8 +217,8 @@ public class CaretakerListController implements Initializable {
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
         String searchName = search_field.getText().trim()
-            .replaceAll("\\s{2,}", " ");
-        
+                .replaceAll("\\s{2,}", " ");
+
         _list = Caretaker.search(searchName);
 
         table.setItems(_list);

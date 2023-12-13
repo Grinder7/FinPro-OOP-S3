@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+
 // Model(s)
 import app.models.Patient;
 
@@ -130,6 +131,7 @@ public class PatientModalController implements Initializable {
         } catch (Exception e) {
         } // Ignore parsing error
 
+
         String gender = ""; 
         
         try {
@@ -141,6 +143,7 @@ public class PatientModalController implements Initializable {
         if (!name.isEmpty() && age != 0 && !gender.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
+
                 new Patient(name, age, gender, disability_det_field.getText().trim()
                         .replaceAll("\\s{2,}", " ")).insert();
             }

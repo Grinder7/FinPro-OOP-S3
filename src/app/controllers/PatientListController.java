@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 // Model(s)
 import app.models.Patient;
-
 // Javafx lib
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
@@ -38,7 +37,7 @@ public class PatientListController implements Initializable {
 
     // Column fxid(s)
     @FXML
-    private TableColumn<Integer, Void> num_col;
+    private TableColumn<Patient, Void> num_col;
     @FXML
     private TableColumn<Patient, String> name_col;
     @FXML
@@ -55,6 +54,7 @@ public class PatientListController implements Initializable {
     private TextField search_field;
 
     private static ObservableList<Patient> _list;
+
 
     public static ObservableList<Patient> getList() {return _list;}
 
@@ -138,6 +138,7 @@ public class PatientListController implements Initializable {
 
         // Initialize cols data type
         num_col.setCellFactory(col -> {
+
             TableCell<Integer, Void> cell = new TableCell<>();
 
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
@@ -155,6 +156,7 @@ public class PatientListController implements Initializable {
         gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
         disability_det_col.setCellValueFactory(new PropertyValueFactory<>("disabilityDetail"));
         actions_col.setCellFactory(col -> {
+
             TableCell<HBox, Button> cell = new TableCell<>();
 
             cell.graphicProperty().bind(Bindings.createObjectBinding(() -> {
@@ -207,6 +209,22 @@ public class PatientListController implements Initializable {
         });
 
         _initTableContent();
+        table.setItems(_list);
+        age_col.setCellValueFactory(new PropertyValueFactory<>("age"));
+        gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        disability_det_col.setCellValueFactory(new PropertyValueFactory<>("disabilityDetail"));
+        actions_col.setCellFactory(col -> {
+            TableCell<HBox, Void> cell = new TableCell<>();
+
+            cell.graphicProperty().bind(Bindings.createObjectBinding(() -> {
+                HBox hbox = new HBox();
+                hbox.setAlignment(Pos.CENTER);
+
+                // Delete button
+                Button delBtn = new Button();
+                delBtn.setStyle("-fx-background-color: transparent;");
+
+
     }
 
     @FXML
