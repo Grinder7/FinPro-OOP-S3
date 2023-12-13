@@ -1,10 +1,11 @@
 package app.controllers;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 // Model(s)
-import app.models.Caretaker;
+import app.models.Donation;
 
 // Javafx lib
 import javafx.fxml.FXML;
@@ -26,27 +27,27 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.beans.binding.Bindings;
-import javafx.collections.ObservableList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
+import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 
-public class CaretakerListController implements Initializable {
+public class DonationListController implements Initializable {
     // Layout fxid(s)
     @FXML
-    private TableView<Caretaker> table;
+    private TableView<Donation> table;
 
     // Column fxid(s)
     @FXML
     private TableColumn<Integer, Void> num_col;
     @FXML
-    private TableColumn<Caretaker, String> name_col;
+    private TableColumn<Donation, String> donator_col;
     @FXML
-    private TableColumn<Caretaker, String> phone_num_col;
+    private TableColumn<Donation, String> item_col;
     @FXML
-    private TableColumn<Caretaker, Integer> age_col;
+    private TableColumn<Donation, Integer> quantity_col;
     @FXML
-    private TableColumn<Caretaker, String> gender_col;
+    private TableColumn<Donation, Date> date_col;
     @FXML
     private TableColumn<HBox, Button> actions_col;
 
@@ -54,14 +55,12 @@ public class CaretakerListController implements Initializable {
     @FXML
     private TextField search_field;
 
-    private static ObservableList<Caretaker> _list;
+    private static ObservableList<Donation> _list;
 
-    public static ObservableList<Caretaker> getList() {
-        return _list;
-    }
+    public static ObservableList<Donation> getList() {return _list;}
 
     private void _initTableContent() {
-        _list = Caretaker.fetch();
+        _list = Donation.fetch();
         table.setItems(_list);
     }
 
@@ -69,7 +68,7 @@ public class CaretakerListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("../views/caretakermodalStackView.fxml"));
+            .getResource("../views/donationmodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -93,7 +92,8 @@ public class CaretakerListController implements Initializable {
             newStage.showAndWait();
 
             _initTableContent();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -103,15 +103,15 @@ public class CaretakerListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("../views/deletemodalStackView.fxml"));
-
+            .getResource("../views/deletemodalStackView.fxml"));
+        
         try {
             Parent root = loader.load();
-
-            DeleteModalController<Caretaker> controller = loader.getController();
+        
+            DeleteModalController<Donation> controller = loader.getController();
 
             controller.setStage(newStage);
-            controller.setName(_list.get(cellIdx).getName());
+            controller.setName(_list.get(cellIdx).getDonatorName());
             controller.setList(_list);
             controller.setIdx(cellIdx);
 
@@ -128,32 +128,33 @@ public class CaretakerListController implements Initializable {
             newStage.showAndWait();
 
             _initTableContent();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
     }
 
+
     @Override
-    public void initialize(URL location, ResourceBundle recourses) {
+    public void initialize(URL location, ResourceBundle resources) {
         // Initialize cols data type
         num_col.setCellFactory(col -> {
             TableCell<Integer, Void> cell = new TableCell<>();
 
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                if (cell.isEmpty()) {
-                    return null;
-                } else {
+                if (cell.isEmpty()) {return null;}
+                else {
                     return Integer.toString(cell.getIndex() + 1);
                 }
             }, cell.emptyProperty(), cell.indexProperty()));
 
             return cell;
         });
-        name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-        phone_num_col.setCellValueFactory(new PropertyValueFactory<>("phoneNum"));
-        age_col.setCellValueFactory(new PropertyValueFactory<>("age"));
-        gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        donator_col.setCellValueFactory(new PropertyValueFactory<>("donatorName"));
+        item_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        quantity_col.setCellValueFactory(new PropertyValueFactory<>("itemQuantity"));
+        date_col.setCellValueFactory(new PropertyValueFactory<>("date"));
         actions_col.setCellFactory(col -> {
             TableCell<HBox, Button> cell = new TableCell<>();
 
@@ -166,23 +167,21 @@ public class CaretakerListController implements Initializable {
                 delBtn.setStyle("-fx-background-color: transparent;");
 
                 Text delGlyph = FontAwesomeIconFactory.get()
-                        .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
+                    .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
                 delGlyph.setFill(Paint.valueOf("RED"));
 
                 delBtn.setGraphic(delGlyph);
 
                 delBtn.setCursor(Cursor.HAND);
 
-                delBtn.setOnAction(e -> {
-                    _showDeleteModal(cell.getIndex());
-                });
-
+                delBtn.setOnAction(e -> {_showDeleteModal(cell.getIndex());});
+                
                 // Edit button
                 Button editBtn = new Button();
                 editBtn.setStyle("-fx-background-color: transparent;");
 
                 Text editGlyph = FontAwesomeIconFactory.get()
-                        .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
+                    .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
                 editGlyph.setFill(Paint.valueOf("BLACK"));
 
                 editBtn.setGraphic(editGlyph);
@@ -196,11 +195,8 @@ public class CaretakerListController implements Initializable {
                 // Add buttons into hbox
                 hbox.getChildren().addAll(delBtn, editBtn);
 
-                if (cell.isEmpty()) {
-                    return null;
-                } else {
-                    return hbox;
-                }
+                if (cell.isEmpty()) {return null;}
+                else {return hbox;}
             }, cell.emptyProperty(), cell.indexProperty()));
 
             return cell;
@@ -217,9 +213,9 @@ public class CaretakerListController implements Initializable {
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
         String searchName = search_field.getText().trim()
-                .replaceAll("\\s{2,}", " ");
-
-        _list = Caretaker.search(searchName);
+        .replaceAll("\\s{2,}", " ");
+    
+        _list = Donation.search(searchName);
 
         table.setItems(_list);
     }

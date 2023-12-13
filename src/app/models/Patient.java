@@ -10,7 +10,7 @@ import database.DBConnection;
 import javafx.collections.ObservableList;
 
 public class Patient extends Person implements DBMethods<Patient> {
-    private String _disabilityDetail;
+    protected String _disabilityDetail;
 
     public Patient(int id, String name, int age, String gender, String detail) {
         super(id, name, age, gender);

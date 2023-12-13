@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+// Model(s)
 import app.models.Caretaker;
 
 // Javafx lib(s)
@@ -91,12 +92,15 @@ public class CaretakerModalController implements Initializable {
         dropdown.getItems().clear();
         dropdown.setItems(list);
 
-        // Listen to phone_num_field on value change
+        // Listen to name_field on value change
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                // Remove non-number character
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
                     name_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
+                }
+                // Validate string length
+                else if (newVal.length() > 255) {
+                    name_field.setText(newVal.substring(0, 255));
                 }
             }
         });
@@ -107,6 +111,10 @@ public class CaretakerModalController implements Initializable {
                 // Remove non-number character
                 if (!newVal.matches("\\d*")) {
                     phone_num_field.setText(newVal.replaceAll("[^\\d]", ""));
+                }
+                // Validate string length
+                else if (newVal.length() > 13) {
+                    phone_num_field.setText(newVal.substring(0, 13));
                 }
             }
         });
