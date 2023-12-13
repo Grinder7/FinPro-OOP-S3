@@ -43,11 +43,17 @@ public class CaretakerModalController implements Initializable {
     private String _action;
     private int _idx;
 
-    public void setStage(Stage stage) {_modalStage = stage;}
+    public void setStage(Stage stage) {
+        _modalStage = stage;
+    }
 
-    public void setAction(String action) {_action = action;}
+    public void setAction(String action) {
+        _action = action;
+    }
 
-    public void setIdx(int idx) {_idx = idx;}
+    public void setIdx(int idx) {
+        _idx = idx;
+    }
 
     private void _setOldVal(TextField field, String val) {
         field.setText(val);
@@ -60,8 +66,7 @@ public class CaretakerModalController implements Initializable {
         Platform.runLater(() -> {
             if (_action.equals("insert")) {
                 title_label.setText("Add New Caretaker");
-            }
-            else {
+            } else {
                 title_label.setText("Update Caretaker");
 
                 Caretaker obj = CaretakerListController.getList().get(_idx);
@@ -70,10 +75,8 @@ public class CaretakerModalController implements Initializable {
                 _setOldVal(name_field, obj.getName());
                 _setOldVal(phone_num_field, obj.getPhoneNum());
                 _setOldVal(age_field, Integer.toString(obj.getAge()));
-                
-                dropdown.getSelectionModel().select((
-                    obj.getGender().equals("M") ? 0 : 1
-                ));
+
+                dropdown.getSelectionModel().select((obj.getGender().equals("M") ? 0 : 1));
 
                 obj = null;
 
@@ -131,17 +134,17 @@ public class CaretakerModalController implements Initializable {
     private void _saveBtnHandler(ActionEvent event) {
         // Get all field value(s)
         String name = name_field.getText().trim()
-            .replaceAll("\\s{2,}", " ");
+                .replaceAll("\\s{2,}", " ");
         String phoneNum = phone_num_field.getText();
         int age = 0;
 
         try {
             age = Integer.parseInt(age_field.getText());
-        }
-        catch (Exception e) {} // Ignore parsing error
+        } catch (Exception e) {
+        } // Ignore parsing error
 
         String gender = Objects.toString(dropdown.getValue()
-            .substring(0, 1), "");
+                .substring(0, 1), "");
 
         if (!name.isEmpty() && !phoneNum.isEmpty() && age != 0 && !gender.isEmpty()) {
             // Insert action

@@ -4,15 +4,8 @@
             "type": "java",
             "name": "Main",
             "request": "launch",
-            "mainClass": "Main",
-            "projectName": ""
-        },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
             "mainClass": "app.Main",
-            "projectName": "Demo_11b658fb",
+            "projectName": "FinPro-OOP-S3_d4b30923",
             "vmArgs": "--module-path \"./lib/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
