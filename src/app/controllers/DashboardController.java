@@ -71,11 +71,14 @@ public class DashboardController implements Initializable {
                 Collections.sort(_itemList, new Comparator<Item>() {
                     @Override
                     public int compare(Item item1, Item item2) {
-                        if (item1.getQuantity() < item2.getQuantity()) {
+                        if (item1.getQuantity() == item2.getQuantity()) {
+                            return 0;
+                        }
+                        else if (item1.getQuantity() > item2.getQuantity()) {
                             return 1;
                         }
 
-                        return 0;
+                        return -1;
                     }
                 });
             }
@@ -102,6 +105,11 @@ public class DashboardController implements Initializable {
 
         Label itemQuantity = new Label() {{
             setText(Integer.toString(quantity) + " left");
+
+            if (quantity == 0) {
+                setStyle("-fx-text-fill: #ff0000;");
+            }
+
             setMaxWidth(Double.POSITIVE_INFINITY);
             setAlignment(Pos.CENTER_RIGHT);
         }};
