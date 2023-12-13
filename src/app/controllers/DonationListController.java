@@ -73,7 +73,7 @@ public class DonationListController implements Initializable {
         try {
             Parent root = loader.load();
 
-            CaretakerModalController controller = loader.getController();
+            DonationModalController controller = loader.getController();
 
             controller.setStage(newStage);
             controller.setAction(action);

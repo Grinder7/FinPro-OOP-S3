@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" style="-fx-background-color: #f4f5f8;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.DashboardController">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -25,7 +25,7 @@
                   </FontAwesomeIconView>
                   <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="210.0" prefWidth="705.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label text="140/250" textFill="WHITE" VBox.vgrow="ALWAYS">
+                        <Label fx:id="filled_cap_label" text="140/250" textFill="WHITE" VBox.vgrow="ALWAYS">
                            <font>
                               <Font name="System Bold" size="36.0" />
                            </font>
@@ -49,7 +49,7 @@
                         <FontAwesomeIconView fill="#6d2ad4" glyphName="USER" size="42" />
                         <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="NEVER">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="140" VBox.vgrow="ALWAYS">
+                              <Label fx:id="patient_total" alignment="BOTTOM_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="140" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -71,7 +71,7 @@
                         <FontAwesomeIconView fill="#4dbcff" glyphName="USER_MD" size="42" text="" />
                         <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="102.0" prefWidth="142.0" HBox.hgrow="NEVER">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="50" VBox.vgrow="ALWAYS">
+                              <Label fx:id="avail_caretaker" alignment="BOTTOM_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="50" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>

@@ -54,10 +54,10 @@ public class DonationModalController implements Initializable {
         // Intialize label and button text
         Platform.runLater(() -> {
             if (_action.equals("insert")) {
-                title_label.setText("Add New Caretaker");
+                title_label.setText("Add New Donation");
             }
             else {
-                title_label.setText("Update Caretaker");
+                title_label.setText("Update Donation");
 
                 Donation obj = DonationListController.getList().get(_idx);
 

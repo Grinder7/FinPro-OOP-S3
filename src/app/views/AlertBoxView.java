@@ -11,7 +11,7 @@ public class AlertBoxView {
         // Set alert box properties
         alertBox.setTitle(title);
         alertBox.setHeaderText(null);
-        alertBox.setContentText(msg);
+        alertBox.setContentText(msg + ".");
 
         alertBox.initModality(Modality.APPLICATION_MODAL);
 

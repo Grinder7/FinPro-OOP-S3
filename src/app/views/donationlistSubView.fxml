@@ -72,8 +72,8 @@
                           <columns>
                               <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="#" />
                             <TableColumn fx:id="donator_col" editable="false" prefWidth="207.1999740600586" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Donator" />
-                            <TableColumn fx:id="item_col" editable="false" prefWidth="139.199951171875" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Item" />
-                              <TableColumn fx:id="quantity_col" editable="false" prefWidth="82.4000244140625" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Quantity" />
+                            <TableColumn fx:id="item_col" editable="false" prefWidth="152.800048828125" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Item" />
+                              <TableColumn fx:id="quantity_col" editable="false" prefWidth="69.5999755859375" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Quantity" />
                               <TableColumn fx:id="date_col" editable="false" prefWidth="108.80001831054688" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Date" />
                               <TableColumn fx:id="actions_col" editable="false" prefWidth="84.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
                           </columns>
