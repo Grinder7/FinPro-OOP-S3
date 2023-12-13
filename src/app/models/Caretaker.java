@@ -108,11 +108,7 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
         try (PreparedStatement stmt = DBConnection.getConnection()
                 .prepareStatement(
                         "UPDATE `caretaker` SET caretakerName = ?, caretakerPhoneNum = ?, caretakerAge = ?, caretakerGender = ? WHERE caretakerId = ?;")) {
-            stmt.setString(1, newObj.name);
-            stmt.setString(2, newObj.phoneNum);
-            stmt.setInt(3, newObj.age);
-            stmt.setString(4, newObj.gender);
-            .prepareStatement("UPDATE `caretaker` SET caretakerName = ?, caretakerPhoneNum = ?, caretakerAge = ?, caretakerGender = ? WHERE caretakerId = ?;")) {
+
             stmt.setString(1, newObj.getName());
             stmt.setString(2, newObj.getPhoneNum());
             stmt.setInt(3, newObj.getAge());

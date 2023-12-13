@@ -67,7 +67,7 @@ public class Patient extends Person implements DBMethods<Patient> {
             stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    setId(rs.getInt(1));
+                    _id = rs.getInt(1);
                 } else {
                     throw new SQLException("Creating user failed, no ID obtained.");
                 }
