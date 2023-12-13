@@ -1,6 +1,7 @@
 package app.models;
 
 import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -56,7 +57,8 @@ public class Patient extends Person implements DBMethods<Patient> {
     @Override
     public void insert() {
         try (PreparedStatement stmt = DBConnection.getConnection().prepareStatement(
-                "INSERT INTO `patient`('patientName','patientAge','patientGender','disabilityDetail') VALUES (?, ?, ?, ?)")) {
+                "INSERT INTO `patient`(patientName,patientAge,patientGender,disabilityDetail) VALUES (?, ?, ?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, getName());
             stmt.setInt(2, getAge());
             stmt.setString(3, getGender());
