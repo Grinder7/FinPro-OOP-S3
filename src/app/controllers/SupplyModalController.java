@@ -1,28 +1,24 @@
 package app.controllers;
 
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 // Model(s)
-import app.models.Caretaker;
+import app.models.Item;
 
 // Javafx lib(s)
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
-public class CaretakerModalController implements Initializable {
+public class SupplyModalController implements Initializable {
     @FXML
     private Label title_label;
 
@@ -30,11 +26,7 @@ public class CaretakerModalController implements Initializable {
     @FXML
     private TextField name_field;
     @FXML
-    private TextField phone_num_field;
-    @FXML
-    private TextField age_field;
-    @FXML
-    private ComboBox<String> dropdown;
+    private TextField quantity_field;
 
     @FXML
     private Button save_btn;
@@ -59,41 +51,28 @@ public class CaretakerModalController implements Initializable {
         // Intialize label and button text
         Platform.runLater(() -> {
             if (_action.equals("insert")) {
-                title_label.setText("Add New Caretaker");
+                title_label.setText("Add New Item");
             }
             else {
-                title_label.setText("Update Caretaker");
+                title_label.setText("Update Item");
 
-                Caretaker obj = CaretakerListController.getList().get(_idx);
+                Item obj =SupplyListController.getList().get(_idx);
 
                 // Initialize field value(s)
                 _setOldVal(name_field, obj.getName());
-                _setOldVal(phone_num_field, obj.getPhoneNum());
-                _setOldVal(age_field, Integer.toString(obj.getAge()));
+                _setOldVal(quantity_field, Integer.toString(obj.getQuantity()));
                 
-                dropdown.getSelectionModel().select((
-                    obj.getGender().equals("M") ? 0 : 1
-                ));
-
                 obj = null;
 
                 System.gc();
             }
         });
 
-        // Initialize dropdown menu(s)
-        ObservableList<String> list = FXCollections.observableArrayList();
-        list.add("Male");
-        list.add("Female");
-
-        dropdown.getItems().clear();
-        dropdown.setItems(list);
-
         // Listen to name_field on value change
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
                 if (!newVal.matches("[a-zA-Z ,.']*")) {
-                    name_field.setText(newVal.replaceAll("[^[a-zA-Z ,.']]", ""));
+                    name_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
                 }
                 // Validate string length
                 else if (newVal.length() > 255) {
@@ -102,26 +81,12 @@ public class CaretakerModalController implements Initializable {
             }
         });
 
-        // Listen to phone_num_field on value change
-        phone_num_field.textProperty().addListener(new ChangeListener<String>() {
+        // Listen to quantity_field on value change
+        quantity_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
                 // Remove non-number character
                 if (!newVal.matches("\\d*")) {
-                    phone_num_field.setText(newVal.replaceAll("[^\\d]", ""));
-                }
-                // Validate string length
-                else if (newVal.length() > 13) {
-                    phone_num_field.setText(newVal.substring(0, 13));
-                }
-            }
-        });
-
-        // Listen to age_field on value change
-        age_field.textProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                // Remove non-number character
-                if (!newVal.matches("\\d*")) {
-                    age_field.setText(newVal.replaceAll("[^\\d]", ""));
+                    quantity_field.setText(newVal.replaceAll("[^\\d]", ""));
                 }
             }
         });
@@ -132,27 +97,23 @@ public class CaretakerModalController implements Initializable {
         // Get all field value(s)
         String name = name_field.getText().trim()
             .replaceAll("\\s{2,}", " ");
-        String phoneNum = phone_num_field.getText();
-        int age = 0;
+        int quantity = -1;
 
         try {
-            age = Integer.parseInt(age_field.getText());
+            quantity = Integer.parseInt(quantity_field.getText());
         }
         catch (Exception e) {} // Ignore parsing error
 
-        String gender = Objects.toString(dropdown.getValue()
-            .substring(0, 1), "");
-
-        if (!name.isEmpty() && !phoneNum.isEmpty() && age != 0 && !gender.isEmpty()) {
+        if (!name.isEmpty() && quantity != -1) {
             // Insert action
             if (_action.equals("insert")) {
-                new Caretaker(name, phoneNum, age, gender).insert();
+                new Item(name, quantity).insert();
             }
             // Update action
             else {
-                Caretaker obj = CaretakerListController.getList().get(_idx);
+                Item obj = SupplyListController.getList().get(_idx);
 
-                obj.update(new Caretaker(name, phoneNum, age, gender));
+                obj.update(new Item(name, quantity));
             }
 
             _modalStage.close();

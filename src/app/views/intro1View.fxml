@@ -37,7 +37,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Label text="To Demo!" textFill="#2eb2ee" VBox.vgrow="ALWAYS">
+                  <Label text="To Disabled!" textFill="#2eb2ee" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

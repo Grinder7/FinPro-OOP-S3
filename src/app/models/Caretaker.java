@@ -1,6 +1,6 @@
 package app.models;
 
-// Interface
+// Interface(s)
 import app.interfaces.DBMethods;
 
 // Database
@@ -17,7 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Caretaker extends Person implements DBMethods<Caretaker> {
-    private String phoneNum;
+    protected String phoneNum;
 
     public Caretaker(int id, String name, String phoneNum, int age, String gender) {
         super(id, name, age, gender);
@@ -105,10 +105,10 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
     public void update(Caretaker newObj) {
         try (PreparedStatement stmt = DBConnection.getConnection()
             .prepareStatement("UPDATE `caretaker` SET caretakerName = ?, caretakerPhoneNum = ?, caretakerAge = ?, caretakerGender = ? WHERE caretakerId = ?;")) {
-            stmt.setString(1, newObj.name);
-            stmt.setString(2, newObj.phoneNum);
-            stmt.setInt(3, newObj.age);
-            stmt.setString(4, newObj.gender);
+            stmt.setString(1, newObj.getName());
+            stmt.setString(2, newObj.getPhoneNum());
+            stmt.setInt(3, newObj.getAge());
+            stmt.setString(4, newObj.getGender());
             stmt.setInt(5, _id);
 
             stmt.execute();

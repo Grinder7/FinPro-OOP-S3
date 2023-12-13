@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.CaretakerListController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controllers.DonationListController">
    <children>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Caretaker List">
+            <Label text="Donation List">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -31,7 +31,7 @@
                         <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#_addBtnHandler" prefHeight="36.0" prefWidth="156.0" spacing="7.0" style="-fx-background-color: #2eb2ee; -fx-background-radius: 5;" HBox.hgrow="ALWAYS">
                            <children>
                               <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="14" />
-                              <Label text="Add Caretaker" textFill="WHITE">
+                              <Label text="Add Donation" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -53,7 +53,10 @@
                                     <Point3D />
                                  </rotationAxis>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="14">
+                                       <cursor>
+                                          <Cursor fx:constant="HAND" />
+                                       </cursor></FontAwesomeIconView>
                                  </graphic>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -65,14 +68,14 @@
                   </HBox>
                   <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" VBox.vgrow="ALWAYS">
                      <children>
-                        <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="710.0" style="-fx-background-color: transparent;" stylesheets="@../../css/table.css">
+                        <TableView fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="710.0" style="-fx-background-color: transparent;" stylesheets="@../../css/table.css" StackPane.alignment="CENTER">
                           <columns>
                               <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="#" />
-                            <TableColumn fx:id="name_col" editable="false" prefWidth="225.60002899169922" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Name" />
-                            <TableColumn fx:id="phone_num_col" editable="false" prefWidth="172.0" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Phone Number" />
-                              <TableColumn fx:id="age_col" editable="false" prefWidth="73.60006713867188" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Age" />
-                              <TableColumn fx:id="gender_col" editable="false" prefWidth="68.79998779296875" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Gender" />
-                              <TableColumn fx:id="actions_col" editable="false" prefWidth="86.4000244140625" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
+                            <TableColumn fx:id="donator_col" editable="false" prefWidth="207.1999740600586" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Donator" />
+                            <TableColumn fx:id="item_col" editable="false" prefWidth="139.199951171875" resizable="false" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Item" />
+                              <TableColumn fx:id="quantity_col" editable="false" prefWidth="82.4000244140625" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Quantity" />
+                              <TableColumn fx:id="date_col" editable="false" prefWidth="108.80001831054688" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Date" />
+                              <TableColumn fx:id="actions_col" editable="false" prefWidth="84.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

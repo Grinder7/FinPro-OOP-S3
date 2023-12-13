@@ -1,9 +1,10 @@
 package app.models;
 
+// Interface(s)
 import app.interfaces.DBMethods;
 
 public class Patient extends Person implements DBMethods<Patient> {
-    private String _disabilityDetail;
+    protected String _disabilityDetail;
 
     public Patient(int id, String name, int age, String gender, String detail) {
         super(id, name, age, gender);

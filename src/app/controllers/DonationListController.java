@@ -1,10 +1,11 @@
 package app.controllers;
 
-import java.util.ResourceBundle;
 import java.net.URL;
+import java.util.Date;
+import java.util.ResourceBundle;
 
 // Model(s)
-import app.models.Item;
+import app.models.Donation;
 
 // Javafx lib
 import javafx.fxml.FXML;
@@ -31,18 +32,22 @@ import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 
-public class SupplyListController implements Initializable {
+public class DonationListController implements Initializable {
     // Layout fxid(s)
     @FXML
-    private TableView<Item> table;
+    private TableView<Donation> table;
 
     // Column fxid(s)
     @FXML
     private TableColumn<Integer, Void> num_col;
     @FXML
-    private TableColumn<Item, String> name_col;
+    private TableColumn<Donation, String> donator_col;
     @FXML
-    private TableColumn<Item, Integer> quantity_col;
+    private TableColumn<Donation, String> item_col;
+    @FXML
+    private TableColumn<Donation, Integer> quantity_col;
+    @FXML
+    private TableColumn<Donation, Date> date_col;
     @FXML
     private TableColumn<HBox, Button> actions_col;
 
@@ -50,12 +55,12 @@ public class SupplyListController implements Initializable {
     @FXML
     private TextField search_field;
 
-    private static ObservableList<Item> _list;
+    private static ObservableList<Donation> _list;
 
-    public static ObservableList<Item> getList() {return _list;}
+    public static ObservableList<Donation> getList() {return _list;}
 
     private void _initTableContent() {
-        _list = Item.fetch();
+        _list = Donation.fetch();
         table.setItems(_list);
     }
 
@@ -63,12 +68,12 @@ public class SupplyListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-            .getResource("../views/supplymodalStackView.fxml"));
+            .getResource("../views/donationmodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
 
-            SupplyModalController controller = loader.getController();
+            CaretakerModalController controller = loader.getController();
 
             controller.setStage(newStage);
             controller.setAction(action);
@@ -103,10 +108,10 @@ public class SupplyListController implements Initializable {
         try {
             Parent root = loader.load();
         
-            DeleteModalController<Item> controller = loader.getController();
+            DeleteModalController<Donation> controller = loader.getController();
 
             controller.setStage(newStage);
-            controller.setName(_list.get(cellIdx).getName());
+            controller.setName(_list.get(cellIdx).getDonatorName());
             controller.setList(_list);
             controller.setIdx(cellIdx);
 
@@ -130,6 +135,7 @@ public class SupplyListController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Initialize cols data type
@@ -145,8 +151,10 @@ public class SupplyListController implements Initializable {
 
             return cell;
         });
-        name_col.setCellValueFactory(new PropertyValueFactory<>("name"));
-        quantity_col.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        donator_col.setCellValueFactory(new PropertyValueFactory<>("donatorName"));
+        item_col.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        quantity_col.setCellValueFactory(new PropertyValueFactory<>("itemQuantity"));
+        date_col.setCellValueFactory(new PropertyValueFactory<>("date"));
         actions_col.setCellFactory(col -> {
             TableCell<HBox, Button> cell = new TableCell<>();
 
@@ -205,9 +213,9 @@ public class SupplyListController implements Initializable {
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
         String searchName = search_field.getText().trim()
-            .replaceAll("\\s{2,}", " ");
-        
-        _list = Item.search(searchName);
+        .replaceAll("\\s{2,}", " ");
+    
+        _list = Donation.search(searchName);
 
         table.setItems(_list);
     }
