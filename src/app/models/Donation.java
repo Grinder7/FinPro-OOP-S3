@@ -96,6 +96,9 @@ public class Donation implements DBMethods<Donation> {
             ResultSet rs = stmt.getGeneratedKeys();
 
             if (rs.next()) {_id = rs.getInt(1);}
+            else {
+                throw new SQLException("Creating donation failed, no ID obtained");
+            }
 
             rs.close();
 

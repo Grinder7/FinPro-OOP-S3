@@ -140,8 +140,13 @@ public class CaretakerModalController implements Initializable {
         }
         catch (Exception e) {} // Ignore parsing error
 
-        String gender = Objects.toString(dropdown.getValue()
-            .substring(0, 1), "");
+        String gender = ""; 
+        
+        try {
+            gender = Objects.toString(dropdown.getValue()
+                .substring(0, 1), "");
+        }
+        catch (Exception e) {} // Ignore getValue error
 
         if (!name.isEmpty() && !phoneNum.isEmpty() && age != 0 && !gender.isEmpty()) {
             // Insert action
