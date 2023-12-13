@@ -1,11 +1,15 @@
 package app.controllers;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 // Model(s)
 import app.models.Item;
-
+import app.views.AlertBoxView;
+import database.DBConnection;
 // Javafx lib(s)
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -71,7 +76,7 @@ public class SupplyModalController implements Initializable {
         // Listen to name_field on value change
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                if (!newVal.matches("[a-zA-Z ,.']*")) {
+                if (!newVal.matches("[a-z ,.']*")) {
                     name_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
                 }
                 // Validate string length
@@ -107,7 +112,26 @@ public class SupplyModalController implements Initializable {
         if (!name.isEmpty() && quantity != -1) {
             // Insert action
             if (_action.equals("insert")) {
-                new Item(name, quantity).insert();
+                try (PreparedStatement stmt = DBConnection.getConnection()
+                    .prepareStatement("SELECT itemId FROM `supply` WHERE itemName = ?;");) {
+                    stmt.setString(1, name);
+
+                    ResultSet rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        AlertBoxView.showAlert(AlertType.ERROR, "Duplicate Item", "Item already recorded, please enter other item");
+                        
+                        rs.close();
+
+                        return;
+                    }
+                    else {new Item(name, quantity).insert();}
+
+                    rs.close();
+                }
+                catch (SQLException e) {
+                    e.printStackTrace();
+                    System.exit(0);
+                }
             }
             // Update action
             else {

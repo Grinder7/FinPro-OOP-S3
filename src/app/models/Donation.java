@@ -93,8 +93,19 @@ public class Donation implements DBMethods<Donation> {
 
             stmt.execute();
 
-            try (ResultSet rs = stmt.getGeneratedKeys();) {
-                if (rs.next()) {_id = rs.getInt(1);}
+            ResultSet rs = stmt.getGeneratedKeys();
+
+            if (rs.next()) {_id = rs.getInt(1);}
+
+            rs.close();
+
+            // Update item quantity in supply table if item is available
+            try (PreparedStatement _stmt = DBConnection.getConnection()
+                .prepareStatement("UPDATE `supply` SET itemQuantity = itemQuantity + ? WHERE itemName = ?;");) {
+                _stmt.setInt(1, itemQuantity);
+                _stmt.setString(2, itemName);
+
+                _stmt.execute();
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -131,7 +142,20 @@ public class Donation implements DBMethods<Donation> {
             stmt.setDate(4, newObj.getDate());
             stmt.setInt(5, _id);
 
-        stmt.execute();
+            stmt.execute();
+
+            // Update item quantity in supply table if item is available
+            try (PreparedStatement _stmt = DBConnection.getConnection()
+                .prepareStatement("UPDATE `supply` SET itemQuantity = itemQuantity + ? WHERE itemName = ?;");) {
+                _stmt.setInt(1, newObj.itemQuantity - itemQuantity);
+                _stmt.setString(2, itemName);
+
+                _stmt.execute();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                System.exit(0);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();

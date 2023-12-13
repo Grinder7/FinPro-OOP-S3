@@ -63,7 +63,10 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="date_field" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
+                        <DatePicker fx:id="date_field" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></DatePicker>
                      </children>
                   </VBox>
                </children>
