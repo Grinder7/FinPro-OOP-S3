@@ -5,7 +5,6 @@ import database.DBConnection;
 
 // Interface(s)
 import app.interfaces.DBMethods;
-import database.DBConnection;
 import javafx.collections.ObservableList;
 
 // Java Connector lib
@@ -16,7 +15,6 @@ import java.sql.SQLException;
 
 // Javafx lib
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Patient extends Person implements DBMethods<Patient> {
     protected String _disabilityDetail;
@@ -44,17 +42,15 @@ public class Patient extends Person implements DBMethods<Patient> {
     public static ObservableList<Patient> fetch() {
         ObservableList<Patient> list = javafx.collections.FXCollections.observableArrayList();
 
-        try (PreparedStatement pstmt = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM `patient`")) {
+        try (PreparedStatement pstmt =
+                DBConnection.getConnection().prepareStatement("SELECT * FROM `patient`")) {
 
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Patient(rs.getInt("patientId"), 
-                    rs.getString("patientName"), 
-                    rs.getInt("patientAge"),
-                    rs.getString("patientGender"), 
-                    rs.getString("disabilityDetail")));
+                list.add(new Patient(rs.getInt("patientId"), rs.getString("patientName"),
+                        rs.getInt("patientAge"), rs.getString("patientGender"),
+                        rs.getString("disabilityDetail")));
             }
 
             rs.close();
@@ -79,9 +75,10 @@ public class Patient extends Person implements DBMethods<Patient> {
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
-            
-            if (rs.next()) {_id = rs.getInt(1);} 
-            else {
+
+            if (rs.next()) {
+                _id = rs.getInt(1);
+            } else {
                 throw new SQLException("Creating user failed, no ID obtained.");
             }
 
@@ -106,8 +103,8 @@ public class Patient extends Person implements DBMethods<Patient> {
 
     @Override
     public void update(Patient newObj) {
-        try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("UPDATE `patient` SET `patientName` = ?, `patientAge` = ?, `patientGender` = ?, `disabilityDetail` = ? WHERE `patientId` = ?")) {
+        try (PreparedStatement stmt = DBConnection.getConnection().prepareStatement(
+                "UPDATE `patient` SET `patientName` = ?, `patientAge` = ?, `patientGender` = ?, `disabilityDetail` = ? WHERE `patientId` = ?")) {
             stmt.setString(1, newObj.getName());
             stmt.setInt(2, newObj.getAge());
             stmt.setString(3, newObj.getGender());
@@ -126,23 +123,19 @@ public class Patient extends Person implements DBMethods<Patient> {
         ObservableList<Patient> list = FXCollections.observableArrayList();
 
         try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("SELECT * FROM `patient` WHERE patientName LIKE ?")) {
-            stmt.setString(1, 
-                String.format("%%%s%%", searchName));
+                .prepareStatement("SELECT * FROM `patient` WHERE patientName LIKE ?")) {
+            stmt.setString(1, String.format("%%%s%%", searchName));
 
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                list.add(new Patient(rs.getInt("patientId"), 
-                    rs.getString("patientName"), 
-                    rs.getInt("patientAge"),
-                    rs.getString("patientGender"),
-                    rs.getString("disabilityDetail")));
+                list.add(new Patient(rs.getInt("patientId"), rs.getString("patientName"),
+                        rs.getInt("patientAge"), rs.getString("patientGender"),
+                        rs.getString("disabilityDetail")));
             }
 
             rs.close();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }

@@ -37,7 +37,7 @@ public class PatientListController implements Initializable {
 
     // Column fxid(s)
     @FXML
-    private TableColumn<Patient, Void> num_col;
+    private TableColumn<Integer, Void> num_col;
     @FXML
     private TableColumn<Patient, String> name_col;
     @FXML
@@ -56,7 +56,9 @@ public class PatientListController implements Initializable {
     private static ObservableList<Patient> _list;
 
 
-    public static ObservableList<Patient> getList() {return _list;}
+    public static ObservableList<Patient> getList() {
+        return _list;
+    }
 
     private void _initTableContent() {
         _list = Patient.fetch();
@@ -66,8 +68,8 @@ public class PatientListController implements Initializable {
     private void _showModal(String action, int idx) {
         Stage newStage = new Stage();
 
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("../views/patientmodalStackView.fxml"));
+        FXMLLoader loader =
+                new FXMLLoader(getClass().getResource("../views/patientmodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -100,8 +102,8 @@ public class PatientListController implements Initializable {
     private void _showDeleteModal(int cellIdx) {
         Stage newStage = new Stage();
 
-        FXMLLoader loader = new FXMLLoader(getClass()
-                .getResource("../views/deletemodalStackView.fxml"));
+        FXMLLoader loader =
+                new FXMLLoader(getClass().getResource("../views/deletemodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -214,15 +216,69 @@ public class PatientListController implements Initializable {
         gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
         disability_det_col.setCellValueFactory(new PropertyValueFactory<>("disabilityDetail"));
         actions_col.setCellFactory(col -> {
-            TableCell<HBox, Void> cell = new TableCell<>();
+            TableCell<HBox, Button> cell = new TableCell<>();
 
             cell.graphicProperty().bind(Bindings.createObjectBinding(() -> {
-                HBox hbox = new HBox();
-                hbox.setAlignment(Pos.CENTER);
+                HBox hbox = new HBox() {
+                    {
+                        setAlignment(Pos.CENTER);
+                    }
+                };
 
                 // Delete button
-                Button delBtn = new Button();
-                delBtn.setStyle("-fx-background-color: transparent;");
+                Button delBtn = new Button() {
+                    {
+                        setStyle("-fx-background-color: transparent;");
+                    }
+                };
+
+                // Set button attribute(s)
+                Text delGlyph = FontAwesomeIconFactory.get()
+                        .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
+                delGlyph.setFill(Paint.valueOf("RED"));
+
+                delBtn.setGraphic(delGlyph);
+                delBtn.setCursor(Cursor.HAND);
+
+                // Set button pressed handler
+                delBtn.setOnAction(e -> {
+                    _showDeleteModal(cell.getIndex());
+                });
+
+                // Edit button
+                Button editBtn = new Button() {
+                    {
+                        setStyle("-fx-background-color: transparent;");
+                    }
+                };
+
+                // Set button attribute(s)
+                Text editGlyph = FontAwesomeIconFactory.get()
+                        .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
+                editGlyph.setFill(Paint.valueOf("BLACK"));
+
+                editBtn.setGraphic(editGlyph);
+                editBtn.setCursor(Cursor.HAND);
+
+                // Set button pressed handler
+                editBtn.setOnAction(e -> {
+                    _showModal("update", cell.getIndex());
+                });
+
+                // Add buttons into hbox
+                hbox.getChildren().addAll(delBtn, editBtn);
+
+                if (cell.isEmpty()) {
+                    return null;
+                } else {
+                    return hbox;
+                }
+            }, cell.emptyProperty(), cell.indexProperty()));
+
+            return cell;
+        });
+
+        _initTableContent();
 
 
     }
@@ -234,9 +290,8 @@ public class PatientListController implements Initializable {
 
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
-        String searchName = search_field.getText().trim()
-            .replaceAll("\\s{2,}", " ");
-        
+        String searchName = search_field.getText().trim().replaceAll("\\s{2,}", " ");
+
         _list = Patient.search(searchName);
 
         table.setItems(_list);

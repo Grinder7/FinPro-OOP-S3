@@ -25,7 +25,7 @@ public class LoadingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Task<Void> task = new Task<>() {
+        Task<Void> task = new Task<Void>() {
             @Override
             public Void call() throws Exception {
                 updateProgress(2, 10); // 20% complete
@@ -44,8 +44,7 @@ public class LoadingController implements Initializable {
 
                 try {
                     showStatus.get();
-                } 
-                catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -54,8 +53,8 @@ public class LoadingController implements Initializable {
                 // Check if app can communicate with database server
                 if (!DBConnection.isEstablished()) {
                     FutureTask<Void> interupt = new FutureTask<>(() -> {
-                        AlertBoxView.showAlert(AlertType.ERROR, "Connection Error", 
-                        "Couldn't communicate with database server. Make sure your credentials are correct and server is online");
+                        AlertBoxView.showAlert(AlertType.ERROR, "Connection Error",
+                                "Couldn't communicate with database server. Make sure your credentials are correct and server is online");
 
                         return null;
                     });
@@ -64,8 +63,7 @@ public class LoadingController implements Initializable {
 
                     try {
                         interupt.get();
-                    } 
-                    catch (Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -86,15 +84,14 @@ public class LoadingController implements Initializable {
             // Redirect to home page
             try {
                 Main.showPage("./views/homeView.fxml", true);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
 
         // Bind task progress with progress bar
         progress_bar.progressProperty().bind(task.progressProperty());
-        
+
         new Thread(task).start(); // Start thread
     }
 }
