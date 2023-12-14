@@ -82,8 +82,8 @@ public class Main extends Application {
                 try {
                     DBConnection.getConnection().close();
                 }
-                catch (SQLException f) {
-                    f.printStackTrace();
+                catch (SQLException s) {
+                    s.printStackTrace();
                 }
             }
         });

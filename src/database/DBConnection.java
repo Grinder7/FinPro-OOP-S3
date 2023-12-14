@@ -2,6 +2,7 @@ package database;
 
 import java.util.Map;
 
+// Json file
 import json.JSONFile;
 
 // MySQL connector lib
@@ -18,7 +19,6 @@ public class DBConnection {
     private static String DB_PASSWORD;
     private static String DB_NAME;
     private static String _driver = "jdbc:mysql://";
-    private static boolean _connEstablished = false;
     private static boolean _retryConn = false;
     private static Connection _conn = null;
 
@@ -38,12 +38,9 @@ public class DBConnection {
                     DB_USERNAME, DB_PASSWORD);
                 
                 _retryConn = false;
-                _connEstablished = true;
             }
             // Handler for unknown host
-            catch (CommunicationsException a) {
-                _connEstablished = false;
-            }
+            catch (CommunicationsException c) {break;}
             catch (SQLException s) {
                 switch (s.getErrorCode()) {
                     case (MysqlErrorNumbers.ER_BAD_DB_ERROR):
@@ -83,7 +80,17 @@ public class DBConnection {
         } while (_retryConn);
     }
 
-    public static boolean isEstablished() {return _connEstablished;}
+    public static boolean isEstablished() {
+        try {
+            return (_conn != null && _conn.isValid(0));
+        }
+        catch (SQLException s) {
+            s.printStackTrace();
+            System.exit(0);
+        }
+
+        return false;
+    }
 
     public static Connection getConnection() {return _conn;}
 }

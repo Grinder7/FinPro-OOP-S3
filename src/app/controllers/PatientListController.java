@@ -158,37 +158,40 @@ public class PatientListController implements Initializable {
             TableCell<HBox, Button> cell = new TableCell<>();
 
             cell.graphicProperty().bind(Bindings.createObjectBinding(() -> {
-                HBox hbox = new HBox();
-                hbox.setAlignment(Pos.CENTER);
+                HBox hbox = new HBox() {{
+                    setAlignment(Pos.CENTER);
+                }};
 
                 // Delete button
-                Button delBtn = new Button();
-                delBtn.setStyle("-fx-background-color: transparent;");
+                Button delBtn = new Button() {{
+                    setStyle("-fx-background-color: transparent;");
+                }};
 
+                // Set button attribute(s)
                 Text delGlyph = FontAwesomeIconFactory.get()
-                        .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
+                    .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
                 delGlyph.setFill(Paint.valueOf("RED"));
 
                 delBtn.setGraphic(delGlyph);
-
                 delBtn.setCursor(Cursor.HAND);
 
-                delBtn.setOnAction(e -> {
-                    _showDeleteModal(cell.getIndex());
-                });
-
+                // Set button pressed handler
+                delBtn.setOnAction(e -> {_showDeleteModal(cell.getIndex());});
+                
                 // Edit button
-                Button editBtn = new Button();
-                editBtn.setStyle("-fx-background-color: transparent;");
+                Button editBtn = new Button() {{
+                    setStyle("-fx-background-color: transparent;");
+                }};
 
+                // Set button attribute(s)
                 Text editGlyph = FontAwesomeIconFactory.get()
-                        .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
+                    .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
                 editGlyph.setFill(Paint.valueOf("BLACK"));
 
                 editBtn.setGraphic(editGlyph);
-
                 editBtn.setCursor(Cursor.HAND);
 
+                // Set button pressed handler
                 editBtn.setOnAction(e -> {
                     _showModal("update", cell.getIndex());
                 });
