@@ -30,7 +30,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class PatientListController implements Initializable {
+public class PatientListController implements Initializable, Runnable {
     // Layout fxid(s)
     @FXML
     private TableView<Patient> table;
@@ -55,6 +55,25 @@ public class PatientListController implements Initializable {
 
     private static ObservableList<Patient> _list;
 
+    public PatientListController() {
+        Thread t = new Thread(this);
+        t.setName("DBPollingThread");
+        t.start();
+    }
+
+    public void run() {
+        // poll database
+        while (true) {
+            try {
+                Thread.sleep(5000);
+                _initTableContent();
+                System.out.println("Polling Patient");
+            } catch (InterruptedException e) {
+                System.err.println("DBPollingThread interrupted");
+                break;
+            }
+        }
+    }
 
     public static ObservableList<Patient> getList() {
         return _list;
@@ -68,8 +87,7 @@ public class PatientListController implements Initializable {
     private void _showModal(String action, int idx) {
         Stage newStage = new Stage();
 
-        FXMLLoader loader =
-                new FXMLLoader(getClass().getResource("../views/patientmodalStackView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/patientmodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -102,8 +120,7 @@ public class PatientListController implements Initializable {
     private void _showDeleteModal(int cellIdx) {
         Stage newStage = new Stage();
 
-        FXMLLoader loader =
-                new FXMLLoader(getClass().getResource("../views/deletemodalStackView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../views/deletemodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -136,8 +153,6 @@ public class PatientListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        _list = Patient.fetch();
-
         // Initialize cols data type
         num_col.setCellFactory(col -> {
 
@@ -209,9 +224,6 @@ public class PatientListController implements Initializable {
 
             return cell;
         });
-
-        _initTableContent();
-        table.setItems(_list);
         age_col.setCellValueFactory(new PropertyValueFactory<>("age"));
         gender_col.setCellValueFactory(new PropertyValueFactory<>("gender"));
         disability_det_col.setCellValueFactory(new PropertyValueFactory<>("disabilityDetail"));
@@ -279,7 +291,6 @@ public class PatientListController implements Initializable {
         });
 
         _initTableContent();
-
 
     }
 

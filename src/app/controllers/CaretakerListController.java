@@ -5,7 +5,6 @@ import java.util.ResourceBundle;
 
 // Model(s)
 import app.models.Caretaker;
-
 // Javafx lib
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +30,7 @@ import javafx.collections.ObservableList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 
-public class CaretakerListController implements Initializable {
+public class CaretakerListController implements Initializable, Runnable {
     // Layout fxid(s)
     @FXML
     private TableView<Caretaker> table;
@@ -53,6 +52,26 @@ public class CaretakerListController implements Initializable {
     // Input field fxid(s)
     @FXML
     private TextField search_field;
+
+    public CaretakerListController() {
+        Thread t = new Thread(this);
+        t.setName("DBPollingThread");
+        t.start();
+    }
+
+    public void run() {
+        // poll database
+        while (true) {
+            try {
+                Thread.sleep(5000);
+                _initTableContent();
+                System.out.println("Polling CareTaker");
+            } catch (InterruptedException e) {
+                System.err.println("DBPollingThread interrupted");
+                break;
+            }
+        }
+    }
 
     private static ObservableList<Caretaker> _list;
 

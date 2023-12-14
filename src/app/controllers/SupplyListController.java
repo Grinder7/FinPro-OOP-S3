@@ -31,7 +31,7 @@ import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 
-public class SupplyListController implements Initializable {
+public class SupplyListController implements Initializable, Runnable {
     // Layout fxid(s)
     @FXML
     private TableView<Item> table;
@@ -52,7 +52,29 @@ public class SupplyListController implements Initializable {
 
     private static ObservableList<Item> _list;
 
-    public static ObservableList<Item> getList() {return _list;}
+    public SupplyListController() {
+        Thread t = new Thread(this);
+        t.setName("DBPollingThread");
+        t.start();
+    }
+
+    public void run() {
+        // poll database
+        while (true) {
+            try {
+                Thread.sleep(5000);
+                _initTableContent();
+                System.out.println("Polling Supply");
+            } catch (InterruptedException e) {
+                System.err.println("DBPollingThread interrupted");
+                break;
+            }
+        }
+    }
+
+    public static ObservableList<Item> getList() {
+        return _list;
+    }
 
     private void _initTableContent() {
         _list = Item.fetch();
@@ -63,7 +85,7 @@ public class SupplyListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-            .getResource("../views/supplymodalStackView.fxml"));
+                .getResource("../views/supplymodalStackView.fxml"));
 
         try {
             Parent root = loader.load();
@@ -87,8 +109,7 @@ public class SupplyListController implements Initializable {
             newStage.showAndWait();
 
             _initTableContent();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -98,11 +119,11 @@ public class SupplyListController implements Initializable {
         Stage newStage = new Stage();
 
         FXMLLoader loader = new FXMLLoader(getClass()
-            .getResource("../views/deletemodalStackView.fxml"));
-        
+                .getResource("../views/deletemodalStackView.fxml"));
+
         try {
             Parent root = loader.load();
-        
+
             DeleteModalController<Item> controller = loader.getController();
 
             controller.setStage(newStage);
@@ -123,8 +144,7 @@ public class SupplyListController implements Initializable {
             newStage.showAndWait();
 
             _initTableContent();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
@@ -137,8 +157,9 @@ public class SupplyListController implements Initializable {
             TableCell<Integer, Void> cell = new TableCell<>();
 
             cell.textProperty().bind(Bindings.createStringBinding(() -> {
-                if (cell.isEmpty()) {return null;}
-                else {
+                if (cell.isEmpty()) {
+                    return null;
+                } else {
                     return Integer.toString(cell.getIndex() + 1);
                 }
             }, cell.emptyProperty(), cell.indexProperty()));
@@ -159,21 +180,23 @@ public class SupplyListController implements Initializable {
                 delBtn.setStyle("-fx-background-color: transparent;");
 
                 Text delGlyph = FontAwesomeIconFactory.get()
-                    .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
+                        .createIcon(FontAwesomeIcon.valueOf("TRASH"), "1.2em");
                 delGlyph.setFill(Paint.valueOf("RED"));
 
                 delBtn.setGraphic(delGlyph);
 
                 delBtn.setCursor(Cursor.HAND);
 
-                delBtn.setOnAction(e -> {_showDeleteModal(cell.getIndex());});
-                
+                delBtn.setOnAction(e -> {
+                    _showDeleteModal(cell.getIndex());
+                });
+
                 // Edit button
                 Button editBtn = new Button();
                 editBtn.setStyle("-fx-background-color: transparent;");
 
                 Text editGlyph = FontAwesomeIconFactory.get()
-                    .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
+                        .createIcon(FontAwesomeIcon.valueOf("PENCIL"), "1.2em");
                 editGlyph.setFill(Paint.valueOf("BLACK"));
 
                 editBtn.setGraphic(editGlyph);
@@ -187,8 +210,11 @@ public class SupplyListController implements Initializable {
                 // Add buttons into hbox
                 hbox.getChildren().addAll(delBtn, editBtn);
 
-                if (cell.isEmpty()) {return null;}
-                else {return hbox;}
+                if (cell.isEmpty()) {
+                    return null;
+                } else {
+                    return hbox;
+                }
             }, cell.emptyProperty(), cell.indexProperty()));
 
             return cell;
@@ -205,8 +231,8 @@ public class SupplyListController implements Initializable {
     @FXML
     private void _searchBtnHandler(MouseEvent event) {
         String searchName = search_field.getText().trim()
-            .replaceAll("\\s{2,}", " ");
-        
+                .replaceAll("\\s{2,}", " ");
+
         _list = Item.search(searchName);
 
         table.setItems(_list);

@@ -51,7 +51,7 @@ public class HomeController implements Initializable {
     private HBox _selectedMenu;
 
     // Colors for selected and unselected menu
-    private String _selectedColor =  "#2eb2ee";
+    private String _selectedColor = "#2eb2ee";
     private String _unselectedBarColor = "#ffffff";
     private String _unselectedLabelColor = "#89898a";
     private String _hoverColor = "#000000";
@@ -60,28 +60,30 @@ public class HomeController implements Initializable {
         ObservableList<Node> menus = menu_container.getChildren();
 
         // Set all menu state according to it's selected state
-        for (Node menu: menus) {
+        for (Node menu : menus) {
             ObservableList<Node> menuChild = ((HBox) menu).getChildren();
             ObservableList<Node> labelChild = ((HBox) menuChild.get(1)).getChildren();
 
             if (menu == _selectedMenu) { // Selected
                 // Change bar background color
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _selectedColor + ";");
+                ((AnchorPane) menuChild.get(0))
+                        .setStyle("-fx-background-color: " + _selectedColor + ";");
 
                 // Change icon fill color
                 ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_selectedColor));
-                
+
                 // Change label font color
                 Label label = (Label) labelChild.get(1);
                 label.setTextFill(Color.valueOf(_selectedColor));
                 label.setFont(Font.font("System", FontWeight.BOLD, 16));
-            }
-            else { // Unselected
-                // Change bar background color
-                ((AnchorPane) menuChild.get(0)).setStyle("-fx-background-color: " + _unselectedBarColor + ";");
+            } else { // Unselected
+                     // Change bar background color
+                ((AnchorPane) menuChild.get(0))
+                        .setStyle("-fx-background-color: " + _unselectedBarColor + ";");
 
                 // Change icon fill color
-                ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_unselectedLabelColor));
+                ((FontAwesomeIconView) labelChild.get(0))
+                        .setFill(Color.valueOf(_unselectedLabelColor));
 
                 // Change label font color
                 Label label = (Label) labelChild.get(1);
@@ -91,32 +93,44 @@ public class HomeController implements Initializable {
         }
     }
 
+    private void stopDBPolling() {
+        try {
+
+            Thread.getAllStackTraces().keySet().stream()
+                    .filter(t -> t.getName().equals("DBPollingThread")).findFirst().get()
+                    .interrupt();
+        } catch (Exception e) {
+            System.err.println("No DBPollingThread found");
+        }
+
+    }
+
     public void setSubpage(String fxmlPath) {
         // Array list contains pages path that can bypass db connection
-        ArrayList<String> whitelist = new ArrayList<>(Arrays.asList(
-            "../views/configSubView.fxml", "../views/editSubView.fxml"
-        )); 
+        ArrayList<String> whitelist = new ArrayList<>(
+                Arrays.asList("../views/configSubView.fxml", "../views/editSubView.fxml"));
 
         try {
+            stopDBPolling();
             Parent page = null;
 
             // Load fxml file, by checking connection to database
             if (!DBConnection.isEstablished() && !whitelist.contains(fxmlPath)) {
                 page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
-            }
-            else {
+            } else {
                 page = FXMLLoader.load(getClass().getResource(fxmlPath));
             }
 
             main_layout.setCenter(page);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
     }
 
-    public static void setCenterPage(Parent page) {staticMainLayout.setCenter(page);}
+    public static void setCenterPage(Parent page) {
+        staticMainLayout.setCenter(page);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -138,7 +152,7 @@ public class HomeController implements Initializable {
     private void _patientListHandler(MouseEvent event) {
         _selectedMenu = patient_list;
         _setMenuState();
-        
+
         setSubpage("../views/patientlistSubView.fxml");
     }
 
@@ -185,7 +199,7 @@ public class HomeController implements Initializable {
 
             // Change icon fill color
             ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_hoverColor));
-            
+
             // Change label font color
             Label label = (Label) labelChild.get(1);
             label.setTextFill(Color.valueOf(_hoverColor));
@@ -204,7 +218,7 @@ public class HomeController implements Initializable {
 
             // Change icon fill color
             ((FontAwesomeIconView) labelChild.get(0)).setFill(Color.valueOf(_unselectedLabelColor));
-            
+
             // Change label font color
             Label label = (Label) labelChild.get(1);
             label.setTextFill(Color.valueOf(_unselectedLabelColor));
