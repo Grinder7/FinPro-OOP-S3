@@ -57,7 +57,7 @@ public class PatientListController implements Initializable {
     private static ObservableList<Patient> _list;
 
     public PatientListController() {
-        Thread t = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 // Pooling database
                 while (true) {
@@ -75,10 +75,10 @@ public class PatientListController implements Initializable {
                     }
                 }
             }
-        });
-
-        t.setName("DBPollingThread");
-        t.start();
+        }) {{
+            setName("DBPollingThread");
+            start();
+        }};
     }
 
     public static ObservableList<Patient> getList() {return _list;}

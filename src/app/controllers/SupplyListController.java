@@ -53,7 +53,7 @@ public class SupplyListController implements Initializable {
     private static ObservableList<Item> _list;
 
     public SupplyListController() {
-        Thread t = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 // Pooling database
                 while (true) {
@@ -71,10 +71,10 @@ public class SupplyListController implements Initializable {
                     }
                 }
             }
-        });
-
-        t.setName("DBPollingThread");
-        t.start();
+        }) {{
+            setName("DBPollingThread");
+            start();
+        }};
     }
 
     public static ObservableList<Item> getList() {return _list;}

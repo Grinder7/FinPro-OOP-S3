@@ -57,7 +57,7 @@ public class CaretakerListController implements Initializable {
     private static ObservableList<Caretaker> _list;
 
     public CaretakerListController() {
-        Thread t = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 // Pooling database
                 while (true) {
@@ -75,10 +75,10 @@ public class CaretakerListController implements Initializable {
                     }
                 }
             }
-        });
-
-        t.setName("DBPollingThread");
-        t.start();
+        }) {{
+            setName("DBPollingThread");
+            start();
+        }};
     }
 
     public static ObservableList<Caretaker> getList() {return _list;}

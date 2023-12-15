@@ -58,7 +58,7 @@ public class DonationListController implements Initializable {
     private static ObservableList<Donation> _list;
 
     public DonationListController() {
-        Thread t = new Thread(new Runnable() {
+        new Thread(new Runnable() {
             public void run() {
                 // Pooling database
                 while (true) {
@@ -76,10 +76,10 @@ public class DonationListController implements Initializable {
                     }
                 }
             }
-        });
-
-        t.setName("DBPollingThread");
-        t.start();
+        }) {{
+            setName("DBPollingThread");
+            start();
+        }};
     }
 
     public static ObservableList<Donation> getList() {return _list;}
