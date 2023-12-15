@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.Map;
 
+import app.controllers.HomeController;
 import database.DBConnection;
 
 // Javafx lib
@@ -86,6 +87,8 @@ public class Main extends Application {
                     s.printStackTrace();
                 }
             }
+
+            HomeController.stopDBPolling();
         });
 
         if (_isFresh()) {

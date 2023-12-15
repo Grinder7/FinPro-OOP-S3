@@ -57,6 +57,31 @@ public class DonationListController implements Initializable {
 
     private static ObservableList<Donation> _list;
 
+    public DonationListController() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                // Pooling database
+                while (true) {
+                    try {
+                        // Wait for 5 sec
+                        Thread.sleep(5000);
+
+                        _initTableContent();
+                        
+                        System.out.println("Polling Donation");
+                    } 
+                    catch (InterruptedException e) {
+                        System.err.println("DBPollingThread interrupted");
+                        break;
+                    }
+                }
+            }
+        });
+
+        t.setName("DBPollingThread");
+        t.start();
+    }
+
     public static ObservableList<Donation> getList() {return _list;}
 
     private void _initTableContent() {

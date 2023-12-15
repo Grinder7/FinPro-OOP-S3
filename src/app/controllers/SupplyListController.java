@@ -52,6 +52,31 @@ public class SupplyListController implements Initializable {
 
     private static ObservableList<Item> _list;
 
+    public SupplyListController() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                // Pooling database
+                while (true) {
+                    try {
+                        // Wait for 5 sec
+                        Thread.sleep(5000);
+
+                        _initTableContent();
+                        
+                        System.out.println("Polling CareTaker");
+                    } 
+                    catch (InterruptedException e) {
+                        System.err.println("DBPollingThread interrupted");
+                        break;
+                    }
+                }
+            }
+        });
+
+        t.setName("DBPollingThread");
+        t.start();
+    }
+
     public static ObservableList<Item> getList() {return _list;}
 
     private void _initTableContent() {

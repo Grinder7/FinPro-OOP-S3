@@ -56,11 +56,22 @@ public class HomeController implements Initializable {
     private String _unselectedLabelColor = "#89898a";
     private String _hoverColor = "#000000";
 
+    public static void stopDBPolling() {
+        try {
+            Thread.getAllStackTraces().keySet().stream()
+                .filter(t -> t.getName().equals("DBPollingThread")).findFirst().get()
+                .interrupt();
+        }
+        catch (Exception e) {
+            System.err.println("No DBPollingThread found");
+        }
+    }
+
     public void setMenuState() {
         ObservableList<Node> menus = menu_container.getChildren();
 
         // Set all menu state according to it's selected state
-        for (Node menu: menus) {
+        for (Node menu : menus) {
             ObservableList<Node> menuChild = ((HBox) menu).getChildren();
             ObservableList<Node> labelChild = ((HBox) menuChild.get(1)).getChildren();
 
@@ -98,6 +109,7 @@ public class HomeController implements Initializable {
         )); 
 
         try {
+            stopDBPolling();
             Parent page = null;
 
             // Load fxml file, by checking connection to database

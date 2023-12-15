@@ -56,6 +56,31 @@ public class PatientListController implements Initializable {
 
     private static ObservableList<Patient> _list;
 
+    public PatientListController() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                // Pooling database
+                while (true) {
+                    try {
+                        // Wait for 5 sec
+                        Thread.sleep(5000);
+
+                        _initTableContent();
+                        
+                        System.out.println("Polling Patient");
+                    } 
+                    catch (InterruptedException e) {
+                        System.err.println("DBPollingThread interrupted");
+                        break;
+                    }
+                }
+            }
+        });
+
+        t.setName("DBPollingThread");
+        t.start();
+    }
+
     public static ObservableList<Patient> getList() {return _list;}
 
     private void _initTableContent() {
