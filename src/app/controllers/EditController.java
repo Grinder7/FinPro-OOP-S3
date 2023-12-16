@@ -1,12 +1,13 @@
 package app.controllers;
 
-import app.views.AlertBoxView;
-import database.DBConnection;
-import json.JSONFile;
-
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import app.models.Patient;
+import app.views.AlertBoxView;
+import database.DBConnection;
+import json.JSONFile;
 
 // Javafx lib
 import javafx.event.ActionEvent;
@@ -76,7 +77,8 @@ public class EditController implements Initializable {
     @FXML
     private void _saveBtnHandler(ActionEvent event) throws Exception  {
         // Get all input field value
-        String houseName = name_field.getText().trim();
+        String houseName = name_field.getText().trim()
+            .replaceAll("\\s{2,}", " ");
         int houseCapacity = 0;
 
         try {
@@ -84,16 +86,20 @@ public class EditController implements Initializable {
         }
         catch(Exception e) {} // Ignore parsing error
 
-        String dbServerURL = db_server_url_field.getText().replace("http:", "")
-            .replace("http:", "").replaceAll("/", "")
-            .replaceAll(" ", "");
-        String dbUsername = db_username_field.getText().trim();
+        String dbServerURL = db_server_url_field.getText()
+            .replace("(http:|https:)", "")
+            .replaceAll("/", "")
+            .replaceAll("\\s{1,}", "");
+        String dbUsername = db_username_field.getText();
         String dbPassword = db_password_field.getText();
 
         if (!houseName.isEmpty() && houseCapacity != 0 && 
             !dbServerURL.isEmpty() && !dbUsername.isEmpty()) {
             // Check if new house_capacity is valid (not less than current total patient)
-            // Code here
+            if (houseCapacity < Patient.fetch().size()) {
+                AlertBoxView.showAlert(AlertType.ERROR, "Capacity Exceeded", "House capacity should not less than patient total");
+                return;
+            }
 
             // Check if database url is not valid
             if (!dbServerURL.matches("^[a-zA-Z0-9]{1,}(:[0-9]{1,5})?$")) {

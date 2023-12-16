@@ -58,8 +58,8 @@ public class HomeController implements Initializable {
     public static void stopDBPolling() {
         try {
             Thread.getAllStackTraces().keySet().stream()
-                .filter(t -> t.getName().equals("DBPollingThread")).findFirst().get()
-                .interrupt();
+                .filter(t -> t.getName().equals("DBPollingThread"))
+                .findFirst().get().interrupt();
         }
         catch (Exception e) {
             System.err.println("No DBPollingThread found");
@@ -109,7 +109,6 @@ public class HomeController implements Initializable {
         }};
 
         try {
-            stopDBPolling();
             Parent page = null;
 
             // Load fxml file, by checking connection to database
@@ -117,6 +116,7 @@ public class HomeController implements Initializable {
                 page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
             }
             else {
+                stopDBPolling();
                 page = FXMLLoader.load(getClass().getResource(fxmlPath));
             }
 

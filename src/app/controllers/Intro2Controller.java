@@ -57,8 +57,9 @@ public class Intro2Controller implements Initializable {
         }
         catch(Exception e) {} // Ignore parsing error
 
-        String dbServerURL = db_server_url_field.getText().replace("http:", "")
-            .replace("http:", "").replaceAll("/", "")
+        String dbServerURL = db_server_url_field.getText()
+            .replace("(http:|https:)", "")
+            .replaceAll("/", "")
             .replaceAll("\\s{1,}", "");
         String dbUsername = db_username_field.getText();
         String dbPassword = db_password_field.getText();

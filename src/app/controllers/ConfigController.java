@@ -1,10 +1,10 @@
 package app.controllers;
 
-import json.JSONFile;
-
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import json.JSONFile;
 
 // Javafx lib
 import javafx.fxml.FXML;

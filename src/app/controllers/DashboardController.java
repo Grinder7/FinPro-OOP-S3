@@ -51,22 +51,27 @@ public class DashboardController implements Initializable {
 
     public DashboardController() {
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 _patientTotal = Patient.fetch().size();
             }
         }).start();
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 _availCaretaker = Caretaker.fetch().size();
             }
         }).start();
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 _itemList = Item.fetch();
 
+                // Sort list asc
                 Collections.sort(_itemList, new Comparator<Item>() {
+                    @Override
                     public int compare(Item item1, Item item2) {
                         if (item1.getQuantity() == item2.getQuantity()) {
                             return 0;

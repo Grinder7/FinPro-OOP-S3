@@ -82,7 +82,7 @@ public class DBConnection {
 
     public static boolean isEstablished() {
         try {
-            return (_conn != null && _conn.isValid(0));
+            return _conn != null && _conn.isValid(0);
         }
         catch (SQLException s) {
             s.printStackTrace();

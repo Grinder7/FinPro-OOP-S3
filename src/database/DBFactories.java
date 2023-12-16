@@ -6,6 +6,10 @@ import java.sql.Statement;
 public class DBFactories {
     private static Statement _statement;
 
+    public static void setStatement(Statement s) {
+        _statement = s;
+    }
+
     public static void createPatientTable() {
         String query = "CREATE TABLE `patient`(" + 
             "patientId INT PRIMARY KEY AUTO_INCREMENT," +
@@ -54,9 +58,5 @@ public class DBFactories {
 
         try {_statement.executeUpdate(query);}
         catch (SQLException e) {e.printStackTrace();}
-    }
-
-    public static void setStatement(Statement s) {
-        _statement = s;
     }
 }
