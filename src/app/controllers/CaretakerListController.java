@@ -59,7 +59,7 @@ public class CaretakerListController implements Initializable {
     public CaretakerListController() {
         new Thread(new Runnable() {
             public void run() {
-                // Pooling database
+                // Polling database
                 while (true) {
                     try {
                         // Wait for 5 sec

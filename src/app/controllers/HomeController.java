@@ -3,7 +3,6 @@ package app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import database.DBConnection;
 
@@ -104,9 +103,10 @@ public class HomeController implements Initializable {
 
     public void setSubpage(String fxmlPath) {
         // Array list contains pages path that can bypass db connection
-        ArrayList<String> whitelist = new ArrayList<>(Arrays.asList(
-            "../views/configSubView.fxml", "../views/editSubView.fxml"
-        )); 
+        ArrayList<String> whitelist = new ArrayList<>() {{
+            add("../views/configSubView.fxml");
+            add("../views/editSubView.fxml");
+        }};
 
         try {
             stopDBPolling();

@@ -61,16 +61,14 @@ public class Main extends Application {
             System.exit(0);
         }
 
-        return true;
+        return true; // Cannot reach this code
     }
-
-    private static void _setAppStage(Stage s) {_appStage = s;}
 
     public static Stage getAppStage() {return _appStage;}
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        _setAppStage(primaryStage);
+        _appStage = primaryStage;
 
         // Program icon
         _appStage.getIcons().add(new Image(Main.class.getResourceAsStream("../assets/ico.png")));

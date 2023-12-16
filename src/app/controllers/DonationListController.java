@@ -60,7 +60,7 @@ public class DonationListController implements Initializable {
     public DonationListController() {
         new Thread(new Runnable() {
             public void run() {
-                // Pooling database
+                // Polling database
                 while (true) {
                     try {
                         // Wait for 5 sec

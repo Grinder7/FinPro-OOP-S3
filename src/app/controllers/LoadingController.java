@@ -28,10 +28,6 @@ public class LoadingController implements Initializable {
         Task<Void> task = new Task<>() {
             @Override
             public Void call() throws Exception {
-                updateProgress(2, 10); // 20% complete
-
-                Thread.sleep(1000);
-
                 updateProgress(6, 10); // 60% complete
 
                 FutureTask<Void> showStatus = new FutureTask<>(() -> {
@@ -72,7 +68,7 @@ public class LoadingController implements Initializable {
 
                 updateProgress(8, 10); // 80% complete
 
-                Thread.sleep(1000);
+                Thread.sleep(250);
 
                 updateProgress(10, 10); // 100% complete
 
@@ -89,6 +85,7 @@ public class LoadingController implements Initializable {
             }
             catch (Exception e) {
                 e.printStackTrace();
+                System.exit(0);
             }
         });
 

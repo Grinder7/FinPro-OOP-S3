@@ -1,13 +1,15 @@
 package app.controllers;
 
-import app.Main;
-import json.JSONFile;
-
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.net.URL;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
+
+import app.Main;
+
+// Json file
+import json.JSONFile;
 
 // Javafx lib
 import javafx.fxml.FXML;
@@ -22,23 +24,12 @@ public class Intro1Controller implements Initializable {
     @FXML
     private TextField house_name_field;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Set house name field value, if user have save it before
-        String currHouseName = Objects.toString(
-            JSONFile.toMap().get("house_name"), "");
-
-        if (!currHouseName.isEmpty()) {
-            house_name_field.setText(currHouseName);
-        }
-    }
-
     private void _proceed() throws Exception {
         String houseName = house_name_field.getText().trim() // Remove left and right whitespaces
             .replaceAll("\\s{2,}", " "); // Shorten 2 or more whitespace into 1 char
 
         if (!houseName.isEmpty()) {
-            Map<String, Object> map = new LinkedHashMap<>();
+            Map<String, Object> map = new HashMap<>();
 
             map.put("house_name", houseName);
 
@@ -47,6 +38,17 @@ public class Intro1Controller implements Initializable {
 
             // Redirect to intro 2 page
             Main.showPage("./views/intro2View.fxml", false);
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Set house name field value, if user have save it before
+        String currHouseName = Objects.toString(
+            JSONFile.toMap().get("house_name"), "");
+
+        if (!currHouseName.isEmpty()) {
+            house_name_field.setText(currHouseName);
         }
     }
 

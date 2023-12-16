@@ -6,7 +6,7 @@ import javafx.stage.Modality;
 
 public class AlertBoxView {
     public static void showAlert(AlertType type, String title, String msg) {
-        Alert alertBox = new Alert((AlertType) type);
+        Alert alertBox = new Alert(type);
 
         // Set alert box properties
         alertBox.setTitle(title);

@@ -1,12 +1,14 @@
 package app.controllers;
 
-import app.Main;
-import app.views.AlertBoxView;
-import json.JSONFile;
-
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
+
+import app.Main;
+
+import app.views.AlertBoxView;
+
+import json.JSONFile;
 
 // Javafx lib
 import javafx.beans.value.ChangeListener;
@@ -57,8 +59,8 @@ public class Intro2Controller implements Initializable {
 
         String dbServerURL = db_server_url_field.getText().replace("http:", "")
             .replace("http:", "").replaceAll("/", "")
-            .replaceAll(" ", "");
-        String dbUsername = db_username_field.getText().trim();
+            .replaceAll("\\s{1,}", "");
+        String dbUsername = db_username_field.getText();
         String dbPassword = db_password_field.getText();
 
         // Check if input field has value(s)

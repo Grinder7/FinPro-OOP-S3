@@ -55,7 +55,7 @@ public class SupplyListController implements Initializable {
     public SupplyListController() {
         new Thread(new Runnable() {
             public void run() {
-                // Pooling database
+                // Polling database
                 while (true) {
                     try {
                         // Wait for 5 sec

@@ -29,6 +29,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DashboardController implements Initializable {
@@ -46,7 +47,7 @@ public class DashboardController implements Initializable {
 
     private int _patientTotal = 0;
     private int _availCaretaker = 0;
-    private ObservableList<Item> _itemList;
+    private ObservableList<Item> _itemList = FXCollections.observableArrayList();
 
     public DashboardController() {
         new Thread(new Runnable() {
