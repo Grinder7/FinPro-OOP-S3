@@ -79,11 +79,8 @@ public class SupplyModalController implements Initializable {
         // Listen to name_field on value change
         name_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                if (!newVal.matches("[a-z ,.']*")) {
-                    name_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
-                }
                 // Validate string length
-                else if (newVal.length() > 255) {
+                if (newVal.length() > 255) {
                     name_field.setText(newVal.substring(0, 255));
                 }
             }
@@ -116,8 +113,8 @@ public class SupplyModalController implements Initializable {
             // Insert action
             if (_action.equals("insert")) {
                 try (PreparedStatement stmt = DBConnection.getConnection()
-                    .prepareStatement("SELECT itemId FROM `supply` WHERE itemName = ?;");) {
-                    stmt.setString(1, name);
+                    .prepareStatement("SELECT DISTINCT itemId FROM `supply` WHERE LOWER(itemName) LIKE ?;");) {
+                    stmt.setString(1, name.toLowerCase());
 
                     ResultSet rs = stmt.executeQuery();
                     if (rs.next()) {

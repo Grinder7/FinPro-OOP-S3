@@ -55,19 +55,6 @@ public class DonationModalController implements Initializable {
             }
         });
 
-        // Listen to item_field on value change
-        item_field.textProperty().addListener(new ChangeListener<String>() {
-            public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {
-                if (!newVal.matches("[a-z ]*")) {
-                    item_field.setText(newVal.replaceAll("[^[a-z ]]", ""));
-                }
-                // Validate string length
-                else if (newVal.length() > 255) {
-                    item_field.setText(newVal.substring(0, 255));
-                }
-            }
-        });
-
         // Listen to quantity_field on value change
         quantity_field.textProperty().addListener(new ChangeListener<String>() {
             public void changed(ObservableValue<? extends String> observable, String oldVal, String newVal) {

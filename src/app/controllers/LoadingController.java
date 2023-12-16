@@ -50,7 +50,7 @@ public class LoadingController implements Initializable {
                 // Check if app can communicate with database server
                 if (!DBConnection.isEstablished()) {
                     FutureTask<Void> interupt = new FutureTask<>(() -> {
-                        AlertBoxView.showAlert(AlertType.ERROR, "Connection Error", 
+                        AlertBoxView.showAlert(AlertType.WARNING, "Connection Error", 
                         "Couldn't communicate with database server. Make sure your credentials are correct and server is online");
 
                         return null;

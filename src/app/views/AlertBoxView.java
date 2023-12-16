@@ -1,5 +1,6 @@
 package app.views;
 
+import app.Main;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
@@ -12,6 +13,8 @@ public class AlertBoxView {
         alertBox.setTitle(title);
         alertBox.setHeaderText(null);
         alertBox.setContentText(msg + ".");
+
+        alertBox.initOwner(Main.getAppStage());
 
         alertBox.initModality(Modality.APPLICATION_MODAL);
 

@@ -72,10 +72,9 @@
                           <columns>
                               <TableColumn fx:id="num_col" editable="false" prefWidth="35.999970614910126" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="#" />
                             <TableColumn fx:id="donator_col" editable="false" prefWidth="207.1999740600586" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Donator" />
-                            <TableColumn fx:id="item_col" editable="false" prefWidth="143.199951171875" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Item" />
-                              <TableColumn fx:id="quantity_col" editable="false" prefWidth="76.800048828125" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Quantity" />
-                              <TableColumn fx:id="date_col" editable="false" prefWidth="108.80001831054688" sortable="false" style="-fx-alignment: CENTER;" text="Date" />
-                              <TableColumn fx:id="actions_col" editable="false" prefWidth="90.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Actions" />
+                            <TableColumn fx:id="item_col" editable="false" prefWidth="185.5999755859375" sortable="false" style="-fx-alignment: CENTER-LEFT; -fx-padding: 0 5 0 5;" text="Item" />
+                              <TableColumn fx:id="quantity_col" editable="false" prefWidth="87.20004272460938" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Quantity" />
+                              <TableColumn fx:id="date_col" editable="false" prefWidth="109.60003662109375" sortable="false" style="-fx-alignment: CENTER;" text="Date" />
                           </columns>
                            <columnResizePolicy>
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

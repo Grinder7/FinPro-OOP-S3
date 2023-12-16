@@ -67,7 +67,7 @@ public class SupplyListController implements Initializable {
 
                         _initTableContent();
                         
-                        System.out.println("Polling CareTaker");
+                        System.out.println("Polling Supply");
                     } 
                     catch (InterruptedException e) {
                         System.err.println("DBPollingThread interrupted");
