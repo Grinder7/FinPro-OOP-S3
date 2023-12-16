@@ -40,17 +40,11 @@ public class PatientModalController implements Initializable {
     private String _action;
     private int _idx;
 
-    public void setStage(Stage stage) {
-        _modalStage = stage;
-    }
+    public void setStage(Stage stage) {_modalStage = stage;}
 
-    public void setAction(String action) {
-        _action = action;
-    }
+    public void setAction(String action) {_action = action;}
 
-    public void setIdx(int idx) {
-        _idx = idx;
-    }
+    public void setIdx(int idx) {_idx = idx;}
 
     private void _setOldVal(TextField field, String val) {
         field.setText(val);
@@ -63,12 +57,13 @@ public class PatientModalController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resoruce) {
+    public void initialize(URL location, ResourceBundle resource) {
         // Intialize label and button text
         Platform.runLater(() -> {
             if (_action.equals("insert")) {
                 title_label.setText("Add New Patient");
-            } else {
+            } 
+            else {
                 title_label.setText("Update Patient");
 
                 Patient obj = PatientListController.getList().get(_idx);
@@ -127,33 +122,30 @@ public class PatientModalController implements Initializable {
 
         try {
             age = Integer.parseInt(age_field.getText());
-        } catch (Exception e) {
-        } // Ignore parsing error
+        } 
+        catch (Exception e) {} // Ignore parsing error
 
         String gender = ""; 
         
-        try {
-            gender = Objects.toString(dropdown.getValue()
-                .substring(0, 1), "");
-        }
-        catch (Exception e) {} // Ignore getValue error
+        gender = Objects.toString(dropdown.getValue()
+            .substring(0, 1), "");
 
-        if (!name.isEmpty() && age != 0 && !gender.isEmpty()) {
+        String disabilityDet = disability_det_field.getText().trim()
+            .replaceAll("\\s{2,}", " ");
+
+        if (!name.isEmpty() && age != 0 && !gender.isEmpty() && !disabilityDet.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                new Patient(name, age, gender, disability_det_field.getText().trim()
-                        .replaceAll("\\s{2,}", " ")).insert();
+                new Patient(name, age, gender, disabilityDet).insert();
             }
             // Update action
             else {
                 Patient obj = PatientListController.getList().get(_idx);
 
-                obj.update(new Patient(name, age, gender, disability_det_field.getText()
-                    .trim().replaceAll("\\s{2,}", " ")));
+                obj.update(new Patient(name, age, gender, disabilityDet));
             }
 
             _modalStage.close();
         }
     }
-
 }

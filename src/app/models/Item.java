@@ -41,10 +41,9 @@ public class Item implements DBMethods<Item> {
     public static ObservableList<Item> fetch() {
         ObservableList<Item> list = FXCollections.observableArrayList();
 
-        try {
-            Statement stmt = DBConnection.getConnection().createStatement();
-
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `supply`");
+        try (PreparedStatement pstmt = DBConnection.getConnection()
+            .prepareStatement("SELECT * FROM `supply`");) {
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 list.add(new Item(rs.getInt("itemId"), rs.getString("itemName"), 

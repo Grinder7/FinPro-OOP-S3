@@ -20,6 +20,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableHeaderRow;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
@@ -29,6 +31,8 @@ import javafx.stage.Stage;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
 import javafx.beans.binding.Bindings;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 
 public class SupplyListController implements Initializable {
@@ -107,6 +111,8 @@ public class SupplyListController implements Initializable {
 
             newStage.setTitle(action.equals("insert") ? "Add New Data" : "Update Data");
 
+            newStage.getIcons().add(new Image(getClass().getResourceAsStream("../../assets/ico.png")));
+
             newStage.initModality(Modality.APPLICATION_MODAL);
 
             newStage.showAndWait();
@@ -143,6 +149,8 @@ public class SupplyListController implements Initializable {
 
             newStage.setTitle("Delete Record");
 
+            newStage.getIcons().add(new Image(getClass().getResourceAsStream("../../assets/ico.png")));
+
             newStage.initModality(Modality.APPLICATION_MODAL);
 
             newStage.showAndWait();
@@ -157,6 +165,25 @@ public class SupplyListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Initialize table listener(s)
+        table.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> source, Number oldWidth, Number newWidth) {
+                TableHeaderRow header = (TableHeaderRow) table.lookup("TableHeaderRow");
+
+                // Listener to resize table column using mouse
+                header.reorderingProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        header.setReordering(false);
+                    }
+                });
+                
+                // Listener to resize table column using mouse
+                header.addEventFilter(MouseEvent.MOUSE_DRAGGED, MouseEvent::consume);
+            }
+        });
+
         // Initialize cols data type
         num_col.setCellFactory(col -> {
             TableCell<Integer, Void> cell = new TableCell<>();
@@ -241,5 +268,4 @@ public class SupplyListController implements Initializable {
 
         table.setItems(_list);
     }
-
 }

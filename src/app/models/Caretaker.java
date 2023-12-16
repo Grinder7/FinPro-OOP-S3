@@ -38,10 +38,9 @@ public class Caretaker extends Person implements DBMethods<Caretaker> {
     public static ObservableList<Caretaker> fetch() {
         ObservableList<Caretaker> list = FXCollections.observableArrayList();
 
-        try {
-            Statement stmt = DBConnection.getConnection().createStatement();
-
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `caretaker`");
+        try (PreparedStatement pstmt = DBConnection.getConnection()
+            .prepareStatement("SELECT * FROM `caretaker`");) {
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 list.add(new Caretaker(rs.getInt("caretakerId"), 

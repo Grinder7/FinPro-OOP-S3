@@ -7,9 +7,11 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Collections;
 
-// Jsonfile
-import json.JSONFile;
 import app.Main;
+
+// Json file
+import json.JSONFile;
+
 // Model(s)
 import app.models.Caretaker;
 import app.models.Item;
@@ -51,40 +53,46 @@ public class DashboardController implements Initializable {
 
     public DashboardController() {
         new Thread(new Runnable() {
-            @Override
             public void run() {
-                _patientTotal = Patient.fetch().size();
-            }
-        }).start();
+                // Polling database
+                while (true) {
+                    try {
+                        _patientTotal = Patient.fetch().size();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                _availCaretaker = Caretaker.fetch().size();
-            }
-        }).start();
+                        _availCaretaker = Caretaker.fetch().size();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                _itemList = Item.fetch();
+                        _itemList = Item.fetch();
 
-                // Sort list asc
-                Collections.sort(_itemList, new Comparator<Item>() {
-                    @Override
-                    public int compare(Item item1, Item item2) {
-                        if (item1.getQuantity() == item2.getQuantity()) {
-                            return 0;
-                        }
-                        else if (item1.getQuantity() > item2.getQuantity()) {
-                            return 1;
-                        }
+                        // Sort list asc
+                        Collections.sort(_itemList, new Comparator<Item>() {
+                            @Override
+                            public int compare(Item item1, Item item2) {
+                                if (item1.getQuantity() == item2.getQuantity()) {
+                                    return 0;
+                                }
+                                else if (item1.getQuantity() > item2.getQuantity()) {
+                                    return 1;
+                                }
 
-                        return -1;
+                                return -1;
+                            }
+                        });
+                        
+                        System.out.println("Polling Dashboard Datas");
+
+                        // Wait for 5 sec
+                        Thread.sleep(5000);
+                    } 
+                    catch (InterruptedException e) {
+                        System.err.println("DBPollingThread interrupted");
+                        break;
                     }
-                });
+                }
             }
-        }).start();
+        }) {{
+            setName("DBPollingThread");
+            start();
+        }};
     }
 
     private HBox _itemCard(String name, int quantity) {

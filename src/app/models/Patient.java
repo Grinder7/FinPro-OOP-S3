@@ -43,8 +43,7 @@ public class Patient extends Person implements DBMethods<Patient> {
         ObservableList<Patient> list = javafx.collections.FXCollections.observableArrayList();
 
         try (PreparedStatement pstmt = DBConnection.getConnection()
-                .prepareStatement("SELECT * FROM `patient`")) {
-
+            .prepareStatement("SELECT * FROM `patient`")) {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -67,11 +66,10 @@ public class Patient extends Person implements DBMethods<Patient> {
     @Override
     public void insert() {
         try (PreparedStatement stmt = DBConnection.getConnection().prepareStatement(
-                "INSERT INTO `patient`(patientName,patientAge,patientGender,disabilityDetail) VALUES (?, ?, ?, ?)",
-                Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, getName());
-            stmt.setInt(2, getAge());
-            stmt.setString(3, getGender());
+            "INSERT INTO `patient` VALUES (0, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setString(1, name);
+            stmt.setInt(2, age);
+            stmt.setString(3, gender);
             stmt.setString(4, _disabilityDetail);
 
             stmt.executeUpdate();
@@ -93,11 +91,12 @@ public class Patient extends Person implements DBMethods<Patient> {
     @Override
     public void delete() {
         try (PreparedStatement stmt = DBConnection.getConnection()
-                .prepareStatement("DELETE FROM `patient` WHERE `patientId` = ?")) {
-            stmt.setInt(1, getId());
+            .prepareStatement("DELETE FROM `patient` WHERE `patientId` = ?")) {
+            stmt.setInt(1, _id);
 
             stmt.execute();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
             System.exit(0);
         }

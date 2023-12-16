@@ -53,5 +53,4 @@ public class DeleteModalController<T> implements Initializable {
 
         _modalStage.close();
     }
-
 }

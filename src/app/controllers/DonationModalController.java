@@ -16,7 +16,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -35,44 +34,13 @@ public class DonationModalController implements Initializable {
     private DatePicker date_field;
 
     private Stage _modalStage;
-    private String _action;
-    private int _idx;
 
     public void setStage(Stage stage) {_modalStage = stage;}
-
-    public void setAction(String action) {_action = action;}
-
-    public void setIdx(int idx) {_idx = idx;}
-
-    private void _setOldVal(TextField field, String val) {
-        field.setText(val);
-        field.setPromptText(val);
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle recourses) {
         // Intialize label and button text
-        Platform.runLater(() -> {
-            if (_action.equals("insert")) {
-                title_label.setText("Add New Donation");
-            }
-            else {
-                title_label.setText("Update Donation");
-
-                Donation obj = DonationListController.getList().get(_idx);
-
-                // Initialize field value(s)
-                _setOldVal(donator_field, obj.getDonatorName());
-                _setOldVal(item_field, obj.getItemName());
-                _setOldVal(quantity_field, Integer.toString(obj.getItemQuantity()));
-                
-                date_field.setValue(obj.getDate().toLocalDate());
-
-                obj = null;
-
-                System.gc();
-            }
-        });
+        title_label.setText("Add New Donation");
 
         // Listen to donator_field on value change
         donator_field.textProperty().addListener(new ChangeListener<String>() {
@@ -128,16 +96,7 @@ public class DonationModalController implements Initializable {
         LocalDate date = date_field.getValue();
 
         if (!donator.isEmpty() && !item.isEmpty() && quantity != 0 && date != null) {
-            // Insert action
-            if (_action.equals("insert")) {
-                new Donation(donator, item, quantity, Date.valueOf(date)).insert();
-            }
-            // Update action
-            else {
-                Donation obj = DonationListController.getList().get(_idx);
-
-                obj.update(new Donation(donator, item, quantity, Date.valueOf(date)));
-            }
+            new Donation(donator, item, quantity, Date.valueOf(date)).insert();
 
             _modalStage.close();
         }

@@ -58,10 +58,9 @@ public class Donation implements DBMethods<Donation> {
     public static ObservableList<Donation> fetch() {
         ObservableList<Donation> list = FXCollections.observableArrayList();
 
-        try {
-            Statement stmt = DBConnection.getConnection().createStatement();
-
-            ResultSet rs = stmt.executeQuery("SELECT * FROM `donation`");
+        try (PreparedStatement pstmt = DBConnection.getConnection()
+            .prepareStatement("SELECT * FROM `donation` ORDER BY donationDate DESC LIMIT 30;");) {
+            ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
                 list.add(new Donation(rs.getInt("donationId"), 
@@ -122,49 +121,10 @@ public class Donation implements DBMethods<Donation> {
     }
 
     @Override
-    public void delete() {
-        try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("DELETE FROM `donation` WHERE donationId = ?;")) {
-            stmt.setInt(1, _id);
-
-            stmt.execute();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-    }
+    public void delete() {}
 
     @Override
-    public void update(Donation newObj) {
-        try (PreparedStatement stmt = DBConnection.getConnection()
-            .prepareStatement("UPDATE `donation` SET donatorName = ?, donationItem = ?, donationQuantity = ?, donationDate = ? WHERE donationId = ?;")) {
-            stmt.setString(1, newObj.getDonatorName());
-            stmt.setString(2, newObj.getItemName());
-            stmt.setInt(3, newObj.getItemQuantity());
-            stmt.setDate(4, newObj.getDate());
-            stmt.setInt(5, _id);
-
-            stmt.execute();
-
-            // Update item quantity in supply table if item is available
-            try (PreparedStatement _stmt = DBConnection.getConnection()
-                .prepareStatement("UPDATE `supply` SET itemQuantity = itemQuantity + ? WHERE itemName = ?;");) {
-                _stmt.setInt(1, newObj.itemQuantity - itemQuantity);
-                _stmt.setString(2, itemName);
-
-                _stmt.execute();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                System.exit(0);
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-    }
+    public void update(Donation newObj) {}
 
     public static ObservableList<Donation> search(String searchName) {
         ObservableList<Donation> list = FXCollections.observableArrayList();

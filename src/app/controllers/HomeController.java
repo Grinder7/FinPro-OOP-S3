@@ -3,6 +3,8 @@ package app.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import database.DBConnection;
 
@@ -47,7 +49,14 @@ public class HomeController implements Initializable {
 
     private static BorderPane staticMainLayout;
 
-    private HBox _selectedMenu;
+    private HBox _selectedMenu = null;
+
+    private Map<Node, String> _pages = null;
+
+    // Array list contains pages path that can bypass db connection
+    private ArrayList<Node> _whitelistPages = new ArrayList<>() {{
+        add(config);
+    }};
 
     // Colors for selected and unselected menu
     private String _selectedColor =  "#2eb2ee";
@@ -101,30 +110,27 @@ public class HomeController implements Initializable {
         }
     }
 
-    public void setSubpage(String fxmlPath) {
-        // Array list contains pages path that can bypass db connection
-        ArrayList<String> whitelist = new ArrayList<>() {{
-            add("../views/configSubView.fxml");
-            add("../views/editSubView.fxml");
-        }};
+    public void setSubpage(Node selectedMenu) {
+        if (_selectedMenu != selectedMenu) {
+            stopDBPolling();
 
-        try {
-            Parent page = null;
+            try {
+                Parent page = null;
 
-            // Load fxml file, by checking connection to database
-            if (!DBConnection.isEstablished() && !whitelist.contains(fxmlPath)) {
-                page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
+                // Load fxml file, by checking connection to database
+                if (!DBConnection.isEstablished() && !_whitelistPages.contains(selectedMenu)) {
+                    page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
+                }
+                else {
+                    page = FXMLLoader.load(getClass().getResource(_pages.get(selectedMenu)));
+                }
+
+                main_layout.setCenter(page);
             }
-            else {
-                stopDBPolling();
-                page = FXMLLoader.load(getClass().getResource(fxmlPath));
+            catch(Exception e) {
+                e.printStackTrace();
+                System.exit(0);
             }
-
-            main_layout.setCenter(page);
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-            System.exit(0);
         }
     }
 
@@ -134,56 +140,65 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         staticMainLayout = main_layout;
 
+        _pages = new HashMap<>() {{
+            put(dashboard, "../views/dashboardSubView.fxml");
+            put(patient_list, "../views/patientlistSubView.fxml");
+            put(caretaker_list, "../views/caretakerlistSubView.fxml");
+            put(supply_list, "../views/supplylistSubView.fxml");
+            put(donation_list, "../views/donationlistSubView.fxml");
+            put(config, "../views/configSubView.fxml");
+        }};
+
         // Set dashboard as initial subpage
         _dashboardHandler(null);
     }
 
     @FXML
     private void _dashboardHandler(MouseEvent event) {
+        setSubpage(dashboard);
+
         _selectedMenu = dashboard;
         setMenuState();
-
-        setSubpage("../views/dashboardSubView.fxml");
     }
 
     @FXML
     private void _patientListHandler(MouseEvent event) {
+        setSubpage(patient_list);
+
         _selectedMenu = patient_list;
         setMenuState();
-        
-        setSubpage("../views/patientlistSubView.fxml");
     }
 
     @FXML
     private void _caretakerListHandler(MouseEvent event) {
+        setSubpage(caretaker_list);
+
         _selectedMenu = caretaker_list;
         setMenuState();
-
-        setSubpage("../views/caretakerlistSubView.fxml");
     }
 
     @FXML
     public void supplyListHandler(MouseEvent event) {
+        setSubpage(supply_list);
+
         _selectedMenu = supply_list;
         setMenuState();
-
-        setSubpage("../views/supplylistSubView.fxml");
     }
 
     @FXML
     private void _donationListHandler(MouseEvent event) {
+        setSubpage(donation_list);
+
         _selectedMenu = donation_list;
         setMenuState();
-
-        setSubpage("../views/donationlistSubView.fxml");
     }
 
     @FXML
     public void configHandler(MouseEvent event) {
+        setSubpage(config);
+
         _selectedMenu = null;
         setMenuState();
-
-        setSubpage("../views/configSubView.fxml");
     }
 
     @FXML
