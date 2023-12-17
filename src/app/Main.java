@@ -34,8 +34,6 @@ public class Main extends Application {
 
         // Show stage
         _appStage.show();
-
-        // Set minimum size, therefore user can't shrink window size less than mininum size
     }
 
     private boolean _isFresh() { // Method to tell if user first time use app

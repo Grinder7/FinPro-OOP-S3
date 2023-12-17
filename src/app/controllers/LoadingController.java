@@ -85,6 +85,7 @@ public class LoadingController implements Initializable {
                 Main.showPage("./views/homeView.fxml", true);
                 Stage appStage = Main.getAppStage();
 
+                // Set minimum size, therefore user can't shrink window size less than mininum size
                 appStage.setMinWidth(appStage.getWidth());
                 appStage.setMinHeight(appStage.getHeight());
             }
