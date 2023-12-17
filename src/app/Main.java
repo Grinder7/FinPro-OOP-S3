@@ -23,8 +23,10 @@ public class Main extends Application {
         // Load fxml file
         Parent root = FXMLLoader.load(Main.class.getResource(fxmlPath));
 
+        Scene scene = new Scene(root);
+
         // Set scene
-        _appStage.setScene(new Scene(root));
+        _appStage.setScene(scene);
 
         // Set stage properties
         _appStage.centerOnScreen();
@@ -34,8 +36,6 @@ public class Main extends Application {
         _appStage.show();
 
         // Set minimum size, therefore user can't shrink window size less than mininum size
-        _appStage.setMinHeight(_appStage.getHeight());
-        _appStage.setMinWidth(_appStage.getWidth());
     }
 
     private boolean _isFresh() { // Method to tell if user first time use app

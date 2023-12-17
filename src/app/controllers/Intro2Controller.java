@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-
 public class Intro2Controller implements Initializable {
     // Input field fxid(s)
     @FXML

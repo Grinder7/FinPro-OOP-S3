@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 
@@ -82,6 +83,10 @@ public class LoadingController implements Initializable {
             // Redirect to home page
             try {
                 Main.showPage("./views/homeView.fxml", true);
+                Stage appStage = Main.getAppStage();
+
+                appStage.setMinWidth(appStage.getWidth());
+                appStage.setMinHeight(appStage.getHeight());
             }
             catch (Exception e) {
                 e.printStackTrace();
