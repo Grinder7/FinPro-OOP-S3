@@ -20,10 +20,7 @@ public class JSONFile {
             jsonObj = (JSONObject) new JSONParser()
                         .parse(new FileReader(path));
         }
-        catch(Exception e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
+        catch(Exception e) {}
 
         Map<String, Object> map = new HashMap<>();
 
