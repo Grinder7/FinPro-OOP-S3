@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 // Model(s)
 import app.models.Patient;
 
-import app.json.JSONFile;
+import json.JSONFile;
 
 import app.views.AlertBoxView;
 
@@ -141,11 +141,12 @@ public class PatientModalController implements Initializable {
         if (!name.isEmpty() && age != 0 && !gender.isEmpty() && !disabilityDet.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                if (Patient.fetch().size() + 1 <= JSONFile.toMap().get("house_capacity")) {
+                if (Patient.fetch().size() + 1 <= (Integer) JSONFile.toMap().get("house_capacity")) {
                     new Patient(name, age, gender, disabilityDet).insert();
                 }
                 else {
-                    AlertBoxView(AlertType.WARNING, "Capacity Exceeded", "You cannot add more patient, due to your max capacity");
+                    AlertBoxView.showAlert(AlertType.WARNING, "Capacity Exceeded", 
+                        "You cannot add more patient, due to your max capacity");
                 }
             }
             // Update action

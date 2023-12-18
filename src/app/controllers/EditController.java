@@ -96,7 +96,7 @@ public class EditController implements Initializable {
         if (!houseName.isEmpty() && houseCapacity != 0 && 
             !dbServerURL.isEmpty() && !dbUsername.isEmpty()) {
             // Check if new house_capacity is valid (not less than current total patient)
-            if (houseCapacity < Patient.fetch().size()) {
+            if (DBConnection.isEstablished() && houseCapacity < Patient.fetch().size()) {
                 AlertBoxView.showAlert(AlertType.ERROR, "Capacity Exceeded", "House capacity should not less than patient total");
                 return;
             }
@@ -123,7 +123,7 @@ public class EditController implements Initializable {
 
             // Check connection status
             if (!DBConnection.isEstablished()) {
-                AlertBoxView.showAlert(AlertType.ERROR, "Connection Error", 
+                AlertBoxView.showAlert(AlertType.WARNING, "Connection Error", 
                 "Couldn't communicate with database server. Make sure your credentials are correct and server is online");
             }
         }

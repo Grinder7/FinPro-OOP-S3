@@ -54,9 +54,7 @@ public class HomeController implements Initializable {
     private Map<Node, String> _pages = null;
 
     // Array list contains pages path that can bypass db connection
-    private ArrayList<Node> _whitelistPages = new ArrayList<>() {{
-        add(config);
-    }};
+    private ArrayList<Node> _whitelistPages = null;
 
     // Colors for selected and unselected menu
     private String _selectedColor =  "#2eb2ee";
@@ -119,6 +117,7 @@ public class HomeController implements Initializable {
 
                 // Load fxml file, by checking connection to database
                 if (!DBConnection.isEstablished() && !_whitelistPages.contains(selectedMenu)) {
+                    System.out.println("whatt");
                     page = FXMLLoader.load(getClass().getResource("../views/dberrorSubView.fxml"));
                 }
                 else {
@@ -140,6 +139,7 @@ public class HomeController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         staticMainLayout = main_layout;
 
+        // Initialize pages map and whitelist array
         _pages = new HashMap<>() {{
             put(dashboard, "../views/dashboardSubView.fxml");
             put(patient_list, "../views/patientlistSubView.fxml");
@@ -147,6 +147,10 @@ public class HomeController implements Initializable {
             put(supply_list, "../views/supplylistSubView.fxml");
             put(donation_list, "../views/donationlistSubView.fxml");
             put(config, "../views/configSubView.fxml");
+        }};
+
+        _whitelistPages = new ArrayList<>() {{
+            add(config);
         }};
 
         // Set dashboard as initial subpage
