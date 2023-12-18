@@ -6,6 +6,10 @@ import java.util.ResourceBundle;
 // Model(s)
 import app.models.Patient;
 
+import app.json.JSONFile;
+
+import app.views.AlertBoxView;
+
 // Javafx lib
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.utils.FontAwesomeIconFactory;
@@ -34,6 +38,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
 
 public class PatientListController implements Initializable {
     // Layout fxid(s)
@@ -264,7 +269,12 @@ public class PatientListController implements Initializable {
 
     @FXML
     private void _addBtnHandler(MouseEvent event) {
-        _showModal("insert", -1);
+        if (Patient.fetch().size() + 1 <= JSONFile.toMap().get("house_capacity")) {
+            _showModal("insert", -1);
+        }
+        else {
+            AlertBoxView(AlertType.WARNING, "Capacity Exceeded", "You cannot add more patient, due to your max capacity");
+        }
     }
 
     @FXML
