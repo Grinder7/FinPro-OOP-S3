@@ -7,6 +7,10 @@ import java.util.ResourceBundle;
 // Model(s)
 import app.models.Patient;
 
+import app.json.JSONFile;
+
+import app.views.AlertBoxView;
+
 // Javafx lib(s)
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -21,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType;
 
 public class PatientModalController implements Initializable {
     @FXML
@@ -136,7 +141,12 @@ public class PatientModalController implements Initializable {
         if (!name.isEmpty() && age != 0 && !gender.isEmpty() && !disabilityDet.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                new Patient(name, age, gender, disabilityDet).insert();
+                if (Patient.fetch().size() + 1 <= JSONFile.toMap().get("house_capacity")) {
+                    new Patient(name, age, gender, disabilityDet).insert();
+                }
+                else {
+                    AlertBoxView(AlertType.WARNING, "Capacity Exceeded", "You cannot add more patient, due to your max capacity");
+                }
             }
             // Update action
             else {
