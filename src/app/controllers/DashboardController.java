@@ -63,18 +63,12 @@ public class DashboardController implements Initializable {
 
                         _itemList = Item.fetch();
 
-                        // Sort list asc
+                        // Sort list ASC order
                         Collections.sort(_itemList, new Comparator<Item>() {
                             @Override
                             public int compare(Item item1, Item item2) {
-                                if (item1.getQuantity() == item2.getQuantity()) {
-                                    return 0;
-                                }
-                                else if (item1.getQuantity() > item2.getQuantity()) {
-                                    return 1;
-                                }
-
-                                return -1;
+                                return Integer.compare(item1.getQuantity(), 
+                                    item2.getQuantity());
                             }
                         });
                         
