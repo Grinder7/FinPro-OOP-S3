@@ -269,7 +269,7 @@ public class PatientListController implements Initializable {
 
     @FXML
     private void _addBtnHandler(MouseEvent event) {
-        if (Patient.fetch().size() + 1 <= (Integer) JSONFile.toMap().get("house_capacity")) {
+        if (Patient.fetch().size() + 1 <= (Long) JSONFile.toMap().get("house_capacity")) {
             _showModal("insert", -1);
         }
         else {

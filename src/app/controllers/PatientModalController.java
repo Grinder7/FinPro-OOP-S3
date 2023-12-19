@@ -141,7 +141,7 @@ public class PatientModalController implements Initializable {
         if (!name.isEmpty() && age != 0 && !gender.isEmpty() && !disabilityDet.isEmpty()) {
             // Insert action
             if (_action.equals("insert")) {
-                if (Patient.fetch().size() + 1 <= (Integer) JSONFile.toMap().get("house_capacity")) {
+                if (Patient.fetch().size() + 1 <= (Long) JSONFile.toMap().get("house_capacity")) {
                     new Patient(name, age, gender, disabilityDet).insert();
                 }
                 else {
