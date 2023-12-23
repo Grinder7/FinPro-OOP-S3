@@ -103,9 +103,9 @@ public class Donation implements DBMethods<Donation> {
 
             // Update item quantity in supply table if item is available
             try (PreparedStatement _stmt = DBConnection.getConnection()
-                .prepareStatement("UPDATE `supply` SET itemQuantity = itemQuantity + ? WHERE itemName = ?;");) {
+                .prepareStatement("UPDATE `supply` SET itemQuantity = itemQuantity + ? WHERE REPLACE(itemName, ' ', '') = ?;");) {
                 _stmt.setInt(1, itemQuantity);
-                _stmt.setString(2, itemName);
+                _stmt.setString(2, itemName.replace(" ", ""));
 
                 _stmt.execute();
             }
