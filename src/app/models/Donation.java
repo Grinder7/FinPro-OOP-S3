@@ -105,7 +105,7 @@ public class Donation implements DBMethods<Donation> {
             try (PreparedStatement _stmt = DBConnection.getConnection()
                 .prepareStatement("UPDATE `supply` SET itemQuantity = itemQuantity + ? WHERE REPLACE(itemName, ' ', '') = ?;");) {
                 _stmt.setInt(1, itemQuantity);
-                _stmt.setString(2, itemName.replace(" ", ""));
+                _stmt.setString(2, itemName.replaceAll(" ", ""));
 
                 _stmt.execute();
             }
