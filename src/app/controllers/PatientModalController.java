@@ -132,8 +132,11 @@ public class PatientModalController implements Initializable {
 
         String gender = ""; 
         
-        gender = Objects.toString(dropdown.getValue()
-            .substring(0, 1), "");
+        try {
+            gender = Objects.toString(dropdown.getValue()
+                .substring(0, 1), "");
+        }
+        catch (Exception e) {} // Ignore error
 
         String disabilityDet = disability_det_field.getText().trim()
             .replaceAll("\\s{2,}", " ");

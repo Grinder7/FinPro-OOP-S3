@@ -5,7 +5,7 @@
             "name": "Main",
             "request": "launch",
             "mainClass": "app.Main",
-            "projectName": "Disabled_b0421694",
+            "projectName": "Disabled_17287bb",
             "vmArgs": "--module-path \"./lib/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
         }
     ]
